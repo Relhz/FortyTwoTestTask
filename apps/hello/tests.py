@@ -36,7 +36,7 @@ class MainPageViewTest(TestCase):
         rooturl = resolve(reverse('main'))
         self.assertEquals(rooturl.func, main)
 
-    # test using tenplate
+    # test using template
     def test_root_url_template(self):
         response = self.client.get(reverse('main'))
         self.assertTemplateUsed(response, 'base.html')
