@@ -1,0 +1,16 @@
+[
+	{
+		"model": "hello.Info",
+		"fields": {
+		    "name": "Victor",
+		    "last_name": "Pythonenko",
+		    "date_of_birst": "1993-03-03",
+		    "bio": "was burn in Kiev",
+		    "contacts": "0936458822",
+		    "email": "akervkuev@i.ua",
+		    "skype": "skyper",
+		    "jabber": "kkkk@42cc",
+		    "other_contacts": "contacts"
+		}
+	},
+]
