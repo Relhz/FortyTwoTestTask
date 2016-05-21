@@ -15,4 +15,5 @@ media
 static
 *.dat
 .env
+.e
 ngrok
