@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.core.urlresolvers import resolve
 from django.core.urlresolvers import reverse
 from . import views
+from models import Info
 
 
 '''class MainPageSeleniumTest(LiveServerTestCase):
@@ -25,17 +26,16 @@ from . import views
 
         # user sees person info table
         info = self.browser.find_elements_by_tag_name('td')
-        for i in info:
-            self.assertIn('Name', i.text)
-            self.assertIn('Contacts', i.text)'''
-
+        self.assertIn('Name', info[0].text)
+        self.assertIn('Contacts', info[2].text)'''
+      
 
 class MainPageViewTest(TestCase):
 
     # test used view
-    def test_root_url_view(self):
+    '''def test_root_url_view(self):
         rooturl = resolve(reverse('main'))
-        self.assertEquals(rooturl.func, views.main)
+        self.assertEquals(rooturl.func, views.main)'''
 
     # test using template
     def test_root_url_template(self):
@@ -57,5 +57,31 @@ class MainPageViewTest(TestCase):
         self.assertIn('Last name', context.keys())
         self.assertIn('Email', context.keys())
 
+
+class ModelTest(TestCase):
+
+    # test model create successfuly
+    def test_model_create(self):
+        info = Info(last_name='Pythonenko')
+        info.save()
+        inf = Info.objects.all()
+        self.assertEquals(inf[0], info)
+
+    # test model object represents as string
+    def test_unicode_method(self):
+        info = Info(last_name='Pythonenko')
+        self.assertEqual(str(info), info.last_name)
+
+    # test model fields
+    def test_model_fields(self):
+        info = Info(last_name='Pythonenko')
+        info.save()
+        self.assertEquals(info.last_name, 'Pythonenko')
+        self.assertTrue(hasattr(info, 'Name'))
+        self.assertTrue(hasattr(info, 'Bio:'))
+        self.assertTrue(hasattr(info, 'Jabber:'))
+        info.date_of_birst = '31-03-1995'
+        info.save()
+        self.assertEquals(info.date_of_birst, '31-03-1995')
 
 
