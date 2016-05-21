@@ -4,5 +4,5 @@ from models import Info
 
 def main(request):
 
-    info = Info()
+    info = Info.objects.all().first
     return render(request, 'base.html', {'info': info})

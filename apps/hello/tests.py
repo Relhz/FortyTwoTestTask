@@ -61,8 +61,12 @@ class MainPageViewTest(TestCase):
         self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
         context = response.context['info']
-        self.assertIn('Last name', context.keys())
-        self.assertIn('Email', context.keys())
+        # old assertions which we don't need anymore
+        # self.assertIn('Last name', context.keys())
+        # self.assertIn('Email', context.keys())
+        self.assertTrue(hasattr(context, 'last_name'))
+        self.assertTrue(hasattr(context, 'email'))
+
 
 
 class ModelTest(TestCase):
@@ -96,5 +100,7 @@ class ModelTest(TestCase):
         self.assertTrue(hasattr(info, 'bio'))
         self.assertTrue(hasattr(info, 'jabber'))
         info.date_of_birst = '1995-03-03'
+        info.email = 'qkerbv@i.ua'
+        info.bio = 'information information information'
         info.save()
         self.assertEquals(info.date_of_birst, '1995-03-03')
