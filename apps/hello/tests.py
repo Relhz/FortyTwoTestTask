@@ -3,6 +3,7 @@ from selenium import webdriver
 from django.test import TestCase
 from django.core.urlresolvers import resolve
 from django.core.urlresolvers import reverse
+from . import views
 
 
 '''class MainPageSeleniumTest(LiveServerTestCase):
@@ -34,7 +35,7 @@ class MainPageViewTest(TestCase):
     # test used view
     def test_root_url_view(self):
         rooturl = resolve(reverse('main'))
-        self.assertEquals(rooturl.func, main)
+        self.assertEquals(rooturl.func, views.main)
 
     # test using template
     def test_root_url_template(self):
@@ -50,7 +51,7 @@ class MainPageViewTest(TestCase):
     def test_content_info(self):
         response = self.client.get(reverse('main'))
         self.assertIn('<h1>42 Coffee Cups Test Assignment</h1>', response.content)
-        self.assertIn('skype', response.content)
+        self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
         context = response.context['info']
         self.assertIn('Last name', context.keys())
