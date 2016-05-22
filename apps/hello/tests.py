@@ -32,7 +32,7 @@ class MainPageSeleniumTest(LiveServerTestCase):
         self.assertIn('Name', info[0].text)
         self.assertIn('Contacts', info[2].text)
 
-    def test_main_page(self):
+    def test_reguests_page(self):
 
         ''' users actions on page with requests'''
 
@@ -130,21 +130,21 @@ class RequestsPageViewTest(TestCase):
 
     ''' test view for page with requests '''
 
-    def test_root_url_template(self):
+    def test_requests_page_template(self):
 
         ''' test using template '''
 
         response = self.client.get(reverse('requests'))
         self.assertTemplateUsed(response, 'hello/requests.html')
 
-    def test_main_page(self):
+    def test_requests_page(self):
 
         ''' test status code '''
 
         response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
 
-    def test_content_info(self):
+    def test_content_requests_list(self):
 
         ''' test view renders required data '''
 
@@ -153,5 +153,5 @@ class RequestsPageViewTest(TestCase):
                       response.content)
         self.assertIn('Last requests', response.content)
         self.assertTrue('requests' in response.context)
-        context = response.context['info']
+        context = response.context['requests']
 
