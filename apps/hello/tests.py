@@ -3,6 +3,7 @@ from selenium import webdriver
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
+from models import Requests
 
 
 class MainPageSeleniumTest(LiveServerTestCase):
@@ -153,5 +154,43 @@ class RequestsPageViewTest(TestCase):
                       response.content)
         self.assertIn('Last requests', response.content)
         self.assertTrue('requests' in response.context)
-        
+
+
+class MiddlewareTest(TestCase):
+
+    ''' test middleware '''
+
+    def test_middleware_records(self):
+
+        ''' test middleware make record to the database '''
+
+        before_request = Request.objects.all()
+        self.client.get(reverse('main'))
+        after_request = Request.objects.all()
+        self.assertTrue(before_request < after_request)
+
+    def test_middleware_right_data(self):
+
+        ''' test middleware make record with right data'''
+
+        self.client.get(reverse('requests'))
+        request = self.client.get(reverse('requests'))
+        after_request = Request.objects.all().last
+        self.assertEquals(request.user, after_request.user)
+        self.assertContains(request.path, after_request.path, 1)
+
+    def test_middleware_max_records(self):
+
+        ''' test deleting old records from db if its amount = 30 '''
+
+        for i in range(32):
+            self.client.get(reverse('requests'))
+        self.assertEqual(Request.objects.all().count(), 30)
+        reguest = Request.objects.all().first
+        self.client.get(reverse('requests'))
+        after_reguest = Request.objects.all().first
+        self.assertTrue(request != after_reguest)
+
+
+
 

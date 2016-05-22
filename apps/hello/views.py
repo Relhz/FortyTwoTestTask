@@ -10,7 +10,7 @@ def main(request):
 
 
 # requests page displays last 10 requests
-def ind(request):
+def requests(request):
     
     requests = (
         ('path', 'date and time'),
