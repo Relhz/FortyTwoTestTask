@@ -1,4 +1,4 @@
-.panel{
+.panel-success{
     margin: auto;
     text-align: center;
     border: 2px solid green;
@@ -13,4 +13,17 @@ td{
 }
 .inner{
     margin: -9px;
+}
+.panel-info{
+    margin: auto;
+    text-align: left;
+    background-color: #bce8f1
+}
+.last{
+	padding: 50px;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+.path{
+	margin-left: 70px;
 }

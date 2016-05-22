@@ -153,5 +153,5 @@ class RequestsPageViewTest(TestCase):
                       response.content)
         self.assertIn('Last requests', response.content)
         self.assertTrue('requests' in response.context)
-        context = response.context['requests']
+        
 

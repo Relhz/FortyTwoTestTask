@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Requests{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+  
+  <div class="panel panel-success">
+      <div class="panel-body"><h1>Requests</h1></div>
+  </div>
+
+  <div class="panel panel-info">
+      <div class="panel-body">
+        <p class="last"><span class="span_last">Last requests:</span></p>
+        {% for i in requests %}
+            <p class="path">{{ i.0 }}; {{ i.1 }}</p>
+        {% endfor %}
+      </div>
+  </div>
+
+
+ </div>
+{% endblock %}
