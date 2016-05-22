@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from django.utils import timezone
 
 
 class Info(models.Model):
@@ -17,3 +18,11 @@ class Info(models.Model):
 
     def __unicode__(self):
         return str(self.last_name)
+
+
+class Requests(models.Model):
+
+    path = models.CharField(max_length=300, default='path')
+    method = models.CharField(max_length=10, default='Post')
+    date_and_time = models.DateTimeField(default=timezone.now())
+    status_code = models.CharField(max_length=10, default='200')
