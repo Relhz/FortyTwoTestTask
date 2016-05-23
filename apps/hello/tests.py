@@ -85,9 +85,6 @@ class MainPageViewTest(TestCase):
         # self.assertIn('Last name', context.keys())
         # self.assertIn('Email', context.keys())
 
-        self.assertTrue(hasattr(context, 'last_name'))
-        self.assertTrue(hasattr(context, 'email'))
-
 
 class ModelTest(TestCase):
 

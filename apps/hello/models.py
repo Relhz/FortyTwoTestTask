@@ -16,6 +16,7 @@ class Info(models.Model):
     jabber = models.CharField(max_length=50, null=True, blank=True)
     other_contacts = models.TextField(null=True, blank=True)
 
+    # model object represents as last name str
     def __unicode__(self):
         return str(self.last_name)
 

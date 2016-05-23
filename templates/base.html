@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}{% endblock title %}Site Name</title>
+        <title>{% block title %}Site Name{% endblock title %}</title>
 
         <meta http-equiv="X-UA-Compatible" content="chrome=IE7" />
 
@@ -19,6 +19,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="/static/hello/css/style.css">
+        <script type="text/javascript" src="/static/hello/js/requests.js"></script>
 
         {% block extra_head %}{% endblock extra_head %}
 
@@ -79,8 +80,7 @@
               </table>
             </div>
 
-
-
         {% endblock content %}
+
     </body>
 </html>

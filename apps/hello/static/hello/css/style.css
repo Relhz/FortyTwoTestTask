@@ -1,3 +1,6 @@
+.container-fluid{
+	max-width: 900px;
+}
 .panel-success{
     margin: auto;
     text-align: center;
@@ -26,4 +29,10 @@ td{
 }
 .path{
 	margin-left: 70px;
+}
+.count{
+	width: 30px;
+}
+.req{
+	margin-left: 20%;
 }
