@@ -69,7 +69,7 @@ class SeleniumTest(LiveServerTestCase):
         password.send_keys('admin via fixtures')
         self.browser.find_element_by_tag_id('login').click()
         self.browser.implicitly_wait(3)
-        
+
          # user redirects to the main page
         info = self.browser.find_elements_by_tag_name('td')
         self.assertIn('Name', info[0].text)
@@ -100,7 +100,7 @@ class MainPageViewTest(TestCase):
         ''' test view renders required data '''
 
         response = self.client.get(reverse('main'))
-        self.assertIn('<h1>42 Coffee Cups Test Assignment</h1>',
+        self.assertIn('42 Coffee Cups Test Assignment',
                       response.content)
         self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
@@ -210,7 +210,7 @@ class MiddlewareTest(TestCase):
         ''' test deleting old records from db if its amount equal 30 '''
 
         for i in range(32):
-            self.client.get(reverse('requests'))
+            self.client.get(reverse('main'))
         self.assertEqual(Requests.objects.all().count(), 30)
         request = Requests.objects.all().first()
         self.client.get(reverse('requests'))
@@ -218,5 +218,45 @@ class MiddlewareTest(TestCase):
         self.assertTrue(request != after_request)
 
 
+class LoginViewTest(TestCase):
+
+    ''' test login view  '''
+
+    def test_login_template(self):
+
+        ''' test using template '''
+
+        response = self.client.get(reverse('login'))
+        self.assertTemplateUsed(response, 'hello/login.html')
+
+    def test_login_page(self):
+
+        ''' test status code '''
+
+        response = self.client.get(reverse('login'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_login_content(self):
+
+        ''' test view renders required data '''
+
+        response = self.client.get(reverse('login'))
+        self.assertIn('Username',
+                      response.content)
+        self.assertIn('Password', response.content)
+        self.assertTrue('form' in response.context)
 
 
+class LoginFormTest(TestCase):
+
+    ''' test login form  '''
+
+    def test_login_post(self):
+
+        ''' try to login '''
+
+        response = self.client.post(reverse(
+            'login', {'Username': 'admin', 'Password': 'admin via fixtures'
+        })
+        self.assertEqual(responce.status_code, 200)
+        
