@@ -7,7 +7,7 @@ from models import Requests
 from django.contrib.auth.models import User
 
 
-class MainPageSeleniumTest(LiveServerTestCase):
+class SeleniumTest(LiveServerTestCase):
 
     ''' simulate users behaviour '''
 
@@ -49,6 +49,32 @@ class MainPageSeleniumTest(LiveServerTestCase):
         list_requests = self.browser.find_elements_by_tag_name('p')
         self.assertIn('Last requests:', list_requests[0].text)
         self.assertTrue(len(list_requests) == 11)
+
+    def test_login_page(self):
+
+        ''' users actions on login page '''
+
+        # user enter into the page
+        self.browser.get(self.live_server_url + '/login/')
+
+        # user sees a labels 'Username', 'Password'
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Username', body)
+        self.assertIn('Password', body)
+
+        # user enters and submits data
+        username = self.browser.find_element_by_tag_id('id_username')
+        password = self.browser.find_element_by_tag_id('id_password')
+        username.send_keys('admin')
+        password.send_keys('admin via fixtures')
+        self.browser.find_element_by_tag_id('login').click()
+        self.browser.implicitly_wait(3)
+        
+         # user redirects to the main page
+        info = self.browser.find_elements_by_tag_name('td')
+        self.assertIn('Name', info[0].text)
+        self.assertIn('Contacts', info[2].text)
+        
 
 
 class MainPageViewTest(TestCase):
