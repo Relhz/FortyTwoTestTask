@@ -30,7 +30,22 @@
             <div class="container-fluid">
               
               <div class="panel panel-success">
-                  <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1></div>
+                  <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1>
+                  {% block auth %}
+
+                  <div class="auth">
+                  {% if not user.username %}
+                    <a class="login" href="/login/">Login</a>
+                  {% endif %}
+                
+                  {% if user.username %}
+                      <li class="login"><a href='/auth/logout/'>logout ({{ user }})</a></li>
+                      <li class="out"><a class="out1" href='/edit/'>Go to editing page</a></li> 
+                  {% endif %}
+                    </div>
+
+                  {% endblock auth%}
+                  </div>
               </div>
               <table class="table">
 
@@ -55,29 +70,21 @@
                     <td>{{info.skype}}</td>
                   </tr>
                  <tr class="info">
-                    <td class="bold-column">Bio:</td>
-                    <td class="bio">{{info.bio}}</td>
-                    <td class="bold-column">
-                        <table class="table inner">
-                          <tbody>
-                            <tr class="info"><td class="bold-column">Jabber:</td></tr>
-                            <tr class="info"><td class="bold-column">Other contacts</td></tr>
-                          </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        <table class="table inner">
-                          <tbody>
-                            <tr class="info"><td>{{info.jabber}}</td></tr>
-                            <tr class="info"><td>{{info.other_contacts}}</td></tr>
-                          </tbody>
-                        </table>
-                    </td>
-
-                  </tr>
-
-                </tbody>
+                    <td class="bold-column">Photo:</td>
+                    <td class="bio"></td>
+                    <td class="bold-column">Jabber:</td>
+                    <td>{{info.jabber}}</td>
+                </tr>
+              </tbody>
               </table>
+              <div class="container2">
+                  <div class="photo"></div>
+                  <div class="other-contacts bold-column">Other contacts:</div>
+                  <div class="other">{{info.other_contacts}}</div>
+                  <div class="bioinfo bold-column">Bio:</div>
+                  <div class="bioinfo-text">{{info.bio}}</div>
+              </div>
+
             </div>
 
         {% endblock content %}
