@@ -1,54 +1,9 @@
 from django.test import LiveServerTestCase
-from selenium import webdriver
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
 from models import Requests
 from django.contrib.auth.models import User
-
-
-class MainPageSeleniumTest(LiveServerTestCase):
-
-    ''' simulate users behaviour '''
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def test_main_page(self):
-
-        ''' users actions on main page'''
-
-        # user enter into the main page
-        self.browser.get(self.live_server_url)
-
-        # user sees a header '42 test...'
-        body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('42 Coffee Cups Test Assignment', body)
-
-        # user sees person info table
-        info = self.browser.find_elements_by_tag_name('td')
-        self.assertIn('Name', info[0].text)
-        self.assertIn('Contacts', info[2].text)
-
-    def test_reguests_page(self):
-
-        ''' users actions on page with requests'''
-
-        # user enter into the page
-        self.browser.get(self.live_server_url + '/requests/')
-
-        # user sees a header 'Requests'
-        body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('Requests', body)
-
-        # user sees list of requests
-        list_requests = self.browser.find_elements_by_tag_name('p')
-        self.assertIn('Last requests:', list_requests[0].text)
-        self.assertTrue(len(list_requests) == 11)
 
 
 class MainPageViewTest(TestCase):
