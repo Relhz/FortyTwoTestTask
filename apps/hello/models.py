@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
+from PIL import Image, ImageOps
 
 
 class Info(models.Model):
@@ -15,6 +16,15 @@ class Info(models.Model):
     skype = models.CharField(max_length=50, null=True, blank=True)
     jabber = models.CharField(max_length=50, null=True, blank=True)
     other_contacts = models.TextField(null=True, blank=True)
+    photo = models.ImageField(upload_to='photos', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        super(Info, self).save(*args, **kwargs)
+        if self.photo:
+            image = Image.open(self.photo)
+            imagefit = ImageOps.fit(image, (200, 200),
+                                    Image.ANTIALIAS)
+            imagefit.save(self.photo.path, 'JPEG', quality=75)
 
     # model object represents as last name str
     def __unicode__(self):

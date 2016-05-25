@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
 from models import Requests
+from django.contrib.auth import authenticate
 
 
 class MainPageViewTest(TestCase):
@@ -189,4 +190,60 @@ class LoginFormTest(TestCase):
 
         response = self.client.post(reverse('login'),
                    {'Username': 'admin', 'Password': 'admin via fixtures'})
+        self.assertEqual(response.status_code, 200)
+
+
+class EditViewTest(TestCase):
+
+    ''' test edit view  '''
+
+    def test_edit_template(self):
+
+        ''' test using template '''
+
+        request.user = authenticate(username='admin', 
+            password='admin via fixtures')
+        response = self.client.get(reverse('edit'))
+        self.assertTemplateUsed(response, 'hello/edit.html')
+
+    def test_edit_page(self):
+
+        ''' test status code '''
+
+        response = self.client.get(reverse('edit'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_edit_content(self):
+
+        ''' test view renders required data '''
+
+        request.user = authenticate(username='admin', 
+            password='admin via fixtures')
+        response = self.client.get(reverse('edit'))
+        self.assertIn('Last name',
+                      response.content)
+        self.assertIn('Other contacts:', response.content)
+        self.assertTrue('form' in response.context)
+
+    def test_edit_redirect(self):
+
+        ''' test view redirects to login page if user non authenticated '''
+
+        response = self.client.get(reverse('edit'))
+        self.assertRedirects(response, reverse('login'))
+
+
+class EditFormTest(TestCase):
+
+    ''' test edit form  '''
+
+    def test_edit_post(self):
+
+        ''' send post data '''
+
+        response = self.client.post(reverse('edit'),
+                   {'Name': 'newName', 'Last_name': 'newSurname',
+                   'Date_of_birst': '1996-2-29', 'Contacts': '',
+                   'Email': '', 'Skype': '', 'Jabber': '',
+                   'Other_contacts': '', 'Bio': ''})
         self.assertEqual(response.status_code, 200)
