@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from models import Info
 from models import Requests
+from forms import LoginForm
+from django.contrib import auth
 import json
 
 
@@ -28,6 +30,52 @@ def requests(request):
     RequestsCounter.amount += 1
     
     return render(request, 'hello/requests.html', {'requests': requests})
+
+
+def login(request):
+
+    err = request.session.get('err')
+    request.session['err'] = ''
+    form = LoginForm()
+    RequestsCounter.amount += 1
+    return render(request, 'hello/login.html', {'form': form, 'err': err})
+
+def log_in(request):
+
+	if request.POST:		
+		form = LoginForm(request.POST)
+
+		if form.is_valid():
+			username = form.cleaned_data['Username']
+			password = form.cleaned_data['Password']
+			
+			user = auth.authenticate(username=username, password=password)
+
+			if user is not None:
+				auth.login(request, user)
+				return redirect('main')
+			else:
+				request.session['err'] = 'Incorrect username or password'
+		else:
+			request.session['err'] = 'Incorrect username or password'
+			return redirect('login')
+		return redirect('login')
+
+	else:
+		return redirect('login')
+	
+
+def logout(request):
+
+	auth.logout(request)
+	request.session['err'] = ''
+	return redirect('main')
+
+
+def edit(request):
+
+
+    return HttpResponse
 
 
 # return data from database to ajax function

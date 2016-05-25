@@ -17,7 +17,7 @@ $(document).ready(function(){
 	        },
 	    });
 		
-	}, 1000);
+	}, 3500);
 
     // if user look at this page, reset requests counter
 	$(window).focus(function () {

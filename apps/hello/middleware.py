@@ -22,8 +22,8 @@ class RequestsRecording(object):
 
         if request.path != '/requests/':
             response.content = response.content.replace(
-            '</body>', 
-            '<a class="req" href="/requests/"><span class="amount"></span>Requests</a></body>')
+            '<hr>', 
+            '<hr><a class="req" href="/requests/"><span class="amount"></span>Requests</a>')
 
         count = Requests.objects.all().count()
         obj = Requests.objects.all().first()

@@ -10,6 +10,13 @@
 td{
     width: 200px;
 }
+hr{
+    border: none; 
+    color: green; 
+    background-color: green; 
+    height: 2px;
+    margin-bottom: 5px;
+}
 .bold-column{
     font-weight: bold;
     width: 70px;
@@ -34,7 +41,11 @@ td{
 	width: 30px;
 }
 .req{
-	margin-left: 20%;
+	margin-left: 5%;
+	margin-top: -20px
+}
+.back{
+	margin-left: 5%;
 }
 .panel-body h1{
 	display: inline-block;
@@ -44,6 +55,7 @@ td{
 	display: inline-block;
 	font-size: 18px;
 	margin-right: 15px;
+	margin-bottom: -5px;
 	float: right;
 }
 .photo{
@@ -70,7 +82,7 @@ td{
 }
 .other{
 	display: inline-block;
-	width: 40%;
+	width: 45%;
 	height: 100px;
 	text-align: top;
 	margin-left:8%;
@@ -88,10 +100,37 @@ td{
 }
 .bioinfo-text{
 	display: inline-block;
-	width: 40%;
+	width: 45%;
 	height: 225px;
 	text-align: top;
 	margin-left:8%;
 	margin-top: 8px;
 	border: 1px solid grey;
+}
+.loginpage{
+	display: inline-block;
+	font-size: 18px;
+	margin-right: 15px;
+	margin: 30%;
+	margin-top: 10%;
+	width: 330px;
+	height: 125px;
+	background-color: #d7ebf5;
+	border-radius: 7px;
+}
+#id_Username{
+	margin-left: 18px;
+	margin-top: 10px;
+}
+#id_Password{
+	margin-left: 20px;
+}
+label{
+	margin-left: 3px;
+	margin-top: 10px;
+	margin-bottom: 0px
+}
+.subm_login{
+	margin: 9px;
+	margin-left: 130px;
 }

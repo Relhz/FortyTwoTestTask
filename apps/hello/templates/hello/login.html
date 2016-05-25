@@ -13,7 +13,14 @@
 {% endblock header %}
 
 {% block content %}
-<div class="login">
-	{{ loginform }}
+<div class="container-fluid">
+<div class="loginpage">
+	<form action='/log_in/' method='post'>
+	{% csrf_token %}
+	{{ form }}
+	<input class="subm_login" type='submit' value='Login'></input>
+	</form>
+	<span style="color: red">{{err}}</span>
+</div>
 </div>
 {% endblock content %}

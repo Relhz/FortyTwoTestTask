@@ -10,7 +10,7 @@ $(document).ready(function(){
 		        $('.amount').html('('+ data.amount + ')')	          
 		    },
 		});
-	}, 1000);
+	}, 3500);
 
 
 })

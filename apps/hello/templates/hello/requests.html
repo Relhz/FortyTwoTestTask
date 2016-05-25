@@ -6,13 +6,14 @@
 <script type="text/javascript" src="/static/hello/js/requests_page.js"></script>
 {% endblock extra_head %}
 
-{% block content %}
-<div class="container-fluid">
 
+
+{% block header %}
   <div class="panel panel-success">
       <div class="panel-body"><h1><span class="count"></span>Requests</h1></div>
   </div>
-
+{% endblock header %}
+{% block content %}
   <div class="panel panel-info">
       <div class="panel-body">
         <p class="last"><span class="span_last">Last requests:</span></p>
@@ -21,10 +22,12 @@
 
         {% endfor %}
       </div>
+       <a class="back" href="/">Go to main page</a>
   </div>
 	<form class="forajax" id="postform" method='post'>
 		{% csrf_token %}
 	</form>
  </div>
+
 
 {% endblock %}
