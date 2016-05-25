@@ -18,7 +18,7 @@
 	<form action='/log_in/' method='post'>
 	{% csrf_token %}
 	{{ form }}
-	<input class="subm_login" type='submit' value='Login'></input>
+	<input class="subm_login" id="login" type='submit' value='Login'></input>
 	</form>
 	<span style="color: red">{{err}}</span>
 </div>

@@ -1,80 +1,8 @@
 from django.test import LiveServerTestCase
-from selenium import webdriver
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
 from models import Requests
-from django.contrib.auth.models import User
-
-
-class SeleniumTest(LiveServerTestCase):
-
-    ''' simulate users behaviour '''
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def test_main_page(self):
-
-        ''' users actions on main page'''
-
-        # user enter into the main page
-        self.browser.get(self.live_server_url)
-
-        # user sees a header '42 test...'
-        body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('42 Coffee Cups Test Assignment', body)
-
-        # user sees person info table
-        info = self.browser.find_elements_by_tag_name('td')
-        self.assertIn('Name', info[0].text)
-        self.assertIn('Contacts', info[2].text)
-
-    def test_reguests_page(self):
-
-        ''' users actions on page with requests'''
-
-        # user enter into the page
-        self.browser.get(self.live_server_url + '/requests/')
-
-        # user sees a header 'Requests'
-        body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('Requests', body)
-
-        # user sees list of requests
-        list_requests = self.browser.find_elements_by_tag_name('p')
-        self.assertIn('Last requests:', list_requests[0].text)
-        self.assertTrue(len(list_requests) == 11)
-
-    def test_login_page(self):
-
-        ''' users actions on login page '''
-
-        # user enter into the page
-        self.browser.get(self.live_server_url + '/login/')
-
-        # user sees a labels 'Username', 'Password'
-        body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('Username', body)
-        self.assertIn('Password', body)
-
-        # user enters and submits data
-        username = self.browser.find_element_by_tag_id('id_username')
-        password = self.browser.find_element_by_tag_id('id_password')
-        username.send_keys('admin')
-        password.send_keys('admin via fixtures')
-        self.browser.find_element_by_tag_id('login').click()
-        self.browser.implicitly_wait(3)
-
-         # user redirects to the main page
-        info = self.browser.find_elements_by_tag_name('td')
-        self.assertIn('Name', info[0].text)
-        self.assertIn('Contacts', info[2].text)
-        
 
 
 class MainPageViewTest(TestCase):
@@ -104,7 +32,6 @@ class MainPageViewTest(TestCase):
                       response.content)
         self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
-        context = response.context['info']
 
         # old assertions which we don't need anymore because now we use
         # info object, not info dict
@@ -159,6 +86,8 @@ class RequestsPageViewTest(TestCase):
 
         ''' test using template '''
 
+        for i in range(32):
+            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertTemplateUsed(response, 'hello/requests.html')
 
@@ -166,6 +95,8 @@ class RequestsPageViewTest(TestCase):
 
         ''' test status code '''
 
+        for i in range(32):
+            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
 
@@ -173,8 +104,10 @@ class RequestsPageViewTest(TestCase):
 
         ''' test view renders required data '''
 
+        for i in range(32):
+            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
-        self.assertIn('<h1>Requests</h1>',
+        self.assertIn('Requests',
                       response.content)
         self.assertIn('Last requests', response.content)
         self.assertTrue('requests' in response.context)
@@ -203,7 +136,6 @@ class MiddlewareTest(TestCase):
         self.assertIn('some_url', after_request.path)
         self.assertEquals('GET', after_request.method)
         self.assertEquals(unicode('404'), after_request.status_code)
-        
 
     def test_middleware_max_records(self):
 
@@ -255,8 +187,6 @@ class LoginFormTest(TestCase):
 
         ''' try to login '''
 
-        response = self.client.post(reverse(
-            'login', {'Username': 'admin', 'Password': 'admin via fixtures'
-        })
-        self.assertEqual(responce.status_code, 200)
-        
+        response = self.client.post(reverse('login'),
+                   {'Username': 'admin', 'Password': 'admin via fixtures'})
+        self.assertEqual(response.status_code, 200)
