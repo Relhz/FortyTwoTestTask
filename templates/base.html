@@ -13,10 +13,74 @@
 
         <link rel="stylesheet" href="{% static 'css/screen.css' %}" media="screen, projection"/>
 
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/static/hello/css/style.css">
+
         {% block extra_head %}{% endblock extra_head %}
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
-        {% block content %}{% endblock content %}
+        {% block content %}
+
+            <div class="container-fluid">
+              
+              <div class="panel panel-success">
+                  <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1></div>
+              </div>
+              <table class="table">
+
+                <tbody>
+                  <tr class="info">
+                    <td class="bold-column">Name</td>
+                    <td>{{info.name}}</td>
+                    <td class="bold-column">Contacts</td>
+                    <td>{{info.contacts}}</td>
+
+                  </tr>
+                  <tr class="info">
+                    <td class="bold-column">Last name</td>
+                    <td>{{info.last_name}}</td>
+                    <td class="bold-column">Email:</td>
+                    <td>{{info.email}}</td>
+                  </tr>
+                  <tr class="info">
+                    <td class="bold-column">Date of birst</td>
+                    <td>{{info.date_of_birst}}</td>
+                    <td class="bold-column">Skype:</td>
+                    <td>{{info.skype}}</td>
+                  </tr>
+                 <tr class="info">
+                    <td class="bold-column">Bio:</td>
+                    <td class="bio">{{info.bio}}</td>
+                    <td class="bold-column">
+                        <table class="table inner">
+                          <tbody>
+                            <tr class="info"><td class="bold-column">Jabber:</td></tr>
+                            <tr class="info"><td class="bold-column">Other contacts</td></tr>
+                          </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table inner">
+                          <tbody>
+                            <tr class="info"><td>{{info.jabber}}</td></tr>
+                            <tr class="info"><td>{{info.other_contacts}}</td></tr>
+                          </tbody>
+                        </table>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+
+
+        {% endblock content %}
     </body>
 </html>

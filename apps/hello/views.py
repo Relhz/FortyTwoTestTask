@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from models import Info
 
-# Create your views here.
+
+def main(request):
+
+    info = Info.objects.all().first
+    return render(request, 'base.html', {'info': info})
