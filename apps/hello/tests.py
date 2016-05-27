@@ -1,9 +1,7 @@
-from django.test import LiveServerTestCase
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
 from models import Requests
-from django.contrib.auth.models import User
 
 
 class MainPageViewTest(TestCase):
@@ -33,7 +31,6 @@ class MainPageViewTest(TestCase):
                       response.content)
         self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
-        context = response.context['info']
 
         # old assertions which we don't need anymore because now we use
         # info object, not info dict
@@ -137,7 +134,6 @@ class MiddlewareTest(TestCase):
         self.assertIn('some_url', after_request.path)
         self.assertEquals('GET', after_request.method)
         self.assertEquals(unicode('404'), after_request.status_code)
-        
 
     def test_middleware_max_records(self):
 
@@ -150,7 +146,3 @@ class MiddlewareTest(TestCase):
         self.client.get(reverse('requests'))
         after_request = Requests.objects.all().first()
         self.assertTrue(request != after_request)
-
-
-
-
