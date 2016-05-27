@@ -1,2 +1,11 @@
+42cc-pystyle==0.0.15
 Django==1.6.7
-42cc-pystyle
+django-stdimage==2.3.3
+flake8==2.5.4
+mccabe==0.4.0
+pep8==1.7.0
+Pillow==3.2.0
+progressbar2==3.6.2
+pyflakes==1.0.0
+selenium==2.53.2
+South==1.0.2
