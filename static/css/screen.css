@@ -1,0 +1,16 @@
+.panel{
+    margin: auto;
+    text-align: center;
+    border: 2px solid green;
+    border-radius: 7px;
+}
+td{
+    width: 200px;
+}
+.bold-column{
+    font-weight: bold;
+    width: 50px;
+}
+.inner{
+    margin: -9px;
+}

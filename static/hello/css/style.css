@@ -1,0 +1,38 @@
+.container-fluid{
+	max-width: 900px;
+}
+.panel-success{
+    margin: auto;
+    text-align: center;
+    border: 2px solid green;
+    border-radius: 7px;
+}
+td{
+    width: 200px;
+}
+.bold-column{
+    font-weight: bold;
+    width: 50px;
+}
+.inner{
+    margin: -9px;
+}
+.panel-info{
+    margin: auto;
+    text-align: left;
+    background-color: #bce8f1
+}
+.last{
+	padding: 50px;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+.path{
+	margin-left: 70px;
+}
+.count{
+	width: 30px;
+}
+.req{
+	margin-left: 20%;
+}
