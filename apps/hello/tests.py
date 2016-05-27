@@ -88,6 +88,8 @@ class RequestsPageViewTest(TestCase):
 
         ''' test using template '''
 
+        for i in range(32):
+            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertTemplateUsed(response, 'hello/requests.html')
 
@@ -95,6 +97,8 @@ class RequestsPageViewTest(TestCase):
 
         ''' test status code '''
 
+        for i in range(32):
+            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
 
@@ -102,8 +106,10 @@ class RequestsPageViewTest(TestCase):
 
         ''' test view renders required data '''
 
+        for i in range(32):
+            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
-        self.assertIn('<h1>Requests</h1>',
+        self.assertIn('Requests',
                       response.content)
         self.assertIn('Last requests', response.content)
         self.assertTrue('requests' in response.context)
@@ -128,7 +134,6 @@ class MiddlewareTest(TestCase):
 
         self.client.get('some_url')
         after_request = Requests.objects.all().last()
-        print after_request
         self.assertIn('some_url', after_request.path)
         self.assertEquals('GET', after_request.method)
         self.assertEquals(unicode('404'), after_request.status_code)
@@ -138,8 +143,8 @@ class MiddlewareTest(TestCase):
 
         ''' test deleting old records from db if its amount equal 30 '''
 
-        for i in range(32):
-            self.client.get(reverse('requests'))
+        for i in range(35):
+            self.client.get(reverse('main'))
         self.assertEqual(Requests.objects.all().count(), 30)
         request = Requests.objects.all().first()
         self.client.get(reverse('requests'))
