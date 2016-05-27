@@ -16,3 +16,5 @@ media
 .env
 .e
 ngrok
+fortytwo_test_task/settings/common.py
+
