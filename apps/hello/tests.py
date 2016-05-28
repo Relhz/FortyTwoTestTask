@@ -48,8 +48,8 @@ class ModelTest(TestCase):
 
         info = Info(last_name='Pythonenko')
         info.save()
-        inf = Info.objects.all()
-        self.assertEquals(inf[0], info)
+        inf = Info.objects.all().last()
+        self.assertEquals(inf, info)
 
     def test_unicode_method(self):
 

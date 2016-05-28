@@ -24,9 +24,9 @@ class RequestsRecording(object):
 
         if request.path != '/requests/':
             response.content = response.content.replace(
-            '<hr>',
-            '<hr><a class="req" href="/requests/"><span class="amount">' +
-            '</span>Requests</a>'
+                '<hr>',
+                '<hr><a class="req" href="/requests/"><span class="amount">' +
+                '</span>Requests</a>'
             )
 
         count = Requests.objects.all().count()
