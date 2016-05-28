@@ -10,6 +10,13 @@
 td{
     width: 200px;
 }
+hr{
+    border: none; 
+    color: green; 
+    background-color: green; 
+    height: 2px;
+    margin-bottom: 5px;
+}
 .bold-column{
     font-weight: bold;
     width: 50px;
@@ -34,5 +41,5 @@ td{
 	width: 30px;
 }
 .req{
-	margin-left: 20%;
+	margin-left: 5%;
 }
