@@ -120,10 +120,10 @@ class MiddlewareTest(TestCase):
 
         ''' test middleware make record to the database '''
 
-        before_request = Requests.objects.all().count()
+        before_request = Requests.objects.all().last()
         self.client.get(reverse('main'))
-        after_request = Requests.objects.all().count()
-        self.assertTrue(before_request < after_request)
+        after_request = Requests.objects.all().last()
+        self.assertTrue(before_request != after_request)
 
     def test_middleware_correct_data(self):
 
