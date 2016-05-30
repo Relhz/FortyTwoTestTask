@@ -8,11 +8,10 @@ class RequestsRecording(object):
 
         r = request.path
 
-        if 'forajax' in r or '/static/' in r or response.status_code == '404':
-            # requests to help functions and to nonexistent pages aren`t needed
+        if 'forajax' in r or '/static/' in r or response.status_code == 404:
+            # requests to helper functions, to nonexistent pages aren`t needed
             pass
         else:
-
             # record the request to the db
             r = Requests(
                 path=request.path,

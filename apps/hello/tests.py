@@ -125,15 +125,16 @@ class MiddlewareTest(TestCase):
         after_request = Requests.objects.all().count()
         self.assertTrue(before_request < after_request)
 
-    def test_middleware_right_data(self):
+    def test_middleware_correct_data(self):
 
-        ''' test middleware make record with right data'''
+        ''' test middleware make record with correct data'''
 
-        self.client.get('some_url')
+        for i in range(35):
+            self.client.get(reverse('main'))
         after_request = Requests.objects.all().last()
-        self.assertIn('some_url', after_request.path)
+        self.assertIn('/', after_request.path)
         self.assertEquals('GET', after_request.method)
-        self.assertEquals(unicode('404'), after_request.status_code)
+        self.assertEquals(unicode('200'), after_request.status_code)
 
     def test_middleware_max_records(self):
 

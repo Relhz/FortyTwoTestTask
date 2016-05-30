@@ -19,7 +19,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="/static/hello/css/style.css">
-        <script type="text/javascript" src="/static/hello/js/requests.js"></script>
 
         {% block extra_head %}{% endblock extra_head %}
 
@@ -69,7 +68,7 @@
                         <table class="table inner">
                           <tbody>
                             <tr class="info"><td>{{info.jabber}}</td></tr>
-                            <tr class="info"><td>{{info.other_contacts}}</td></tr>
+                            <tr class="info"><td>{{info.other_contacts}} {{r}}</td></tr>
                           </tbody>
                         </table>
                     </td>
