@@ -3,6 +3,46 @@
 
 {% block title %}Requests{% endblock title %}
 {% block extra_head %}
-<script type="text/javascript" src="/static/hello/js/requests_page.js"></script>
+<script type="text/javascript" src="/static/hello/js/edit_page.js"></script>
 {% endblock extra_head %}
+{% block content %}
+
+{% if not user.username %}
+<div class="loginedit">
+    <form action='/log_in/' method='post'>
+    {% csrf_token %}
+    {{ loginform }}
+    <input class="subm_login" id="login" type='submit' value='Login'></input>
+    </form>
+    <span style="color: red">{{err}}</span>
+</div>
+{% endif %}
+
+<div class="edit">
+  <div class="row">
+    <div class="col-sm-6">
+    <div class="wrapper">
+    {{form.Name.label_tag}}{{form.Name}}   
+    {{form.Last_name.label_tag}}{{form.Last_name}}
+    {{form.Date_of_birst.label_tag}}{{form.Date_of_birst}}
+    {{form.Photo.label_tag}}{{form.Photo}}
+    <img id="preview" width="330"  align="left" src="#" alt="your photo" />
+    </div>  
+    </div>
+    <div class="col-sm-6">
+    <div class="wrapper">
+    {{form.Contacts.label_tag}}{{form.Contacts}}
+    {{form.Email.label_tag}}{{form.Email}}
+    {{form.Skype.label_tag}}{{form.Skype}}
+    {{form.Jabber.label_tag}}{{form.Jabber}}
+    {{form.Other_contacts.label_tag}}{{form.Other_contacts}}
+    {{form.Bio.label_tag}}{{form.Bio}}
+	</div>
+    </div>
+  </div>
+
+
+<hr>
+</div>
+{% endblock content %}
 

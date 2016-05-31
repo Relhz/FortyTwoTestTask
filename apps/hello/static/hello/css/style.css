@@ -134,3 +134,52 @@ label{
 	margin: 9px;
 	margin-left: 130px;
 }
+.edit{
+	display: inline-block;
+	background-color: #d7ebf5;
+	padding: 30px;
+}
+.edit input{
+	margin: 5px;
+	margin-right: 40px;
+	width: 250px;
+}
+.edit label{
+	width: 100px;
+}
+label[for=id_Photo]{
+	float: left;
+}
+#preview{
+
+	border: 1px solid grey;
+	margin: 22px;
+	margin-left: 28px;
+}
+label[for=id_Other_contacts], label[for=id_Bio]{
+	width: 200px;
+	display: block;
+	float: left;
+	margin-bottom: 10px;
+}
+#id_Other_contacts, #id_Bio{
+	width: 400px;
+}
+#id_Other_contacts{
+	height: 145px;
+}
+.wrapper{
+	width: 450px
+}
+#preview.resize{
+   width:200px;
+   height:200px;
+}
+.edit #id_Username]{
+	margin-left: 18px;
+	margin-top: 10px;
+	width: 30px;
+}
+.edit #id_Password{
+	margin-left: 20px;
+}

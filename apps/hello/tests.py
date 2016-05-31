@@ -50,8 +50,8 @@ class ModelTest(TestCase):
 
         info = Info(last_name='Pythonenko')
         info.save()
-        inf = Info.objects.all()
-        self.assertEquals(inf[0], info)
+        inf = Info.objects.all().last()
+        self.assertEquals(inf, info)
 
     def test_unicode_method(self):
 
@@ -122,21 +122,21 @@ class MiddlewareTest(TestCase):
 
         ''' test middleware make record to the database '''
 
-        before_request = Requests.objects.all().count()
+        before_request = Requests.objects.all().last()
         self.client.get(reverse('main'))
-        after_request = Requests.objects.all().count()
-        self.assertTrue(before_request < after_request)
+        after_request = Requests.objects.all().last()
+        self.assertTrue(before_request != after_request)
 
     def test_middleware_right_data(self):
 
         ''' test middleware make record with right data'''
 
-        self.client.get('some_url')
+        self.client.get(reverse('edit'))
         after_request = Requests.objects.all().last()
         print after_request
-        self.assertIn('some_url', after_request.path)
+        self.assertIn('/edit/', after_request.path)
         self.assertEquals('GET', after_request.method)
-        self.assertEquals(unicode('404'), after_request.status_code)
+        self.assertEquals('200', after_request.status_code)
 
     def test_middleware_max_records(self):
 
@@ -174,8 +174,7 @@ class LoginViewTest(TestCase):
         ''' test view renders required data '''
 
         response = self.client.get(reverse('login'))
-        self.assertIn('Username',
-                      response.content)
+        self.assertIn('Username', response.content)
         self.assertIn('Password', response.content)
         self.assertTrue('form' in response.context)
 
@@ -201,8 +200,6 @@ class EditViewTest(TestCase):
 
         ''' test using template '''
 
-        request.user = authenticate(username='admin', 
-            password='admin via fixtures')
         response = self.client.get(reverse('edit'))
         self.assertTemplateUsed(response, 'hello/edit.html')
 
@@ -217,20 +214,12 @@ class EditViewTest(TestCase):
 
         ''' test view renders required data '''
 
-        request.user = authenticate(username='admin', 
-            password='admin via fixtures')
         response = self.client.get(reverse('edit'))
         self.assertIn('Last name',
                       response.content)
         self.assertIn('Other contacts:', response.content)
         self.assertTrue('form' in response.context)
-
-    def test_edit_redirect(self):
-
-        ''' test view redirects to login page if user non authenticated '''
-
-        response = self.client.get(reverse('edit'))
-        self.assertRedirects(response, reverse('login'))
+        self.assertTrue('loginform' in response.context)
 
 
 class EditFormTest(TestCase):

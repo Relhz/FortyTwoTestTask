@@ -19,20 +19,17 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="/static/hello/css/style.css">
-        <script type="text/javascript" src="/static/hello/js/requests.js"></script>
 
         {% block extra_head %}{% endblock extra_head %}
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
         
-
             <div class="container-fluid">
               {% block header %}
               <div class="panel panel-success">
                   <div class="panel-body"><h1><a href="/">42 Coffee Cups Test Assignment</a></h1>
                   
-
                   <div class="auth">
                   {% if not user.username %}
                     <a class="login" href="/login/">Login</a><br>
@@ -44,8 +41,7 @@
                       <a class="login" href='/edit/'>Go to the editing page</a>
                   {% endif %}
                     </div>
-
-                  
+           
                   </div>
               </div>
               {% endblock header %}
@@ -54,20 +50,20 @@
 
                 <tbody>
                   <tr class="info">
-                    <td class="bold-column">Name</td>
+                    <td class="bold-column">Name:</td>
                     <td>{{info.name}}</td>
-                    <td class="bold-column">Contacts</td>
+                    <td class="bold-column">Contacts:</td>
                     <td>{{info.contacts}}</td>
 
                   </tr>
                   <tr class="info">
-                    <td class="bold-column">Last name</td>
+                    <td class="bold-column">Last name:</td>
                     <td>{{info.last_name}}</td>
                     <td class="bold-column">Email:</td>
                     <td>{{info.email}}</td>
                   </tr>
                   <tr class="info">
-                    <td class="bold-column">Date of birst</td>
+                    <td class="bold-column">Date of birst:</td>
                     <td>{{info.date_of_birst}}</td>
                     <td class="bold-column">Skype:</td>
                     <td>{{info.skype}}</td>

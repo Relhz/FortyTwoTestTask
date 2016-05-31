@@ -6,12 +6,12 @@ class RequestsRecording(object):
 
     def process_response(self, request, response):
 
-        if 'forajax' in request.path or '/static/' in request.path \
-        or response.status_code == '404':
-            # requests to help functions and to nonexistent pages aren`t needed
+        r = request.path
+
+        if 'forajax' in r or '/static/' in r or response.status_code == 404:
+            # requests to helper functions, to nonexistent pages aren`t needed
             pass
         else:
-
             # record the request to the db
             r = Requests(
                 path=request.path,
@@ -23,10 +23,10 @@ class RequestsRecording(object):
 
         if request.path != '/requests/':
             response.content = response.content.replace(
-            '<hr>',
-            '<hr><a class="req" href="/requests/"><span class="amount">' +
-            '</span>Requests</a>'
-        )
+                '<hr>',
+                '<hr><a class="req" href="/requests/"><span class="amount">' +
+                '</span>Requests</a>'
+            )
 
         count = Requests.objects.all().count()
         obj = Requests.objects.all().first()
