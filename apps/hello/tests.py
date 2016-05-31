@@ -191,6 +191,14 @@ class LoginFormTest(TestCase):
                    {'Username': 'admin', 'Password': 'admin via fixtures'})
         self.assertEqual(response.status_code, 200)
 
+    def test_login_redirect(self):
+
+        ''' test redirect after successful login '''
+
+        response = self.client.post(reverse('log_in'),
+                   {'Username': 'admin', 'Password': 'admin via fixtures'})
+        self.assertRedirects(response, '/')
+
 
 class EditViewTest(TestCase):
 

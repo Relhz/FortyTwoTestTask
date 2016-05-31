@@ -44,7 +44,6 @@ INSTALLED_APPS = (
 
     'apps.hello',
     'south',
-    'stdimage'
 )
 
 MIDDLEWARE_CLASSES = (

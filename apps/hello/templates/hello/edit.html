@@ -5,6 +5,25 @@
 {% block extra_head %}
 <script type="text/javascript" src="/static/hello/js/edit_page.js"></script>
 {% endblock extra_head %}
+
+{% block header %}
+<div class="panel panel-success">
+  <div class="panel-body"><h1><a href="/">42 Coffee Cups Test Assignment</a></h1>
+  
+  <div class="auth">
+  {% if not user.username %}
+    <a class="login" href="/login/">Login</a><br>
+  {% endif %}
+
+  {% if user.username %}
+      <a class="login" href='/logout/'>logout ({{ user }})</a><br>
+  {% endif %}
+    </div>
+
+  </div>
+</div>
+{% endblock header %}
+
 {% block content %}
 
 {% if not user.username %}

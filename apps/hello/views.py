@@ -10,7 +10,7 @@ from django.utils import timezone
 # main page displays persons information
 def main(request):
 
-    info = Info.objects.all().first
+    info = Info.objects.all().first()
     request.session['redir'] = ''
 
     return render(request, 'base.html', {'info': info})
@@ -41,7 +41,7 @@ def login(request):
 def log_in(request):
 
     # if user loged in after attempt to get the edit page, 
-    # then redirect to the edit page, else - to main page
+    # then redirect to the edit page, else - the to main page
     if request.session.get('redir') == 'edit':
         redir = '/edit/'
     else:
@@ -79,7 +79,20 @@ def logout(request):
 # edit page
 def edit(request):
 
-    form = EditForm()
+    info = Info.objects.all().first()
+    initial = {
+        'Name': info.name,
+        'Last_name': info.last_name,
+        'Date_of_birst': info.date_of_birst,
+        'Contacts': info.contacts,
+        'Email': info.email,
+        'Skype': info.skype,
+        'Jabber': info.jabber,
+        'Bio': info.bio,
+        'Other_contacts': info.other_contacts,
+        'Photo': info.photo
+    }
+    form = EditForm(initial=initial)
     loginform = LoginForm()
     request.session['redir'] = 'edit'
     
