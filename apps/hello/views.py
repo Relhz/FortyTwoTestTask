@@ -40,7 +40,7 @@ def login(request):
 
 def log_in(request):
 
-    # if user loged in after attempt to get the edit page, 
+    # if user loged in on the edit page, 
     # then redirect to the edit page, else - the to main page
     if request.session.get('redir') == 'edit':
         redir = '/edit/'
