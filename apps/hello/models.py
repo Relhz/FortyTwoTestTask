@@ -16,4 +16,4 @@ class Info(models.Model):
     other_contacts = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
-        return str(self.last_name)
+        return self.last_name

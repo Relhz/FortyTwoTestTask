@@ -1,36 +1,7 @@
-from django.test import LiveServerTestCase
-from selenium import webdriver
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
-
-
-class MainPageSeleniumTest(LiveServerTestCase):
-
-    ''' simulate users behaviour '''
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def test_main_page(self):
-
-        ''' users actions '''
-
-        # user enter into the main page
-        self.browser.get(self.live_server_url)
-
-        # user sees a header '42 test...'
-        body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('42 Coffee Cups Test Assignment', body)
-
-        # user sees person info table
-        info = self.browser.find_elements_by_tag_name('td')
-        self.assertIn('Name', info[0].text)
-        self.assertIn('Contacts', info[2].text)
 
 
 class MainPageViewTest(TestCase):
@@ -42,7 +13,7 @@ class MainPageViewTest(TestCase):
         ''' test using template '''
 
         response = self.client.get(reverse('main'))
-        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'hello/main.html')
 
     def test_main_page(self):
 
@@ -60,13 +31,65 @@ class MainPageViewTest(TestCase):
                       response.content)
         self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
-        context = response.context['info']
-        # old assertions which we don't need anymore
-        # self.assertIn('Last name', context.keys())
-        # self.assertIn('Email', context.keys())
-        self.assertTrue(hasattr(context, 'last_name'))
-        self.assertTrue(hasattr(context, 'email'))
 
+    def test_render_all_fields(self):
+
+        ''' test does all fields render '''
+
+        response = self.client.get(reverse('main'))
+        context = response.context['info']
+        self.assertTrue(context.name == 'Yevhen')
+        self.assertTrue(context.last_name == 'Kudrya')
+        self.assertTrue(str(context.date_of_birth) == '1990-01-21')
+        self.assertTrue(context.bio == 'Information Information Information' +
+                        ' Information Information Information Information')
+        self.assertTrue(context.contacts == '0502455842')
+        self.assertTrue(context.email == 'yevhenkudrya@gmail.com')
+        self.assertTrue(context.jabber == 'relhz@42cc.co')
+        self.assertTrue(context.other_contacts == 'contacts contacts ' +
+                        'contacts contacts contacts')
+        self.assertTrue(context.skype == 'seekandstrike')
+
+    def test_render_cyrillic(self):
+
+        ''' test does cyrillic symbols render'''
+
+        info = Info.objects.get(last_name='Kudrya')
+        info.name = 'Євген'
+        info.save()
+        response = self.client.get(reverse('main'))
+        context = response.context['info']
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue(context.name == u'Євген')
+
+    def test_get_or_create(self):
+
+        ''' test if object doesn't exist '''
+
+        info = Info.objects.all()
+        for i in info:
+            i.delete()
+            i.save
+        response = self.client.get(reverse('main'))
+        context = response.context['info']
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue(context.last_name == 'Kudrya')
+        self.assertTrue(context.name == None)
+
+    def test_several_objects(self):
+
+        ''' test if database contains several objects '''
+
+        object1 = Info(last_name='Kudrya')
+        object1.save()
+        object2 = Info(last_name='Kudrya')
+        object2.save()
+        object3 = Info(last_name='Kudrya')
+        object3.save()
+        response = self.client.get(reverse('main'))
+        context = response.context['info']
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue(context.last_name == 'Kudrya')
 
 
 class ModelTest(TestCase):
@@ -79,8 +102,8 @@ class ModelTest(TestCase):
 
         info = Info(last_name='Pythonenko')
         info.save()
-        inf = Info.objects.all()
-        self.assertEquals(inf[0], info)
+        inf = Info.objects.all().last()
+        self.assertEquals(inf, info)
 
     def test_unicode_method(self):
 
