@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}Main page{% endblock title %}
+{% block title %}{% endblock title %}
 
 {% block content %}
 
@@ -10,52 +10,38 @@
       <div class="panel panel-success">
           <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1></div>
       </div>
-      <table class="table">
 
-        <tbody>
-          <tr class="info">
-            <td class="bold-column">Name</td>
-            <td>{{info.name}}</td>
-            <td class="bold-column">Contacts</td>
-            <td>{{info.contacts}}</td>
+      <div class="table">
 
-          </tr>
-          <tr class="info">
-            <td class="bold-column">Last name</td>
-            <td>{{info.last_name}}</td>
-            <td class="bold-column">Email:</td>
-            <td>{{info.email}}</td>
-          </tr>
-          <tr class="info">
-            <td class="bold-column">Date of birth</td>
-            <td>{{info.date_of_birst}}</td>
-            <td class="bold-column">Skype:</td>
-            <td>{{info.skype}}</td>
-          </tr>
-         <tr class="info">
-            <td class="bold-column">Bio:</td>
-            <td class="bio">{{info.bio}}</td>
-            <td class="bold-column">
-                <table class="table inner">
-                  <tbody>
-                    <tr class="info"><td class="bold-column">Jabber:</td></tr>
-                    <tr class="info"><td class="bold-column">Other contacts</td></tr>
-                  </tbody>
-                </table>
-            </td>
-            <td>
-                <table class="table inner">
-                  <tbody>
-                    <tr class="info"><td>{{info.jabber}}</td></tr>
-                    <tr class="info"><td>{{info.other_contacts}}</td></tr>
-                  </tbody>
-                </table>
-            </td>
+        <div class="col-sm-6">
+        <div class="wrapper">
+          <div class="bold-column">Name</div>
+          <div class="td">{{info.name}}</div><br>
+          <div class="bold-column">Last name</div>
+          <div class="td">{{info.last_name}}</div><br>
+          <div class="bold-column">Date of birth</div>
+          <div class="td">{{info.date_of_birth}}</div><br>
+          <div class="bold-column bio">Bio:</div>
+          <div class="td">{{info.bio}}</div>
+        </div>
+        </div>
 
-          </tr>
+        <div class="col-sm-6">
+        <div class="wrapper">
+          <div class="bold-column">Contacts</div>
+          <div class="td">{{info.contacts}}</div><br>
+          <div class="bold-column">Email:</div>
+          <div class="td">{{info.email}}</div><br>
+          <div class="bold-column">Skype:</div>
+          <div class="td">{{info.skype}}</div><br>
+          <div class="bold-column">Jabber:</div>
+          <div class="td">{{info.jabber}}</div><br>  
+          <div class="bold-column other_contacts">Other contacts</div>
+          <div class="td">{{info.other_contacts}}</div>        
+        </div>
+        </div>
 
-        </tbody>
-      </table>
+      </div>
     </div>
 
 
