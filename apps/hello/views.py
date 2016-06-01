@@ -131,3 +131,28 @@ def forajax_count(request):
         c['amount'] = Requests.objects.all().last().pk
 
     return HttpResponse(json.dumps(c), content_type="application/json")
+
+
+# edit data
+def forajax_edit(request):
+
+    if request.method == 'POST':
+
+        info = Info.objects.all().first()
+
+        info.name = request.name,
+        info.last_name = request.last_name,
+        info.date_of_birst = request.date_of_birst,
+        info.contacts = request.contacts,
+        info.email = request.email,
+        info.skype = request.skype,
+        info.jabber = request.jabber,
+        info.bio = request.bio,
+        info.other_contacts = request.other_contacts,
+        info.photo = request.photo
+
+        info.save()
+
+        c = {'success': 'success'}
+
+    return HttpResponse(json.dumps(c), content_type="application/json")

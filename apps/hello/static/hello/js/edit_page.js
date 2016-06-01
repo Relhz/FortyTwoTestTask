@@ -19,27 +19,32 @@ $(document).ready(function(){
 
 	$('#sendpost').submit(function(event){
 	    event.preventDefault();
-	    console.log("form submitted!")  // sanity check
+	    console.log("form submitted!");
 	    send_post();
 	});
 
 	function send_post() {
-	    var val = $('#id_txt').val()
+
 	    $.ajax({
 
-	        url : "/adding/", // the endpoint
-	        type : "POST", // http method
+	        url : "/forajax_edit/", 
+	        type : "POST", 
 	        data : { 
-	        	txt: $('#id_txt').val(), 
+	        	name: $('#id_Name').val(),
+	        	last_name: $('#id_Last_name').val(), 
+	        	date_of_birst: $('#id_Date_of_birst').val(), 
+	        	photo: $('#id_Photo').val(), 
+	        	contacts: $('#id_Contacts').val(), 
+	        	email: $('#id_Email').val(), 
+	        	skype: $('#id_Skype').val(), 
+	        	jabber: $('#id_Jabber').val(), 
+	        	other_contacts: $('#id_Other_contacts').val(), 
+	        	bio: $('#id_Bio').val(), 
 	        	csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
 	        	},
 
-
-	        // handle a successful response
 	        success : function(json) {
 	        	console.log(json)
-	            $('#id_txt').val(''); 
-	            $('body').append('<div id="newdiv">' + json.txt + '</div>')
 	        },
 
 

@@ -40,13 +40,13 @@
     {{ loginform }}
     <input class="subm" id="login" type='submit' value='Login'></input>
     </form>
-    <span style="color: red">{{err}}</span>
 </div>
 {% endif %}
 
 <div class="edit">
   <div class="row">
     <form id="sendpost" method="post" action="/forajax_edit/">
+        {% csrf_token %}
         <div class="col-sm-6">
         <div class="wrapper">
         {{form.Name.label_tag}}{{form.Name}}   
