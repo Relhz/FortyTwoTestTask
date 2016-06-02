@@ -4,19 +4,13 @@ $(document).ready(function(){
     setInterval(function(){
 	
 	    $.ajax({
-	        url : "/forajax2/", 
+	        url : "/forajax/", 
 	        type : "GET", 
 	        success : function(data) {
+	        	console.log(data)
 
-	        	for(i = 0; i < 10; i++){
-        			
-		        		$('.path:eq(' + i + ')').html(data[i].method + 
-			        ' ' + data[i].path + ' ; ' + data[i].status_code + 
-			        ' ; ' + data[i].date_and_time.slice(0, 16) + 
-			        '<span class="c" style="display: none">' + data[i].amount 
-			        + '</span>')
 
-	        	}
+	        	
 	        },
 	    });
 		
@@ -38,7 +32,7 @@ $(document).ready(function(){
 		    success: function(data) {
 		        
 		        var current = data.amount
-		        console.log(past, current)
+
 		        if((current - past) > 0){
 		        	$('.count').html('('+ (current - past) + ')')	  
 			    	document.title = '(' + (current - past) + ')Requests'

@@ -1,16 +1,21 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponse
 from models import Info
 from models import Requests
 import json
 from django.utils import timezone
+from django.core.exceptions import MultipleObjectsReturned
 
 
 # main page displays persons information
 def main(request):
 
-    info = Info.objects.all().first
+    try:
+        info, created = Info.objects.get_or_create(last_name='Kudrya')
+    except MultipleObjectsReturned:
+        info = Info.objects.filter(last_name='Kudrya').first()
 
-    return render(request, 'base.html', {'info': info})
+    return render(request, 'hello/main.html', {'info': info})
 
 
 # requests page displays last 10 requests
@@ -25,7 +30,7 @@ def requests(request):
 
 
 # return last 10 objects from database
-def forajax2(request):
+def forajax(request):
 
     if request.method == 'GET':
 

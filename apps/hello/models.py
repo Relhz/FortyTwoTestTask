@@ -6,9 +6,9 @@ from django.utils import timezone
 
 class Info(models.Model):
 
-    name = models.CharField(max_length=10, null=True, blank=True)
-    last_name = models.CharField(max_length=10, default='Surname')
-    date_of_birst = models.DateField(null=True, blank=True)
+    name = models.CharField(max_length=20, null=True, blank=True)
+    last_name = models.CharField(max_length=20, default='Surname')
+    date_of_birth = models.DateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     contacts = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(max_length=254, null=True, blank=True)
@@ -18,7 +18,7 @@ class Info(models.Model):
 
     # model object represents as last name str
     def __unicode__(self):
-        return str(self.last_name)
+        return self.last_name
 
 
 class Requests(models.Model):
