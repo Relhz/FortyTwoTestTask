@@ -37,18 +37,17 @@ class MainPageViewTest(TestCase):
         ''' test does all fields render '''
 
         response = self.client.get(reverse('main'))
-        context = response.context['info']
-        self.assertTrue(context.name == 'Yevhen')
-        self.assertTrue(context.last_name == 'Kudrya')
-        self.assertTrue(str(context.date_of_birth) == '1990-01-21')
-        self.assertTrue(context.bio == 'Information Information Information' +
-                        ' Information Information Information Information')
-        self.assertTrue(context.contacts == '0502455842')
-        self.assertTrue(context.email == 'yevhenkudrya@gmail.com')
-        self.assertTrue(context.jabber == 'relhz@42cc.co')
-        self.assertTrue(context.other_contacts == 'contacts contacts ' +
-                        'contacts contacts contacts')
-        self.assertTrue(context.skype == 'seekandstrike')
+        info = Info.objects.get(last_name='Kudrya')
+
+        self.assertIn(info.name, response.content)
+        self.assertIn(info.last_name, response.content)
+        self.assertIn('Jan. 21, 1990', response.content)
+        self.assertIn(info.bio, response.content)
+        self.assertIn(info.contacts, response.content)
+        self.assertIn(info.email, response.content)
+        self.assertIn(info.skype, response.content)
+        self.assertIn(info.jabber, response.content)
+        self.assertIn(info.other_contacts, response.content)
 
     def test_render_cyrillic(self):
 
@@ -58,9 +57,7 @@ class MainPageViewTest(TestCase):
         info.name = 'Євген'
         info.save()
         response = self.client.get(reverse('main'))
-        context = response.context['info']
-        self.assertEquals(response.status_code, 200)
-        self.assertTrue(context.name == u'Євген')
+        self.assertIn(info.name, response.content)
 
     def test_get_or_create(self):
 
@@ -69,10 +66,12 @@ class MainPageViewTest(TestCase):
         info = Info.objects.all()
         for i in info:
             i.delete()
-            i.save
         response = self.client.get(reverse('main'))
         context = response.context['info']
         self.assertEquals(response.status_code, 200)
+        self.assertTrue('info' in response.context)
+        self.assertIn('Kudrya', response.content)
+        self.assertIn(info.name, response.content)
         self.assertTrue(context.last_name == 'Kudrya')
         self.assertTrue(context.name == None)
 
@@ -89,6 +88,9 @@ class MainPageViewTest(TestCase):
         response = self.client.get(reverse('main'))
         context = response.context['info']
         self.assertEquals(response.status_code, 200)
+        self.assertTrue('info' in response.context)
+        self.assertIn('Kudrya', response.content)
+        self.assertIn(info.name, response.content)
         self.assertTrue(context.last_name == 'Kudrya')
 
 
