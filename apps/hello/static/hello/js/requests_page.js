@@ -7,10 +7,16 @@ $(document).ready(function(){
 	        url : "/forajax/", 
 	        type : "GET", 
 	        success : function(data) {
-	        	console.log(data)
 
+	        	for(i = 0; i < 10; i++){
+        			
+		        		$('.path:eq(' + i + ')').html(data[i].method + 
+			        ' ' + data[i].path + ' ; ' + data[i].status_code + 
+			        ' ; ' + data[i].date_and_time.slice(0, 16) + 
+			        '<span class="c" style="display: none">' + data[i].amount 
+			        + '</span>')
 
-	        	
+	        	}
 	        },
 	    });
 		

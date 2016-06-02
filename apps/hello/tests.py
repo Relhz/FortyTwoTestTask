@@ -172,7 +172,7 @@ class RequestsPageViewTest(TestCase):
 
         
         response = self.client.get(reverse('forajax'))
-        print response.context
+        print response.json()
         self.assertTrue('ll' in response.context)
 
 

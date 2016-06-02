@@ -21,10 +21,11 @@ def main(request):
 # requests page displays last 10 requests
 def requests(request):
 
-    objects = Requests.objects.all()
+    objects = Requests.objects.all().order_by('-pk')[:10]
+    
     requests = []
-    for i in range(29, 19, -1):
-        requests.append(objects[i])
+    for i in objects:
+        requests.append(i)
 
     return render(request, 'hello/requests.html', {'requests': requests})
 
@@ -34,8 +35,7 @@ def forajax(request):
 
     if request.method == 'GET':
 
-        objs = Requests.objects.all()[19:]
-        ll = []
+        objs = Requests.objects.all().order_by('-pk')[:10]
 
         for i in objs:
             response_data = {}
@@ -48,7 +48,7 @@ def forajax(request):
             response_data['amount'] = i.pk
             ll.append(response_data)
 
-        ll.reverse()
+        
     return HttpResponse(json.dumps(ll), content_type="application/json")
 
 
