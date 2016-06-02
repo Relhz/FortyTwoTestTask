@@ -10,5 +10,5 @@ def main(request):
         info, created = Info.objects.get_or_create(last_name='Kudrya')
     except MultipleObjectsReturned:
         info = Info.objects.filter(last_name='Kudrya').first()
-        
+
     return render(request, 'hello/main.html', {'info': info})

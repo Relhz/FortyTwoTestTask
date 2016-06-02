@@ -72,7 +72,7 @@ class MainPageViewTest(TestCase):
         context = response.context['info']
         self.assertTrue(context.last_name == 'Kudrya')
         self.assertContains(response, 'Kudrya', count=1, status_code=200)
-        self.assertTrue(context.name == None)
+        self.assertTrue(context.name is None)
 
     def test_if_several_objects_in_db(self):
 
