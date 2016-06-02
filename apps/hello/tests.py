@@ -59,26 +59,26 @@ class MainPageViewTest(TestCase):
         response = self.client.get(reverse('main'))
         self.assertIn(info.name, response.content)
 
-    def test_get_or_create(self):
+    def test_if_object_does_not_exists(self):
 
-        ''' test if object doesn't exist '''
+        ''' test if object doesn't exists'''
 
         info = Info.objects.all()
         for i in info:
+            # delete all objects from DB
             i.delete()
         response = self.client.get(reverse('main'))
-        context = response.context['info']
-        self.assertEquals(response.status_code, 200)
         self.assertTrue('info' in response.context)
-        self.assertIn('Kudrya', response.content)
-        self.assertIn(info.name, response.content)
+        context = response.context['info']
         self.assertTrue(context.last_name == 'Kudrya')
+        self.assertContains(response, 'Kudrya', count=1, status_code=200)
         self.assertTrue(context.name == None)
 
-    def test_several_objects(self):
+    def test_if_several_objects_in_db(self):
 
-        ''' test if database contains several objects '''
+        ''' test if the database contains several objects '''
 
+        # add three objects to database
         object1 = Info(last_name='Kudrya')
         object1.save()
         object2 = Info(last_name='Kudrya')
@@ -90,7 +90,6 @@ class MainPageViewTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTrue('info' in response.context)
         self.assertIn('Kudrya', response.content)
-        self.assertIn(info.name, response.content)
         self.assertTrue(context.last_name == 'Kudrya')
 
 
