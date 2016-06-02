@@ -85,12 +85,12 @@ class MainPageViewTest(TestCase):
         object2.save()
         object3 = Info(last_name='Kudrya')
         object3.save()
+
         response = self.client.get(reverse('main'))
         context = response.context['info']
-        self.assertEquals(response.status_code, 200)
         self.assertTrue('info' in response.context)
-        self.assertIn('Kudrya', response.content)
         self.assertTrue(context.last_name == 'Kudrya')
+        self.assertContains(response, 'Kudrya', count=1, status_code=200)
 
 
 class ModelTest(TestCase):
