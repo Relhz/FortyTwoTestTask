@@ -10,10 +10,10 @@ from django.core.exceptions import MultipleObjectsReturned
 # main page displays persons information
 def main(request):
 
-    try:
-        info, created = Info.objects.get_or_create(last_name='Kudrya')
-    except MultipleObjectsReturned:
-        info = Info.objects.filter(last_name='Kudrya').first()
+    if Info.objects.all():
+        info = Info.objects.all().first()
+    else:
+        info = Info()
 
     return render(request, 'hello/main.html', {'info': info})
 

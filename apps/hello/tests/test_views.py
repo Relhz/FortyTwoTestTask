@@ -38,18 +38,17 @@ class MainPageViewTest(TestCase):
         ''' test does all fields render '''
 
         response = self.client.get(reverse('main'))
-        context = response.context['info']
-        self.assertTrue(context.name == 'Yevhen')
-        self.assertTrue(context.last_name == 'Kudrya')
-        self.assertTrue(str(context.date_of_birth) == '1990-01-21')
-        self.assertTrue(context.bio == 'Information Information Information' +
-                        ' Information Information Information Information')
-        self.assertTrue(context.contacts == '0502455842')
-        self.assertTrue(context.email == 'yevhenkudrya@gmail.com')
-        self.assertTrue(context.jabber == 'relhz@42cc.co')
-        self.assertTrue(context.other_contacts == 'contacts contacts ' +
-                        'contacts contacts contacts')
-        self.assertTrue(context.skype == 'seekandstrike')
+        info = Info.objects.get(last_name='Kudrya')
+
+        self.assertIn(info.name, response.content)
+        self.assertIn(info.last_name, response.content)
+        self.assertIn('Jan. 21, 1990', response.content)
+        self.assertIn(info.bio, response.content)
+        self.assertIn(info.contacts, response.content)
+        self.assertIn(info.email, response.content)
+        self.assertIn(info.skype, response.content)
+        self.assertIn(info.jabber, response.content)
+        self.assertIn(info.other_contacts, response.content)
 
     def test_render_cyrillic(self):
 
@@ -59,38 +58,38 @@ class MainPageViewTest(TestCase):
         info.name = 'Євген'
         info.save()
         response = self.client.get(reverse('main'))
-        context = response.context['info']
-        self.assertEquals(response.status_code, 200)
-        self.assertTrue(context.name == u'Євген')
+        self.assertIn(info.name, response.content)
 
-    def test_get_or_create(self):
+    def test_if_object_does_not_exists(self):
 
-        ''' test if object doesn't exist '''
+        ''' test if object doesn't exists'''
 
-        info = Info.objects.all()
-        for i in info:
-            i.delete()
-            i.save
+        info = Info.objects.all().delete()
+
         response = self.client.get(reverse('main'))
+        self.assertTrue('info' in response.context)
         context = response.context['info']
-        self.assertEquals(response.status_code, 200)
-        self.assertTrue(context.last_name == 'Kudrya')
-        self.assertTrue(context.name == None)
+        self.assertTrue(context.last_name == 'Surname')
+        self.assertContains(response, 'Surname', count=1, status_code=200)
+        self.assertTrue(context.name is None)
 
-    def test_several_objects(self):
+    def test_if_several_objects_in_db(self):
 
-        ''' test if database contains several objects '''
+        ''' test if the database contains several objects '''
 
+        # add three objects to database
         object1 = Info(last_name='Kudrya')
         object1.save()
         object2 = Info(last_name='Kudrya')
         object2.save()
         object3 = Info(last_name='Kudrya')
         object3.save()
+
+        info =  Info.objects.all().first()
         response = self.client.get(reverse('main'))
+        self.assertTrue('info' in response.context)
         context = response.context['info']
-        self.assertEquals(response.status_code, 200)
-        self.assertTrue(context.last_name == 'Kudrya')
+        self.assertTrue(context.last_name == info.last_name)
 
 
 class RequestsPageViewTest(TestCase):
