@@ -4,7 +4,6 @@ from models import Info
 from models import Requests
 import json
 from django.utils import timezone
-from django.core.exceptions import MultipleObjectsReturned
 
 
 # main page displays persons information
@@ -25,7 +24,7 @@ def requests(request):
         objects = Requests.objects.all()
     else:
         objects = Requests.objects.all().order_by('-pk')[:10]
-    
+
     requests = []
     for i in objects:
         requests.append(i)
@@ -54,5 +53,5 @@ def forajax(request):
             response_data['status_code'] = i.status_code
             response_data['amount'] = i.pk
             ll.append(response_data)
-  
+
     return HttpResponse(json.dumps(ll), content_type="application/json")

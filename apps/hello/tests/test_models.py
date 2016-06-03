@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 from apps.hello.models import Info
 
 

@@ -2,7 +2,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from apps.hello.models import Info
-from apps.hello.models import Requests
 
 
 class MainPageViewTest(TestCase):
@@ -64,7 +63,7 @@ class MainPageViewTest(TestCase):
 
         ''' test if object doesn't exists'''
 
-        info = Info.objects.all().delete()
+        Info.objects.all().delete()
 
         response = self.client.get(reverse('main'))
         self.assertTrue('info' in response.context)
@@ -85,7 +84,7 @@ class MainPageViewTest(TestCase):
         object3 = Info(last_name='Kudrya')
         object3.save()
 
-        info =  Info.objects.all().first()
+        info = Info.objects.all().first()
         response = self.client.get(reverse('main'))
         self.assertTrue('info' in response.context)
         context = response.context['info']
@@ -136,7 +135,6 @@ class RequestsPageViewTest(TestCase):
         response = self.client.get(reverse('forajax'),
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
-
 
     def test_forajax_view_render_data(self):
 
