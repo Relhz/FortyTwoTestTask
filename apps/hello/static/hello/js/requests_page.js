@@ -1,6 +1,7 @@
 $(document).ready(function(){ 
 
 	// update requests list
+	var old = $('.c:eq(' + 0 + ')').html()
     setInterval(function(){
 	
 	    $.ajax({
@@ -9,13 +10,14 @@ $(document).ready(function(){
 	        success : function(data) {
 
 	        	for(i = 0; i < 10; i++){
-        			
-		        		$('.path:eq(' + i + ')').html(data[i].method + 
-			        ' ' + data[i].path + ' ; ' + data[i].status_code + 
-			        ' ; ' + data[i].date_and_time.slice(0, 16) + 
-			        '<span class="c" style="display: none">' + data[i].amount 
-			        + '</span>')
-
+			        var current = data[0].amount
+			        if((current - past) > 0){
+			        	$('.path:eq(' + i + ')').html(data[i].method + 
+				        ' ' + data[i].path + ' ; ' + data[i].status_code + 
+				        ' ; ' + data[i].date_and_time.slice(0, 16) + 
+				        '<span class="c" style="display: none">' + data[i].amount 
+				        + '</span>')
+		        	}
 	        	}
 	        },
 	    });
@@ -33,12 +35,12 @@ $(document).ready(function(){
 	var past = $('.c:eq(' + 0 + ')').html()
 	interval = setInterval(function(){
 	    $.ajax({
-		    url: '/forajax_count/',
+		    url: '/forajax/',
 		    type: 'GET', 
 		    success: function(data) {
 		        
-		        var current = data.amount
-
+		        var current = data[0].amount
+		        console.log(past, current, data)
 		        if((current - past) > 0){
 		        	$('.count').html('('+ (current - past) + ')')	  
 			    	document.title = '(' + (current - past) + ')Requests'
@@ -64,11 +66,11 @@ $(document).ready(function(){
 		var past = $('.c:eq(' + 0 + ')').html()
 		interval = setInterval(function(){
 		    $.ajax({
-			    url: '/forajax_count/',
+			    url: '/forajax/',
 			    type: 'GET', 
 			    success: function(data) {
 
-			        var current = data.amount
+			        var current = data[0].amount
 			        if((current - past) > 0){
 			        	$('.count').html('('+ (current - past) + ')')	  
 				    	document.title = '(' + (current - past) + ')Requests'
