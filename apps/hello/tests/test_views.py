@@ -101,8 +101,6 @@ class RequestsPageViewTest(TestCase):
 
         ''' test using template '''
 
-        for i in range(10):
-            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertTemplateUsed(response, 'hello/requests.html')
 
@@ -110,38 +108,45 @@ class RequestsPageViewTest(TestCase):
 
         ''' test status code '''
 
-        for i in range(10):
-            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
 
     def test_view_return_last_10(self):
 
-        ''' test view return last 10 objects '''
+        ''' test view return last 10 objects or less '''
 
-        for i in range(12):
-            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertTrue('requests' in response.context)
         context = response.context['requests']
-        self.assertTrue(len(context) == 10)
+        self.assertTrue(len(context) <= 10)
 
     def test_content_requests_list(self):
 
         ''' test view renders required data '''
 
-        for i in range(10):
-            self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
+        self.assertTrue('requests' in response.context)
         self.assertIn('Requests',
                       response.content)
         self.assertIn('Last requests', response.content)
-        self.assertTrue('requests' in response.context)
 
-    def test_forajax_view(self):
+    def test_forajax_view_status_code(self):
+
+        ''' test status code '''
+
+        response = self.client.get(reverse('forajax'),
+                                   content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_forajax_view_render_data(self):
 
         ''' test ajax view renders required data '''
 
-        response = self.client.get(reverse('forajax'))
-        print response.json()
-        self.assertTrue('ll' in response.context)
+        response = self.client.get(reverse('forajax'),
+                                   content_type='application/json')
+        self.assertContains(response, '"status_code": "200", "method": "GET"',
+                            status_code=200)
+        self.assertContains(response, '"path": "/",', status_code=200)
+        self.assertContains(response, '"amount":', status_code=200)
+        self.assertContains(response, '"date_and_time":', status_code=200)
