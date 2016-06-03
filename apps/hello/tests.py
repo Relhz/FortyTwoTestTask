@@ -63,15 +63,13 @@ class MainPageViewTest(TestCase):
 
         ''' test if object doesn't exists'''
 
-        info = Info.objects.all()
-        for i in info:
-            # delete all objects from DB
-            i.delete()
+        info = Info.objects.all().delete()
+
         response = self.client.get(reverse('main'))
         self.assertTrue('info' in response.context)
         context = response.context['info']
-        self.assertTrue(context.last_name == 'Kudrya')
-        self.assertContains(response, 'Kudrya', count=1, status_code=200)
+        self.assertTrue(context.last_name == 'Surname')
+        self.assertContains(response, 'Surname', count=1, status_code=200)
         self.assertTrue(context.name is None)
 
     def test_if_several_objects_in_db(self):
