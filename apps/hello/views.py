@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponse
 from models import Info
 from models import Requests
@@ -8,28 +9,38 @@ from django.utils import timezone
 # main page displays persons information
 def main(request):
 
-    info = Info.objects.all().first
+    if Info.objects.all():
+        info = Info.objects.all().first()
+    else:
+        info = Info()
 
-    return render(request, 'base.html', {'info': info})
+    return render(request, 'hello/main.html', {'info': info})
 
 
 # requests page displays last 10 requests
 def requests(request):
 
-    objects = Requests.objects.all()
+    if len(Requests.objects.all()) < 10:
+        objects = Requests.objects.all()
+    else:
+        objects = Requests.objects.all().order_by('-pk')[:10]
+
     requests = []
-    for i in range(29, 19, -1):
-        requests.append(objects[i])
+    for i in objects:
+        requests.append(i)
 
     return render(request, 'hello/requests.html', {'requests': requests})
 
 
 # return last 10 objects from database
-def forajax2(request):
+def forajax(request):
 
     if request.method == 'GET':
 
-        objs = Requests.objects.all()[19:]
+        if len(Requests.objects.all()) < 10:
+            objs = Requests.objects.all()
+        else:
+            objs = Requests.objects.all().order_by('-pk')[:10]
         ll = []
 
         for i in objs:
@@ -43,16 +54,4 @@ def forajax2(request):
             response_data['amount'] = i.pk
             ll.append(response_data)
 
-        ll.reverse()
     return HttpResponse(json.dumps(ll), content_type="application/json")
-
-
-# return amount of the requests
-def forajax_count(request):
-
-    if request.method == 'GET':
-
-        c = {}
-        c['amount'] = Requests.objects.all().last().pk
-
-    return HttpResponse(json.dumps(c), content_type="application/json")

@@ -28,9 +28,4 @@ class RequestsRecording(object):
                 '</span>Requests</a>'
             )
 
-        count = Requests.objects.all().count()
-        obj = Requests.objects.all().first()
-        if count > 30:
-            obj.delete()   # limit of the amount of records in db
-
         return response
