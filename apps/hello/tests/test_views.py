@@ -115,6 +115,13 @@ class RequestsPageViewTest(TestCase):
         response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
 
+    def test_view_return_last_10(self):
+
+        ''' test view return last 10 objects '''
+
+        for i in range(32):
+            self.client.get(reverse('main'))
+
     def test_content_requests_list(self):
 
         ''' test view renders required data '''
