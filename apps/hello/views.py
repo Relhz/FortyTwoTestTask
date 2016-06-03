@@ -56,14 +56,3 @@ def forajax(request):
             ll.append(response_data)
   
     return HttpResponse(json.dumps(ll), content_type="application/json")
-
-
-# return amount of the requests
-def forajax_count(request):
-
-    if request.method == 'GET':
-
-        c = {}
-        c['amount'] = Requests.objects.all().last().pk
-
-    return HttpResponse(json.dumps(c), content_type="application/json")
