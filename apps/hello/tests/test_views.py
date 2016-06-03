@@ -101,7 +101,7 @@ class RequestsPageViewTest(TestCase):
 
         ''' test using template '''
 
-        for i in range(32):
+        for i in range(10):
             self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertTemplateUsed(response, 'hello/requests.html')
@@ -110,7 +110,7 @@ class RequestsPageViewTest(TestCase):
 
         ''' test status code '''
 
-        for i in range(32):
+        for i in range(10):
             self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
@@ -119,14 +119,18 @@ class RequestsPageViewTest(TestCase):
 
         ''' test view return last 10 objects '''
 
-        for i in range(32):
+        for i in range(12):
             self.client.get(reverse('main'))
+        response = self.client.get(reverse('requests'))
+        self.assertTrue('requests' in response.context)
+        context = response.context['requests']
+        self.assertTrue(len(context) == 10)
 
     def test_content_requests_list(self):
 
         ''' test view renders required data '''
 
-        for i in range(32):
+        for i in range(10):
             self.client.get(reverse('main'))
         response = self.client.get(reverse('requests'))
         self.assertIn('Requests',
