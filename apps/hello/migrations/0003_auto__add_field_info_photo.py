@@ -8,10 +8,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        pass
+        # Adding model 'Info'
+        db.add_column(u'hello_requestdata', 'path',
+                      self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True),
+                      keep_default=False)
+
 
     def backwards(self, orm):
-        pass
+        # Deleting model 'Info'
+        db.delete_table(u'hello_info')
+
+        # Deleting model 'Requests'
+        db.delete_table(u'hello_requests')
+
 
     models = {
         u'hello.info': {
