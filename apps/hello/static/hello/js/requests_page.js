@@ -9,14 +9,22 @@ $(document).ready(function(){
 	        type : "GET", 
 	        success : function(data) {
 
-	        	for(i = 0; i < 10; i++){
-			        var current = data[0].amount
-			        if((current - past) > 0){
-			        	$('.path:eq(' + i + ')').html(data[i].method + 
-				        ' ' + data[i].path + ' ; ' + data[i].status_code + 
-				        ' ; ' + data[i].date_and_time.slice(0, 16) + 
-				        '<span class="c" style="display: none">' + data[i].amount 
-				        + '</span>')
+		        var current = data[0].amount
+		        new_requests = current - old
+		        if(new_requests > 0){
+		        	for(i = 0; i < new_requests; i++){
+			        	$('.path:eq(' + ($(".path").length - 1) + ')').remove()
+			        	
+			        	$('.path:eq(0)').before(
+			        		'<p class="path">' + data[i].method + 
+					        ' ' + data[i].path + ' ; ' + data[i].status_code +
+					        ' ; ' + data[i].date_and_time.slice(0, 16) + 
+					        '<span class="c" style="display: none">' + 
+					        data[i].amount + '</span></p>'
+
+		        		)
+				        
+				    old = $('.c:eq(' + 0 + ')').html()
 		        	}
 	        	}
 	        },
@@ -40,7 +48,6 @@ $(document).ready(function(){
 		    success: function(data) {
 		        
 		        var current = data[0].amount
-		        console.log(past, current, data)
 		        if((current - past) > 0){
 		        	$('.count').html('('+ (current - past) + ')')	  
 			    	document.title = '(' + (current - past) + ')Requests'
