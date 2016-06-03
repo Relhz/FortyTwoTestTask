@@ -10,8 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         db.alter_column(u'hello_info', 'date_of_birst',
-                      self.gf('django.db.models.fields.DateField')(null=True, blank=True),
-                      keep_default=False)
+                      self.gf('django.db.models.fields.DateField')(null=True, blank=True))
 
 
     def backwards(self, orm):
