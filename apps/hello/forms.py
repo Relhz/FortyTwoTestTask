@@ -15,7 +15,7 @@ class EditForm(forms.ModelForm):
     Contacts = forms.CharField(max_length=50)
     Last_name = forms.CharField(label='Last name', max_length=20)
     Email = forms.EmailField(max_length=30)
-    Date_of_birth = forms.DateField(label='Date of birst')
+    Date_of_birth = forms.DateField(label='Date of birth')
     Skype = forms.CharField(max_length=50)
     Photo = forms.ImageField()
     Jabber = forms.CharField(max_length=50)
@@ -26,5 +26,5 @@ class EditForm(forms.ModelForm):
     class Meta:
 
         model = Info
-        fields = ['Name', 'Contacts', 'Last_name', 'Email', 'Date_of_birst',
+        fields = ['Name', 'Contacts', 'Last_name', 'Email', 'Date_of_birth',
         'Skype', 'Photo', 'Jabber', 'Other_contacts', 'Bio']

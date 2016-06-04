@@ -17,4 +17,42 @@ $(document).ready(function(){
     	readURL(this);
 	});
 
+	$('#sendpost').submit(function(event){
+	    event.preventDefault();
+	    console.log("form submitted!");
+	    send_post();
+	});
+
+	function send_post() {
+
+	    $.ajax({
+
+	        url : "/forajax_edit/", 
+	        type : "POST", 
+	        data : { 
+	        	name: $('#id_Name').val(),
+	        	last_name: $('#id_Last_name').val(), 
+	        	date_of_birth: $('#id_Date_of_birth').val(), 
+	        	photo: $('#id_Photo').val(), 
+	        	contacts: $('#id_Contacts').val(), 
+	        	email: $('#id_Email').val(), 
+	        	skype: $('#id_Skype').val(), 
+	        	jabber: $('#id_Jabber').val(), 
+	        	other_contacts: $('#id_Other_contacts').val(), 
+	        	bio: $('#id_Bio').val(), 
+	        	csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]:eq(1)').val()
+	        	},
+
+	        success : function(json) {
+	        	console.log(json)
+	        },
+
+
+	    });
+	};
+
+    $(function() {
+      $("#id_Date_of_birth").datepicker();
+    });
+
 })

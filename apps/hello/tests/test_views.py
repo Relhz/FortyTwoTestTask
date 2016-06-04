@@ -27,8 +27,8 @@ class MainPageViewTest(TestCase):
         ''' test view renders required data '''
 
         response = self.client.get(reverse('main'))
-        self.assertIn('<h1>42 Coffee Cups Test Assignment</h1>',
-                      response.content)
+        self.assertIn('<h1><a href="/">42 Coffee Cups Test Assignment</a>' +
+                      '</h1>', response.content)
         self.assertIn('Skype', response.content)
         self.assertTrue('info' in response.context)
 

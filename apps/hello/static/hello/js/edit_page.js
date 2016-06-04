@@ -32,7 +32,7 @@ $(document).ready(function(){
 	        data : { 
 	        	name: $('#id_Name').val(),
 	        	last_name: $('#id_Last_name').val(), 
-	        	date_of_birst: $('#id_Date_of_birst').val(), 
+	        	date_of_birth: $('#id_Date_of_birth').val(), 
 	        	photo: $('#id_Photo').val(), 
 	        	contacts: $('#id_Contacts').val(), 
 	        	email: $('#id_Email').val(), 
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	        	jabber: $('#id_Jabber').val(), 
 	        	other_contacts: $('#id_Other_contacts').val(), 
 	        	bio: $('#id_Bio').val(), 
-	        	csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+	        	csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]:eq(1)').val()
 	        	},
 
 	        success : function(json) {
@@ -52,7 +52,7 @@ $(document).ready(function(){
 	};
 
     $(function() {
-      $("#id_Date_of_birst").datepicker();
+      $("#id_Date_of_birth").datepicker();
     });
 
 })

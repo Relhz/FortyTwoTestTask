@@ -11,12 +11,16 @@ from django.utils import timezone
 # main page displays persons information
 def main(request):
 
+    message = ''
+    info = False
+
     if Info.objects.all():
         info = Info.objects.all().first()
     else:
-        info = Info()
-
-    return render(request, 'hello/main.html', {'info': info})
+        message = 'Database is empty'
+    
+    return render(request, 'hello/main.html', {'info': info,
+                 'message': message})
 
 
 # requests page displays last 10 requests
@@ -87,10 +91,12 @@ def logout(request):
 def edit(request):
 
     info = Info.objects.all().first()
+    date = info.date_of_birth
     initial = {
         'Name': info.name,
         'Last_name': info.last_name,
-        'Date_of_birth': info.date_of_birth,
+        'Date_of_birth': str(date.month) + '/' + str(date.day) + '/' +
+                         str(date.year),
         'Contacts': info.contacts,
         'Email': info.email,
         'Skype': info.skype,
@@ -140,7 +146,7 @@ def forajax_edit(request):
 
         info.name = request.name,
         info.last_name = request.last_name,
-        info.date_of_birst = request.date_of_birst,
+        info.date_of_birth = request.date_of_birth,
         info.contacts = request.contacts,
         info.email = request.email,
         info.skype = request.skype,
