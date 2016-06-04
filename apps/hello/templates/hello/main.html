@@ -12,7 +12,7 @@
       </div>
 
       <div class="table">
-
+      {% if info %}
         <div class="col-sm-6">
         <div class="wrapper">
           <div class="bold-column">Name</div>
@@ -40,7 +40,8 @@
           <div class="td">{{info.other_contacts|linebreaks}}</div>        
         </div>
         </div>
-
+      {% endif %}
+      <span class="message">{{ message }}</span>
       </div>
     </div>
 
