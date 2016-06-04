@@ -63,32 +63,33 @@ class MainPageViewTest(TestCase):
 
         ''' test if object doesn't exists'''
 
-        info = Info.objects.all().delete()
+        Info.objects.all().delete()
 
         response = self.client.get(reverse('main'))
-        self.assertTrue('info' in response.context)
-        context = response.context['info']
-        self.assertTrue(context.last_name == 'Surname')
-        self.assertContains(response, 'Surname', count=1, status_code=200)
-        self.assertTrue(context.name is None)
+        self.assertTrue('message' in response.context)
+        context = response.context['message']
+        self.assertTrue(context == 'Database is empty')
+        self.assertContains(response, 'Database is empty', count=1,
+                            status_code=200)
 
     def test_if_several_objects_in_db(self):
 
         ''' test if the database contains several objects '''
 
+        Info.objects.all().delete()
         # add three objects to database
-        object1 = Info(last_name='Kudrya')
+        object1 = Info(last_name='First')
         object1.save()
-        object2 = Info(last_name='Kudrya')
+        object2 = Info(last_name='Second')
         object2.save()
-        object3 = Info(last_name='Kudrya')
+        object3 = Info(last_name='Third')
         object3.save()
 
         info =  Info.objects.all().first()
         response = self.client.get(reverse('main'))
         self.assertTrue('info' in response.context)
-        context = response.context['info']
-        self.assertTrue(context.last_name == info.last_name)
+        self.assertTrue(response.context['info'].last_name == info.last_name)
+        self.assertContains(response, 'First', count=1, status_code=200)
 
 
 class ModelTest(TestCase):
