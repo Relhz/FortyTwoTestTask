@@ -1,21 +1,31 @@
 $(document).ready(function(){ 
 
 	// update requests list
+	var old = $('.c:eq(' + 0 + ')').html()
     setInterval(function(){
 	
 	    $.ajax({
-	        url : "/forajax2/", 
+	        url : "/forajax/", 
 	        type : "GET", 
 	        success : function(data) {
 
-	        	for(i = 0; i < 10; i++){
-        			
-		        		$('.path:eq(' + i + ')').html(data[i].method + 
-			        ' ' + data[i].path + ' ; ' + data[i].status_code + 
-			        ' ; ' + data[i].date_and_time.slice(0, 16) + 
-			        '<span class="c" style="display: none">' + data[i].amount 
-			        + '</span>')
+		        var current = data[0].amount
+		        new_requests = current - old
+		        if(new_requests > 0){
+		        	for(i = 0; i < new_requests; i++){
+			        	$('.path:eq(' + ($(".path").length - 1) + ')').remove()
+			        	
+			        	$('.path:eq(0)').before(
+			        		'<p class="path">' + data[i].method + 
+					        ' ' + data[i].path + ' ; ' + data[i].status_code +
+					        ' ; ' + data[i].date_and_time.slice(0, 16) + 
+					        '<span class="c" style="display: none">' + 
+					        data[i].amount + '</span></p>'
 
+		        		)
+				        
+				    old = $('.c:eq(' + 0 + ')').html()
+		        	}
 	        	}
 	        },
 	    });
@@ -33,12 +43,11 @@ $(document).ready(function(){
 	var past = $('.c:eq(' + 0 + ')').html()
 	interval = setInterval(function(){
 	    $.ajax({
-		    url: '/forajax_count/',
+		    url: '/forajax/',
 		    type: 'GET', 
 		    success: function(data) {
 		        
-		        var current = data.amount
-		        console.log(past, current)
+		        var current = data[0].amount
 		        if((current - past) > 0){
 		        	$('.count').html('('+ (current - past) + ')')	  
 			    	document.title = '(' + (current - past) + ')Requests'
@@ -64,11 +73,11 @@ $(document).ready(function(){
 		var past = $('.c:eq(' + 0 + ')').html()
 		interval = setInterval(function(){
 		    $.ajax({
-			    url: '/forajax_count/',
+			    url: '/forajax/',
 			    type: 'GET', 
 			    success: function(data) {
 
-			        var current = data.amount
+			        var current = data[0].amount
 			        if((current - past) > 0){
 			        	$('.count').html('('+ (current - past) + ')')	  
 				    	document.title = '(' + (current - past) + ')Requests'

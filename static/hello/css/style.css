@@ -7,8 +7,10 @@
     border: 2px solid green;
     border-radius: 7px;
 }
-td{
-    width: 200px;
+.td{
+	display: inline-block;
+    width: 270px;
+    margin: 10px;
 }
 hr{
     border: none; 
@@ -17,12 +19,21 @@ hr{
     height: 2px;
     margin-bottom: 5px;
 }
-.bold-column{
+.bold-column{    
+    display: inline-block;
     font-weight: bold;
     width: 70px;
+    margin-left: 20px;
 }
-.inner{
-    margin: -9px;
+.table{
+	display: inline-block;
+	background-color: #d7ebf5;
+	padding: 10px;
+	padding-top: 20px;
+}
+.bio, .other_contacts{
+	float: left;
+	margin-top: 10px;
 }
 .panel-info{
     margin: auto;

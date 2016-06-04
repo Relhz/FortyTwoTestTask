@@ -7,8 +7,10 @@
     border: 2px solid green;
     border-radius: 7px;
 }
-td{
-    width: 200px;
+.td{
+	display: inline-block;
+    width: 270px;
+    margin: 10px;
 }
 hr{
     border: none; 
@@ -17,12 +19,21 @@ hr{
     height: 2px;
     margin-bottom: 5px;
 }
-.bold-column{
+.bold-column{    
+    display: inline-block;
     font-weight: bold;
     width: 70px;
+    margin-left: 20px;
 }
-.inner{
-    margin: -9px;
+.table{
+	display: inline-block;
+	background-color: #d7ebf5;
+	padding: 10px;
+	padding-top: 20px;
+}
+.bio, .other_contacts{
+	float: left;
+	margin-top: 10px;
 }
 .panel-info{
     margin: auto;
@@ -130,6 +141,10 @@ label{
 	margin-top: 10px;
 	margin-bottom: 0px
 }
+.subm{
+	margin: 9px;
+	margin-left: 130px;
+}
 .subm_login{
 	margin: 9px;
 	margin-left: 130px;
@@ -143,6 +158,7 @@ label{
 	margin: 5px;
 	margin-right: 40px;
 	width: 250px;
+	border-radius: 7px;
 }
 .edit label{
 	width: 100px;
@@ -164,6 +180,7 @@ label[for=id_Other_contacts], label[for=id_Bio]{
 }
 #id_Other_contacts, #id_Bio{
 	width: 400px;
+	border-radius: 7px;
 }
 #id_Other_contacts{
 	height: 145px;
@@ -175,11 +192,27 @@ label[for=id_Other_contacts], label[for=id_Bio]{
    width:200px;
    height:200px;
 }
-.edit #id_Username]{
-	margin-left: 18px;
-	margin-top: 10px;
-	width: 30px;
+.loginedit input{
+	margin: 5px;
+	width: 130px;
+	height: 23px;
 }
-.edit #id_Password{
+.loginedit label{
+	width: 50px;
+	font-weight: normal;
+	margin: 5px;
+}
+.loginedit input[class="subm"]{
+	width: 49px;
+	height: 26px;
+}
+#save{
+	width: 49px;
+	height: 26px;
 	margin-left: 20px;
+}
+.success{
+	font-size: 17px;
+	margin-left: 25px;
+	color: green;
 }

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+      <div class="table">
+      {% if info %}
+        <div class="col-sm-6">
+        <div class="wrapper">
+          <div class="bold-column">Name</div>
+          <div class="td">{{info.name}}</div><br>
+          <div class="bold-column">Last name</div>
+          <div class="td">{{info.last_name}}</div><br>
+          <div class="bold-column">Date of birth</div>
+          <div class="td">{{info.date_of_birth}}</div><br>
+          <div class="bold-column bio">Bio:</div>
+          <div class="td">{{info.bio|linebreaks}}</div>
+        </div>
+        </div>
+
+        <div class="col-sm-6">
+        <div class="wrapper">
+          <div class="bold-column">Contacts</div>
+          <div class="td">{{info.contacts}}</div><br>
+          <div class="bold-column">Email:</div>
+          <div class="td">{{info.email}}</div><br>
+          <div class="bold-column">Skype:</div>
+          <div class="td">{{info.skype}}</div><br>
+          <div class="bold-column">Jabber:</div>
+          <div class="td">{{info.jabber}}</div><br>  
+          <div class="bold-column other_contacts">Other contacts</div>
+          <div class="td">{{info.other_contacts|linebreaks}}</div>        
+        </div>
+        </div>
+      {% endif %}
+      <span class="message">{{ message }}</span>
+      </div>
+      <hr>
+    </div>
+
+
+
+{% endblock content %}

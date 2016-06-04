@@ -11,17 +11,17 @@ class LoginForm(forms.Form):
 
 class EditForm(forms.ModelForm):
 
-    Name = forms.CharField(max_length=30)
+    Name = forms.CharField(max_length=20)
     Contacts = forms.CharField(max_length=50)
-    Last_name = forms.CharField(label='Last name', max_length=30)
+    Last_name = forms.CharField(label='Last name', max_length=20)
     Email = forms.EmailField(max_length=30)
-    Date_of_birst = forms.DateField(label='Date of birst')
-    Skype = forms.CharField(max_length=30)
+    Date_of_birth = forms.DateField(label='Date of birst')
+    Skype = forms.CharField(max_length=50)
     Photo = forms.ImageField()
-    Jabber = forms.CharField(max_length=30)
-    Other_contacts = forms.CharField(label='Other contacts', max_length=50, 
+    Jabber = forms.CharField(max_length=50)
+    Other_contacts = forms.CharField(label='Other contacts', max_length=100, 
     	widget=forms.Textarea)
-    Bio = forms.CharField(max_length=300, widget=forms.Textarea)
+    Bio = forms.CharField(max_length=500, widget=forms.Textarea)
 
     class Meta:
 
