@@ -12,6 +12,6 @@ urlpatterns = patterns(
     url(r'^login/', views.login, name='login'),
     url(r'^logout/', views.logout, name='logout'),
     url(r'^log_in/', views.log_in, name='log_in'),
-    url(r'^forajax_edit/', views.forajax_edit),
+    url(r'^forajax_edit/', views.forajax_edit, name='forajax_edit'),
 
 )

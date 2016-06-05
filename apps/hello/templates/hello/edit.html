@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}Requests{% endblock title %}
+{% block title %}Edit{% endblock title %}
 {% block extra_head %}
 <script type="text/javascript" src="/static/hello/js/edit_page.js"></script>
 <script src="/static/hello/js/jquery-ui.min.js"></script>
@@ -41,7 +41,7 @@
 
 <div class="edit">
   <div class="row">
-    <form id="sendpost" method="post" action="/forajax_edit/">
+    <form id="sendpost" method="post">
         {% csrf_token %}
         <div class="col-sm-6">
         <div class="wrapper">
@@ -49,7 +49,7 @@
         {{form.Last_name.label_tag}}{{form.Last_name}}
         {{form.Date_of_birth.label_tag}}{{form.Date_of_birth}}
         {{form.Photo.label_tag}}{{form.Photo}}
-        <img id="preview" width="330"  align="left" src="#" alt="your photo" />
+        <img id="preview" width="330"  align="left" src="#" alt="photo" />
         </div>  
         </div>
         <div class="col-sm-6">

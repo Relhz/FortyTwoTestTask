@@ -215,4 +215,5 @@ label[for=id_Other_contacts], label[for=id_Bio]{
 	font-size: 17px;
 	margin-left: 25px;
 	color: green;
+	display: none;
 }

@@ -121,7 +121,7 @@ def forajax(request):
             objs = Requests.objects.all()
         else:
             objs = Requests.objects.all().order_by('-pk')[:10]
-        ll = []
+        resp = []
 
         for i in objs:
             response_data = {}
@@ -132,9 +132,9 @@ def forajax(request):
                 ))
             response_data['status_code'] = i.status_code
             response_data['amount'] = i.pk
-            ll.append(response_data)
+            resp.append(response_data)
 
-    return HttpResponse(json.dumps(ll), content_type="application/json")
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 # edit data
@@ -143,20 +143,22 @@ def forajax_edit(request):
     if request.method == 'POST':
 
         info = Info.objects.all().first()
+        date = request.POST.get('date_of_birth').split('/')
 
-        info.name = request.name,
-        info.last_name = request.last_name,
-        info.date_of_birth = request.date_of_birth,
-        info.contacts = request.contacts,
-        info.email = request.email,
-        info.skype = request.skype,
-        info.jabber = request.jabber,
-        info.bio = request.bio,
-        info.other_contacts = request.other_contacts,
-        info.photo = request.photo
+        info.name = request.POST.get('name')
+        info.last_name = request.POST.get('last_name')
+        info.date_of_birth = date[2] + '-' + date[0] + '-' + date[1]
+        info.contacts = request.POST.get('contacts')
+        info.email = request.POST.get('email')
+        info.skype = request.POST.get('skype')
+        info.jabber = request.POST.get('jabber')
+        info.bio = request.POST.get('bio')
+        info.other_contacts = request.POST.get('other_contacts')
+        info.photo = request.POST.get('photo')
 
         info.save()
 
-        c = {'success': 'success'}
+        resp = {'reponse': 'reponse'}
+        
 
-    return HttpResponse(json.dumps(c), content_type="application/json")
+    return HttpResponse(json.dumps(resp), content_type="application/json")
