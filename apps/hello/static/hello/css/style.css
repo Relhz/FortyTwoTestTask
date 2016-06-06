@@ -1,7 +1,7 @@
 .container-fluid{
 	max-width: 900px;
 }
-.panel-success{
+.panel{
     margin: auto;
     text-align: center;
     border: 2px solid green;
@@ -11,20 +11,6 @@
 	display: inline-block;
     width: 270px;
     margin: 10px;
-}
-hr{
-    border: none; 
-    color: green; 
-    background-color: green; 
-    height: 2px;
-    margin-bottom: 5px;
-}
-hr{
-    border: none; 
-    color: green; 
-    background-color: green; 
-    height: 2px;
-    margin-bottom: 5px;
 }
 .bold-column{
 	display: inline-block;
@@ -45,22 +31,9 @@ hr{
 	float: left;
 	margin-top: 10px;
 }
-.panel-info{
-    margin: auto;
-    text-align: left;
-    background-color: #d7ebf5
-}
-.last{
-	padding: 50px;
-	padding-bottom: 20px;
+.message{
+	display: inline-block;
 	font-size: 20px;
-}
-.path{
-	margin-left: 70px;
-}
-.count{
-	width: 30px;
-}
-.req{
-	margin-left: 5%;
+	margin: 20%;
+
 }

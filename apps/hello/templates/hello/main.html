@@ -8,11 +8,12 @@
     <div class="container-fluid">
       
       <div class="panel panel-success">
-          <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1>
-          </div>
+
+          <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1></div>
       </div>
 
       <div class="table">
+      {% if info %}
 
         <div class="col-sm-6">
         <div class="wrapper">
@@ -23,7 +24,7 @@
           <div class="bold-column">Date of birth</div>
           <div class="td">{{info.date_of_birth}}</div><br>
           <div class="bold-column bio">Bio:</div>
-          <div class="td">{{info.bio}}</div>
+          <div class="td">{{info.bio|linebreaks}}</div>
         </div>
         </div>
 
@@ -38,12 +39,13 @@
           <div class="bold-column">Jabber:</div>
           <div class="td">{{info.jabber}}</div><br>  
           <div class="bold-column other_contacts">Other contacts</div>
-          <div class="td">{{info.other_contacts}}</div>        
+          <div class="td">{{info.other_contacts|linebreaks}}</div>        
         </div>
         </div>
-
+      {% else %}
+      <span class="message">Database is empty</span>
+      {% endif %}
       </div>
-      <hr>
-    </div>   
+    </div>
 
 {% endblock content %}
