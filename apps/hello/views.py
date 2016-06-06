@@ -6,6 +6,6 @@ from models import Info
 # main page displays persons information
 def main(request):
 
-    info = Info.objects.all().first()
+    info = Info.objects.first()
 
     return render(request, 'hello/main.html', {'info': info})
