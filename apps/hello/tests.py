@@ -30,7 +30,7 @@ class MainPageViewTest(TestCase):
         self.assertIn('<h1>42 Coffee Cups Test Assignment</h1>',
                       response.content)
         self.assertIn('Skype', response.content)
-        self.assertTrue('info' in response.context)
+        self.assertIn('info', response.context)
 
     def test_render_all_fields(self):
 
@@ -39,7 +39,7 @@ class MainPageViewTest(TestCase):
         response = self.client.get(reverse('main'))
         info = Info.objects.get(last_name='Kudrya')
 
-        self.assertTrue(response.context['info'] == info)
+        self.assertEqual(response.context['info'], info)
 
     def test_render_cyrillic(self):
 
@@ -58,7 +58,7 @@ class MainPageViewTest(TestCase):
         Info.objects.all().delete()
 
         response = self.client.get(reverse('main'))
-        self.assertTrue('info' in response.context)
+        self.assertIn('info', response.context)
         self.assertContains(response, 'Database is empty', count=1,
                             status_code=200)
 
@@ -77,8 +77,8 @@ class MainPageViewTest(TestCase):
 
         info = Info.objects.all().first()
         response = self.client.get(reverse('main'))
-        self.assertTrue('info' in response.context)
-        self.assertTrue(response.context['info'] == info)
+        self.assertIn('info', response.context)
+        self.assertEqual(response.context['info'], info)
         self.assertContains(response, 'First', count=1, status_code=200)
 
 
