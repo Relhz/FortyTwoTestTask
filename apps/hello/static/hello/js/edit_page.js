@@ -13,18 +13,22 @@ $(document).ready(function(){
 	    }
 	}
 
+
 	$("#id_Photo").change(function(){
     	readURL(this);
 	});
 
 	$('#sendpost').submit(function(event){
 	    event.preventDefault();
-	    console.log($('input[name=csrfmiddlewaretoken]').val());
 	    send_post();
 	});
 
+
+
 	function send_post() {
 
+		console.log($('#id_Photo').files)
+		
 	    $.ajax({
 
 	        url : "/forajax_edit/", 
@@ -40,19 +44,21 @@ $(document).ready(function(){
 	        	jabber: $('#id_Jabber').val(), 
 	        	other_contacts: $('#id_Other_contacts').val(), 
 	        	bio: $('#id_Bio').val(), 
-	        	csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+	        	csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
 	        	},
 
 	        success : function(json) {
 	        	$('.success').show()
+	        	console.log(json.response)
 	        },
-
 
 	    });
 	};
 
     $(function() {
-      $("#id_Date_of_birth").datepicker();
+        $("#id_Date_of_birth").datepicker({
+      	  dateFormat: "yy-mm-dd"
+        });
     });
 
 })

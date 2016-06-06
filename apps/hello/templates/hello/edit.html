@@ -41,7 +41,7 @@
 
 <div class="edit">
   <div class="row">
-    <form id="sendpost" method="post">
+    <form id="sendpost" method="post" action="/go/" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="col-sm-6">
         <div class="wrapper">

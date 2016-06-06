@@ -95,8 +95,8 @@ def edit(request):
     initial = {
         'Name': info.name,
         'Last_name': info.last_name,
-        'Date_of_birth': str(date.month) + '/' + str(date.day) + '/' +
-                         str(date.year),
+        'Date_of_birth': info.date_of_birth,
+        'photo': info.photo,
         'Contacts': info.contacts,
         'Email': info.email,
         'Skype': info.skype,
@@ -142,12 +142,13 @@ def forajax_edit(request):
 
     if request.method == 'POST':
 
+        resp = {'reponse': 'response'}
+
         info = Info.objects.all().first()
-        date = request.POST.get('date_of_birth').split('/')
 
         info.name = request.POST.get('name')
         info.last_name = request.POST.get('last_name')
-        info.date_of_birth = date[2] + '-' + date[0] + '-' + date[1]
+        info.date_of_birth = request.POST.get('date_of_birth')
         info.contacts = request.POST.get('contacts')
         info.email = request.POST.get('email')
         info.skype = request.POST.get('skype')
@@ -157,8 +158,5 @@ def forajax_edit(request):
         info.photo = request.POST.get('photo')
 
         info.save()
-
-        resp = {'reponse': 'reponse'}
-        
 
     return HttpResponse(json.dumps(resp), content_type="application/json")

@@ -19,6 +19,9 @@
           <div class="td">{{info.date_of_birth}}</div><br>
           <div class="bold-column bio">Bio:</div>
           <div class="td">{{info.bio|linebreaks}}</div>
+          <div class="bold-column">Photo</div>
+          <div class="td"><img id="myphoto" width="200" src="{{info.photo.url}}">
+          </div><br>
         </div>
         </div>
 
@@ -41,7 +44,7 @@
       </div>
       <hr>
     </div>
-
+{{ info.photo.url }}
 
 
 {% endblock content %}
