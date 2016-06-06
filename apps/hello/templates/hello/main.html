@@ -17,8 +17,6 @@
           <div class="td">{{info.last_name}}</div><br>
           <div class="bold-column">Date of birth</div>
           <div class="td">{{info.date_of_birth}}</div><br>
-          <div class="bold-column bio">Bio:</div>
-          <div class="td">{{info.bio|linebreaks}}</div>
           <div class="bold-column">Photo</div>
           <div class="td"><img id="myphoto" width="200" src="{{info.photo.url}}">
           </div><br>
@@ -36,7 +34,9 @@
           <div class="bold-column">Jabber:</div>
           <div class="td">{{info.jabber}}</div><br>  
           <div class="bold-column other_contacts">Other contacts</div>
-          <div class="td">{{info.other_contacts|linebreaks}}</div>        
+          <div class="td">{{info.other_contacts|linebreaks}}</div> 
+          <div class="bold-column bio">Bio:</div>
+          <div class="td">{{info.bio|linebreaks}}</div>       
         </div>
         </div>
       {% endif %}

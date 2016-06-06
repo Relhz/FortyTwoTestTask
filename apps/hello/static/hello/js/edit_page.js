@@ -1,4 +1,4 @@
-$(document).ready(function(){ 
+$(document).ready(function(){  
 
 	function readURL(input) {
 
@@ -7,11 +7,11 @@ $(document).ready(function(){
 
 	        reader.onload = function (e) {
 	            $('#preview').attr('src', e.target.result);
-	        }
+	        };
 
 	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
+	    };
+	};
 
 
 	$("#id_Photo").change(function(){
@@ -22,7 +22,6 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    send_post();
 	});
-
 
 
 	function send_post() {
