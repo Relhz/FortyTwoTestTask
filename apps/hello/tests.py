@@ -39,15 +39,7 @@ class MainPageViewTest(TestCase):
         response = self.client.get(reverse('main'))
         info = Info.objects.get(last_name='Kudrya')
 
-        self.assertIn(info.name, response.content)
-        self.assertIn(info.last_name, response.content)
-        self.assertIn('Jan. 21, 1990', response.content)
-        self.assertIn(info.bio, response.content)
-        self.assertIn(info.contacts, response.content)
-        self.assertIn(info.email, response.content)
-        self.assertIn(info.skype, response.content)
-        self.assertIn(info.jabber, response.content)
-        self.assertIn(info.other_contacts, response.content)
+        self.assertTrue(response.context['info'] == info)
 
     def test_render_cyrillic(self):
 
@@ -66,9 +58,7 @@ class MainPageViewTest(TestCase):
         Info.objects.all().delete()
 
         response = self.client.get(reverse('main'))
-        self.assertTrue('message' in response.context)
-        context = response.context['message']
-        self.assertTrue(context == 'Database is empty')
+        self.assertTrue('info' in response.context)
         self.assertContains(response, 'Database is empty', count=1,
                             status_code=200)
 
@@ -85,10 +75,10 @@ class MainPageViewTest(TestCase):
         object3 = Info(last_name='Third')
         object3.save()
 
-        info =  Info.objects.all().first()
+        info = Info.objects.all().first()
         response = self.client.get(reverse('main'))
         self.assertTrue('info' in response.context)
-        self.assertTrue(response.context['info'].last_name == info.last_name)
+        self.assertTrue(response.context['info'] == info)
         self.assertContains(response, 'First', count=1, status_code=200)
 
 
