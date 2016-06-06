@@ -112,8 +112,8 @@ class ModelTest(TestCase):
         self.assertTrue(hasattr(info, 'name'))
         self.assertTrue(hasattr(info, 'bio'))
         self.assertTrue(hasattr(info, 'jabber'))
-        info.date_of_birst = '1995-03-03'
+        info.date_of_birth = '1995-03-03'
         info.email = 'qkerbv@i.ua'
         info.bio = 'information information information'
         info.save()
-        self.assertEquals(info.date_of_birst, '1995-03-03')
+        self.assertEquals(info.date_of_birth, '1995-03-03')
