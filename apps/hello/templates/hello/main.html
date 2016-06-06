@@ -40,8 +40,9 @@
           <div class="td">{{info.other_contacts|linebreaks}}</div>        
         </div>
         </div>
+      {% else %}
+      <span class="message">Database is empty</span>
       {% endif %}
-      <span class="message">{{ message }}</span>
       </div>
     </div>
 
