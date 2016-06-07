@@ -13,7 +13,7 @@
       </div>
 
       <div class="table">
-
+      {% if info %}
         <div class="col-sm-6">
         <div class="wrapper">
           <div class="bold-column">Name</div>
@@ -41,7 +41,9 @@
           <div class="td">{{info.other_contacts}}</div>        
         </div>
         </div>
-
+      {% else %}
+      <span class="message">Database is empty</span>
+      {% endif %}
       </div>
       <hr>
     </div>

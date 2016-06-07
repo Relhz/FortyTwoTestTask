@@ -9,10 +9,7 @@ from django.utils import timezone
 # main page displays persons information
 def main(request):
 
-    if Info.objects.all():
-        info = Info.objects.all().first()
-    else:
-        info = Info()
+    info = Info.objects.first()
 
     return render(request, 'hello/main.html', {'info': info})
 

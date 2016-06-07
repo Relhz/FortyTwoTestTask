@@ -21,11 +21,10 @@ class RequestsRecording(object):
             )
             r.save()
 
-        if request.path != '/requests/':
-            response.content = response.content.replace(
-                '<hr>',
-                '<hr><a class="req" href="/requests/"><span class="amount">' +
-                '</span>Requests</a>'
-            )
+        response.content = response.content.replace(
+            '<hr>',
+            '<hr><a class="req" href="/requests/"><span class="amount">' +
+            '</span>Requests</a>'
+        )
 
         return response
