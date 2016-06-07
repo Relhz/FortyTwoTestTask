@@ -8,19 +8,26 @@ $(document).ready(function(){
 	        url : "/forajax/", 
 	        type : "GET", 
 	        success : function(data) {
+	        	console.log(data[0])
+	        	console.log(data[0].split(' ')[1])
+	        	console.log(data[0].split(' ')[3])
+	        	console.log(data[0].split(' ')[5])
+	        	console.log(data[0].split(' ')[7])
+	        	console.log(data[0].split(' ')[9])
 
-		        var current = data[0].amount
+		        var current = data[0].split(' ')[7]
+		        console.log(current)
 		        new_requests = current - old
 		        if(new_requests > 0){
 		        	for(i = 0; i < new_requests; i++){
 			        	$('.path:eq(' + ($(".path").length - 1) + ')').remove()
 			        	
 			        	$('.path:eq(0)').before(
-			        		'<p class="path">' + data[i].method + 
-					        ' ' + data[i].path + ' ; ' + data[i].status_code +
-					        ' ; ' + data[i].date_and_time.slice(0, 16) + 
+			        		'<p class="path">' + data[i].split(' ')[9] + 
+					        ' ' + data[i].split(' ')[1] + ' ; ' + data[i].split(' ')[5] +
+					        ' ; ' + data[i].split(' ')[3] + 
 					        '<span class="c" style="display: none">' + 
-					        data[i].amount + '</span></p>'
+					        data[i].split(' ')[7] + '</span></p>'
 
 		        		)
 				        
@@ -47,7 +54,7 @@ $(document).ready(function(){
 		    type: 'GET', 
 		    success: function(data) {
 		        
-		        var current = data[0].amount
+		        var current = data[0].split(' ')[7]
 		        if((current - past) > 0){
 		        	$('.count').html('('+ (current - past) + ')')	  
 			    	document.title = '(' + (current - past) + ')Requests'
@@ -77,7 +84,7 @@ $(document).ready(function(){
 			    type: 'GET', 
 			    success: function(data) {
 
-			        var current = data[0].amount
+			        var current = data[0].split(' ')[7]
 			        if((current - past) > 0){
 			        	$('.count').html('('+ (current - past) + ')')	  
 				    	document.title = '(' + (current - past) + ')Requests'

@@ -32,26 +32,24 @@ def requests(request):
     return render(request, 'hello/requests.html', {'requests': requests})
 
 
+def date_handler(obj):
+
+    return obj.isoformat() if hasattr(obj, 'isoformat') else obj
+
+
 # return last 10 objects from database
 def forajax(request):
 
     if request.method == 'GET':
 
-        if len(Requests.objects.all()) < 10:
-            objs = Requests.objects.all()
-        else:
-            objs = Requests.objects.all().order_by('-pk')[:10]
-        ll = []
+        objs = Requests.objects.all().order_by('-pk')[:10].values()
+        if len(objs) < 10:
+            objs = Requests.objects.all().order_by('-pk').values()
+ 
+        json_list = []
 
         for i in objs:
-            response_data = {}
-            response_data['path'] = i.path
-            response_data['method'] = i.method
-            response_data['date_and_time'] = str(timezone.localtime(
-                i.date_and_time
-                ))
-            response_data['status_code'] = i.status_code
-            response_data['amount'] = i.pk
-            ll.append(response_data)
+            json_list.append(json.dumps(i, default=date_handler))
 
-    return HttpResponse(json.dumps(ll), content_type="application/json")
+    return HttpResponse(json.dumps(json_list, default=date_handler),
+                                   content_type="application/json")
