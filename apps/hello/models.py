@@ -18,3 +18,10 @@ class Info(models.Model):
     # model object represents as last name str
     def __unicode__(self):
         return self.last_name
+
+
+class Requests(models.Model):
+
+    path = models.CharField(max_length=300, default='path')
+    method = models.CharField(max_length=10, default='Post')
+    date_and_time = models.DateTimeField(default=timezone.now())
