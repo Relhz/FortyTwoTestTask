@@ -2,17 +2,18 @@ $(document).ready(function(){
     
     // update requests list    
     var old = parseInt($('.c:eq(' + 0 + ')').html())
+    var past = parseInt($('.c:eq(' + 0 + ')').html())
     setInterval(function(){
 
         $.ajax({
             url : "/forajax/", 
             type : "GET", 
             success : function(data) {
-
+ 
                 var current = parseInt(data[0].split(' ')[5])
                 var new_requests = current - old
 
-                if(new_requests > 0){
+                if(new_requests){
                     for(i = 0; i < new_requests; i++){
                         $('.path:eq(' + ($(".path").length - 1) + ')').remove()
 
@@ -28,55 +29,28 @@ $(document).ready(function(){
 
                     old = parseInt($('.c:eq(' + 0 + ')').html())
                     }
+	                if(document.hidden){
+	                	console.log('lol')
+	                    $('.count').html('('+ (current - past) + ')')	  
+	                    document.title = '(' + (current - past) + ')Requests'
+	                }
+	                else{
+	                	past = parseInt($('.c:eq(' + 0 + ')').html())
+	                }
                 }
             },
         });
-    
-    }, 1000);
-
-    // reset requests counter	    
-    $(window).mouseenter(function () {
-        clearInterval(interval)
-        $('.count').html('')
-        document.title = 'Requests'    
-    })
-
-    // write amount of the requests to a header and a title
-    var past = parseInt($('.c:eq(' + 0 + ')').html())
-    interval = setInterval(function(){
-        
-        var current = parseInt($('.c:eq(' + 0 + ')').html())
-        if((current - past) > 0){
-            $('.count').html('('+ (current - past) + ')')	  
-            document.title = '(' + (current - past) + ')Requests'
-        }
 
     }, 1000);
 
-    // reset requests counter when user view page
-    $(window).focus(function () {
-        clearInterval(interval)
-        setTimeout(function(){ 
-            $('.count').html('')
-            document.title = 'Requests'
-        }, 2000);
+    $(window).focus(function(){
         
-    });
-
-    // write amount of the requests to a header and a title
-    // when user switches out this tab
-    $(window).blur(function () {
-        clearInterval(interval)
-        var past = parseInt($('.c:eq(' + 0 + ')').html())
-
-        interval = setInterval(function(){
-
-            var current = parseInt($('.c:eq(' + 0 + ')').html())
-            if((current - past) > 0){
-                $('.count').html('('+ (current - past) + ')')	  
-                document.title = '(' + (current - past) + ')Requests'
-            }
-
-        }, 500);
+        document.title = 'Requests'
+        past = parseInt($('.c:eq(' + 0 + ')').html())
+        setTimeout(function(){
+        	$('.count').html('')
+        }, 1500)
     })
-});
+
+})
+

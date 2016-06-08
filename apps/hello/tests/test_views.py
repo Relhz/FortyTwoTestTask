@@ -132,7 +132,7 @@ class RequestsPageViewTest(TestCase):
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
-    def test_forajax_view_render_data(self):
+    def test_forajax_view_render__correct_data(self):
 
         ''' test ajax view renders required data '''
 
@@ -140,9 +140,8 @@ class RequestsPageViewTest(TestCase):
             response = self.client.get(reverse('requests'))
         response = self.client.get(reverse('forajax'),
                                    content_type='application/json')
-        request = Requests.objects.first()
-        print response
+        request = Requests.objects.last()
         self.assertContains(response, request.path, count=10)
         self.assertContains(response, request.method, count=10)
-        self.assertContains(response, request.date_and_time.isoformat()[:17],
+        self.assertContains(response, request.date_and_time.isoformat()[:19],
                             count=10)
