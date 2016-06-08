@@ -19,13 +19,6 @@ hr{
     height: 2px;
     margin-bottom: 5px;
 }
-hr{
-    border: none; 
-    color: green; 
-    background-color: green; 
-    height: 2px;
-    margin-bottom: 5px;
-}
 .bold-column{
 	display: inline-block;
     font-weight: bold;

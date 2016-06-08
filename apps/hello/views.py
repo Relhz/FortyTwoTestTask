@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from models import Info
 from models import Requests
 import json
