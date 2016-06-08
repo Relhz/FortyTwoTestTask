@@ -20,10 +20,6 @@ class RequestsRecording(object):
 
     def process_response(self, request, response):
 
-        obj = Requests.objects.all().last()
-        obj.status_code = response.status_code
-        obj.save()
-
         response.content = response.content.replace(
             '<hr>',
             '<hr><a class="req" href="/requests/"><span class="amount">' +

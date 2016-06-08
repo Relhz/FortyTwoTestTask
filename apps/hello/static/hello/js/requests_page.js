@@ -9,7 +9,7 @@ $(document).ready(function(){
             type : "GET", 
             success : function(data) {
 
-                var current = parseInt(data[0].split(' ')[7])
+                var current = parseInt(data[0].split(' ')[5])
                 var new_requests = current - old
 
                 if(new_requests > 0){
@@ -18,12 +18,12 @@ $(document).ready(function(){
 
                         $('.path:eq(0)').before(
                             '<p class="path">' + 
-                            data[i].split(' ')[9].replace(/"/gi, '').replace(/}/gi, '') + 
+                            data[i].split(' ')[7].replace(/"/gi, '').replace(/}/gi, '') + 
                             ' ' + data[i].split(' ')[1].replace(/"/gi, '') + 
-                            ' ' + data[i].split(' ')[5].replace(/"/gi, '') + ' ' + 
+                            ' ' + 
                             data[i].split(' ')[3].slice(0, 17).replace(/"/gi, '').replace(/T/gi, ' ')
                             + '<span class="c" style="display: none">' + 
-                            data[i].split(' ')[7].replace(/"/gi, '') + '</span></p>'
+                            data[i].split(' ')[5].replace(/"/gi, '') + '</span></p>'
                         )
 
                     old = parseInt($('.c:eq(' + 0 + ')').html())

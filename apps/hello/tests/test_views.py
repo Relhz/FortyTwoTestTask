@@ -111,11 +111,8 @@ class RequestsPageViewTest(TestCase):
         context = response.context['requests']
         objects = Requests.objects.all().order_by('-pk')[:10]
         self.assertEqual(len(context), 10)
-        # additional object appends to DB after request, that's why 
-        # such comparisons
-        self.assertEqual(context[0], objects[1])
-        self.assertEqual(context[4], objects[5])
-        self.assertEqual(context[8], objects[9])
+        self.assertEqual(context[9], objects[9])
+
 
     def test_content_requests_list(self):
 
@@ -139,8 +136,13 @@ class RequestsPageViewTest(TestCase):
 
         ''' test ajax view renders required data '''
 
+        for i in range(15):
+            response = self.client.get(reverse('requests'))
         response = self.client.get(reverse('forajax'),
                                    content_type='application/json')
-        self.assertContains(response, 'status_code', status_code=200)
-        self.assertContains(response, 'path', status_code=200)
-        self.assertContains(response, 'date_and_time', status_code=200)
+        request = Requests.objects.first()
+        print response
+        self.assertContains(response, request.path, count=10)
+        self.assertContains(response, request.method, count=10)
+        self.assertContains(response, request.date_and_time.isoformat()[:17],
+                            count=10)

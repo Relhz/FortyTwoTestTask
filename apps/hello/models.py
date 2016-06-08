@@ -26,4 +26,3 @@ class Requests(models.Model):
     path = models.CharField(max_length=300, default='path')
     method = models.CharField(max_length=10, default='Post')
     date_and_time = models.DateTimeField(default=timezone.now())
-    status_code = models.CharField(max_length=10, default='200')
