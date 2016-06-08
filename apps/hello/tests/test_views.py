@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from apps.hello.models import Info, Requests
 
 
-
 class MainPageViewTest(TestCase):
 
     ''' testing view for main page '''
@@ -112,7 +111,7 @@ class RequestsPageViewTest(TestCase):
         objects = Requests.objects.all().order_by('-pk')[:10]
         self.assertEqual(len(context), 10)
         self.assertEqual(context[9], objects[9])
-
+        self.assertEqual(context[0], objects[0])
 
     def test_content_requests_list(self):
 
@@ -132,7 +131,7 @@ class RequestsPageViewTest(TestCase):
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
-    def test_forajax_view_render__correct_data(self):
+    def test_forajax_view_render_correct_data(self):
 
         ''' test ajax view renders required data '''
 

@@ -18,6 +18,8 @@ class RequestsRecording(object):
             )
             r.save()
 
+        return ''
+
     def process_response(self, request, response):
 
         response.content = response.content.replace(

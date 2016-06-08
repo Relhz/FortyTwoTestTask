@@ -43,4 +43,4 @@ def forajax(request):
             json_list.append(json.dumps(i, default=date_handler))
 
     return HttpResponse(json.dumps(json_list, default=date_handler),
-                                    content_type="application/json")
+                        content_type="application/json")
