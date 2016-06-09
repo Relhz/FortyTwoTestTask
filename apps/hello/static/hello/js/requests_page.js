@@ -17,8 +17,7 @@ $(document).ready(function(){
                     for(i = 0; i < new_requests; i++){
                         $('.path:eq(' + ($(".path").length - 1) + ')').remove()
                         $('.path:eq(0)').before(
-                            '<p class="path">' + 
-                            data[i].method + 
+                            '<p class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
                             data[i].date_and_time.slice(0, 16).replace(/T/i, ' ')
                             + '<span class="c" style="display: none">' + 
