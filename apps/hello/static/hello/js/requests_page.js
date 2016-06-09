@@ -1,15 +1,15 @@
 $(document).ready(function(){ 
     
     // update requests list    
-    var old = parseInt($('.c:eq(' + 0 + ')').html())
-    var past = parseInt($('.c:eq(' + 0 + ')').html())
+    var old = parseInt($('.c').html())
+    var past = parseInt($('.c').html())
     setInterval(function(){
 
         $.ajax({
             url : "/forajax/", 
             type : "GET", 
             success : function(data) {
- 
+ 				console.log($('.c').html())
                 var current = parseInt(data[0].id)
                 var new_requests = current - old
 
@@ -24,15 +24,14 @@ $(document).ready(function(){
                             data[i].id + '</span></p>'
                         )
 
-                    old = parseInt($('.c:eq(' + 0 + ')').html())
+                    old = parseInt($('.c').html())
                     }
 	                if(document.hidden){
-	                	console.log('lol')
 	                    $('.count').html('('+ (current - past) + ')')	  
 	                    document.title = '(' + (current - past) + ')Requests'
 	                }
 	                else{
-	                	past = parseInt($('.c:eq(' + 0 + ')').html())
+	                	past = parseInt($('.c').html())
 	                }
                 }
             },
@@ -43,7 +42,7 @@ $(document).ready(function(){
     $(window).focus(function(){
         
         document.title = 'Requests'
-        past = parseInt($('.c:eq(' + 0 + ')').html())
+        past = parseInt($('.c').html())
         setTimeout(function(){
         	$('.count').html('')
         }, 1500)

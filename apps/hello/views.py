@@ -18,11 +18,7 @@ def requests(request):
 
     objects = Requests.objects.all().order_by('-pk')[:10]
 
-    requests = []
-    for i in objects:
-        requests.append(i)
-
-    return render(request, 'hello/requests.html', {'requests': requests})
+    return render(request, 'hello/requests.html', {'objects': objects})
 
 
 def date_handler(obj):

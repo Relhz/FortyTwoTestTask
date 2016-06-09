@@ -106,19 +106,18 @@ class RequestsPageViewTest(TestCase):
 
         for i in range(15):
             response = self.client.get(reverse('requests'))
-        self.assertIn('requests', response.context)
-        context = response.context['requests']
+        self.assertIn('objects', response.context)
+        context = response.context['objects']
         objects = Requests.objects.all().order_by('-pk')[:10]
         self.assertEqual(len(context), 10)
-        self.assertEqual(context[9], objects[9])
-        self.assertEqual(context[0], objects[0])
+        self.assertEqual(list(context), list(objects))
 
     def test_content_requests_list(self):
 
         ''' test view renders required data '''
 
         response = self.client.get(reverse('requests'))
-        self.assertIn('requests', response.context)
+        self.assertIn('objects', response.context)
         self.assertIn('Requests',
                       response.content)
         self.assertIn('Last requests', response.content)
