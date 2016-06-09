@@ -10,21 +10,19 @@ $(document).ready(function(){
             type : "GET", 
             success : function(data) {
  
-                var current = parseInt(data[0].split(' ')[5])
+                var current = parseInt(data[0].id)
                 var new_requests = current - old
 
                 if(new_requests){
                     for(i = 0; i < new_requests; i++){
                         $('.path:eq(' + ($(".path").length - 1) + ')').remove()
-
                         $('.path:eq(0)').before(
                             '<p class="path">' + 
-                            data[i].split(' ')[7].replace(/"/gi, '').replace(/}/gi, '') + 
-                            ' ' + data[i].split(' ')[1].replace(/"/gi, '') + 
-                            ' ' + 
-                            data[i].split(' ')[3].slice(0, 17).replace(/"/gi, '').replace(/T/gi, ' ')
+                            data[i].method + 
+                            ' ' + data[i].path + ', ' + 
+                            data[i].date_and_time.slice(0, 16).replace(/T/i, ' ')
                             + '<span class="c" style="display: none">' + 
-                            data[i].split(' ')[5].replace(/"/gi, '') + '</span></p>'
+                            data[i].id + '</span></p>'
                         )
 
                     old = parseInt($('.c:eq(' + 0 + ')').html())

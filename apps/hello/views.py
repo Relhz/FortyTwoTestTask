@@ -34,13 +34,7 @@ def date_handler(obj):
 def forajax(request):
 
     if request.method == 'GET':
-
         objs = Requests.objects.all().order_by('-pk')[:10].values()
 
-        json_list = []
-
-        for i in objs:
-            json_list.append(json.dumps(i, default=date_handler))
-
-    return HttpResponse(json.dumps(json_list, default=date_handler),
+    return HttpResponse(json.dumps(list(objs), default=date_handler),
                         content_type="application/json")
