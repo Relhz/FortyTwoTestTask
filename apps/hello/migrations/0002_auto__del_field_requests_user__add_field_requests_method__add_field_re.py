@@ -61,7 +61,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'method': ('django.db.models.fields.CharField', [], {'default': "u'Post'", 'max_length': '10'}),
             'path': ('django.db.models.fields.CharField', [], {'default': "u'path'", 'max_length': '300'}),
-            'status_code': ('django.db.models.fields.CharField', [], {'default': "u'200'", 'max_length': '10'})
         }
     }
 
