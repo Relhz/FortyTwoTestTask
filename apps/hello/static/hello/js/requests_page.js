@@ -9,7 +9,7 @@ $(document).ready(function(){
             url : "/forajax/", 
             type : "GET", 
             success : function(data) {
- 
+
                 var current = parseInt(data[0].id)
                 var new_requests = current - old
 
@@ -17,8 +17,7 @@ $(document).ready(function(){
                     for(i = 0; i < new_requests; i++){
                         $('.path:eq(' + ($(".path").length - 1) + ')').remove()
                         $('.path:eq(0)').before(
-                            '<p class="path">' + 
-                            data[i].method + 
+                            '<p class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
                             data[i].date_and_time.slice(0, 16).replace(/T/i, ' ')
                             + '<span class="c" style="display: none">' + 
@@ -28,7 +27,6 @@ $(document).ready(function(){
                     old = parseInt($('.c:eq(' + 0 + ')').html())
                     }
 	                if(document.hidden){
-	                	console.log('lol')
 	                    $('.count').html('('+ (current - past) + ')')	  
 	                    document.title = '(' + (current - past) + ')Requests'
 	                }

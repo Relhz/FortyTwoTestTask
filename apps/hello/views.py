@@ -17,7 +17,6 @@ def main(request):
 def requests(request):
 
     objects = Requests.objects.all().order_by('-pk')[:10]
-
     requests = []
     for i in objects:
         requests.append(i)
