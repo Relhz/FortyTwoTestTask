@@ -30,7 +30,6 @@ class Migration(SchemaMigration):
             ('path', self.gf('django.db.models.fields.CharField')(default=u'path', max_length=300)),
             ('method', self.gf('django.db.models.fields.CharField')(default=u'Post', max_length=10)),
             ('date_and_time', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 7, 0, 0))),
-            ('status_code', self.gf('django.db.models.fields.CharField')(default=u'200', max_length=10)),
         ))
         db.send_create_signal(u'hello', ['Requests'])
 
@@ -61,7 +60,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'method': ('django.db.models.fields.CharField', [], {'default': "u'Post'", 'max_length': '10'}),
             'path': ('django.db.models.fields.CharField', [], {'default': "u'path'", 'max_length': '300'}),
-            'status_code': ('django.db.models.fields.CharField', [], {'default': "u'200'", 'max_length': '10'})
         }
     }
 
