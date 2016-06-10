@@ -19,13 +19,3 @@ class RequestsRecording(object):
             r.save()
 
         return ''
-
-    def process_response(self, request, response):
-
-        response.content = response.content.replace(
-            '<hr>',
-            '<hr><a class="req" href="/requests/"><span class="amount">' +
-            '</span>Requests</a>'
-        )
-
-        return response

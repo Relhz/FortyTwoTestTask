@@ -24,9 +24,15 @@
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+
         {% block content %}
 
         {% endblock content %}
-
+        {% block footer %}
+        <div class="container-fluid">
+        <hr><a class="req" href="/requests/">
+        <span class="amount"></span>Requests</a>
+        </div>
+        {% endblock %}
     </body>
 </html>
