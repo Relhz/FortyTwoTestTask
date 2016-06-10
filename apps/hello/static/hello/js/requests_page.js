@@ -1,8 +1,8 @@
 $(document).ready(function(){ 
     
     // update requests list    
-    var old = parseInt($('.c:eq(' + 0 + ')').html())
-    var past = parseInt($('.c:eq(' + 0 + ')').html())
+    var old = parseInt($('.c').html())
+    var past = parseInt($('.c').html())
     setInterval(function(){
 
         $.ajax({
@@ -24,14 +24,14 @@ $(document).ready(function(){
                             data[i].id + '</span></p>'
                         )
 
-                    old = parseInt($('.c:eq(' + 0 + ')').html())
+                    old = parseInt($('.c').html())
                     }
 	                if(document.hidden){
 	                    $('.count').html('('+ (current - past) + ')')	  
 	                    document.title = '(' + (current - past) + ')Requests'
 	                }
 	                else{
-	                	past = parseInt($('.c:eq(' + 0 + ')').html())
+	                	past = parseInt($('.c').html())
 	                }
                 }
             },
@@ -42,11 +42,10 @@ $(document).ready(function(){
     $(window).focus(function(){
         
         document.title = 'Requests'
-        past = parseInt($('.c:eq(' + 0 + ')').html())
+        past = parseInt($('.c').html())
         setTimeout(function(){
         	$('.count').html('')
         }, 1500)
     })
 
 })
-
