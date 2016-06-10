@@ -2,6 +2,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from apps.hello.models import Info, Requests
+from django.utils import timezone
 
 
 class MainPageViewTest(TestCase):
@@ -104,8 +105,11 @@ class RequestsPageViewTest(TestCase):
 
         ''' test view return last 10 objects '''
 
-        for i in range(15):
-            response = self.client.get(reverse('requests'))
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET',
+                     date_and_time=timezone.now()) for i in range(15)
+            )
+        response = self.client.get(reverse('requests'))
         self.assertIn('objects', response.context)
         context = response.context['objects']
         objects = Requests.objects.all().order_by('-pk')[:10]
@@ -134,12 +138,14 @@ class RequestsPageViewTest(TestCase):
 
         ''' test ajax view renders required data '''
 
-        for i in range(15):
-            response = self.client.get(reverse('requests'))
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET',
+                     date_and_time=timezone.now()) for i in range(15)
+            )
         response = self.client.get(reverse('forajax'),
                                    content_type='application/json')
-        request = Requests.objects.last()
-        self.assertContains(response, request.path, count=10)
-        self.assertContains(response, request.method, count=10)
-        self.assertContains(response, request.date_and_time.isoformat()[:19],
+        objects = Requests.objects.last()
+        self.assertContains(response, objects.path, count=10)
+        self.assertContains(response, objects.method, count=10)
+        self.assertContains(response, objects.date_and_time.isoformat()[:19],
                             count=10)
