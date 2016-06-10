@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from apps.hello.models import Info
+from apps.hello.models import Info, Requests
+from django.utils import timezone
 
 
 class MainPageViewTest(TestCase):
@@ -27,10 +28,10 @@ class MainPageViewTest(TestCase):
         ''' test view renders required data '''
 
         response = self.client.get(reverse('main'))
-        self.assertIn('<h1><a href="/">42 Coffee Cups Test Assignment</a>' +
-                      '</h1>', response.content)
+        self.assertIn('42 Coffee Cups Test Assignment',
+                      response.content)
         self.assertIn('Skype', response.content)
-        self.assertTrue('info' in response.context)
+        self.assertIn('info', response.context)
 
     def test_render_all_fields(self):
 
@@ -39,15 +40,7 @@ class MainPageViewTest(TestCase):
         response = self.client.get(reverse('main'))
         info = Info.objects.get(last_name='Kudrya')
 
-        self.assertIn(info.name, response.content)
-        self.assertIn(info.last_name, response.content)
-        self.assertIn('Jan. 21, 1990', response.content)
-        self.assertIn(info.bio, response.content)
-        self.assertIn(info.contacts, response.content)
-        self.assertIn(info.email, response.content)
-        self.assertIn(info.skype, response.content)
-        self.assertIn(info.jabber, response.content)
-        self.assertIn(info.other_contacts, response.content)
+        self.assertEqual(response.context['info'], info)
 
     def test_render_cyrillic(self):
 
@@ -66,9 +59,7 @@ class MainPageViewTest(TestCase):
         Info.objects.all().delete()
 
         response = self.client.get(reverse('main'))
-        self.assertTrue('message' in response.context)
-        context = response.context['message']
-        self.assertTrue(context == 'Database is empty')
+        self.assertIn('info', response.context)
         self.assertContains(response, 'Database is empty', count=1,
                             status_code=200)
 
@@ -85,10 +76,10 @@ class MainPageViewTest(TestCase):
         object3 = Info(last_name='Third')
         object3.save()
 
-        info =  Info.objects.all().first()
+        info = Info.objects.all().first()
         response = self.client.get(reverse('main'))
-        self.assertTrue('info' in response.context)
-        self.assertTrue(response.context['info'].last_name == info.last_name)
+        self.assertIn('info', response.context)
+        self.assertEqual(response.context['info'], info)
         self.assertContains(response, 'First', count=1, status_code=200)
 
 
@@ -112,19 +103,25 @@ class RequestsPageViewTest(TestCase):
 
     def test_view_return_last_10(self):
 
-        ''' test view return last 10 objects or less '''
+        ''' test view return last 10 objects '''
 
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET',
+                     date_and_time=timezone.now()) for i in range(15)
+            )
         response = self.client.get(reverse('requests'))
-        self.assertTrue('requests' in response.context)
-        context = response.context['requests']
-        self.assertTrue(len(context) <= 10)
+        self.assertIn('objects', response.context)
+        context = response.context['objects']
+        objects = Requests.objects.all().order_by('-pk')[:10]
+        self.assertEqual(len(context), 10)
+        self.assertEqual(list(context), list(objects))
 
     def test_content_requests_list(self):
 
         ''' test view renders required data '''
 
         response = self.client.get(reverse('requests'))
-        self.assertTrue('requests' in response.context)
+        self.assertIn('objects', response.context)
         self.assertIn('Requests',
                       response.content)
         self.assertIn('Last requests', response.content)
@@ -137,17 +134,21 @@ class RequestsPageViewTest(TestCase):
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
-    def test_forajax_view_render_data(self):
+    def test_forajax_view_render_correct_data(self):
 
         ''' test ajax view renders required data '''
 
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET',
+                     date_and_time=timezone.now()) for i in range(15)
+            )
         response = self.client.get(reverse('forajax'),
                                    content_type='application/json')
-        self.assertContains(response, '"status_code": "200", "method": "GET"',
-                            status_code=200)
-        self.assertContains(response, '"path": "/",', status_code=200)
-        self.assertContains(response, '"amount":', status_code=200)
-        self.assertContains(response, '"date_and_time":', status_code=200)
+        objects = Requests.objects.last()
+        self.assertContains(response, objects.path, count=10)
+        self.assertContains(response, objects.method, count=10)
+        self.assertContains(response, objects.date_and_time.isoformat()[:19],
+                            count=10)
 
 
 class LoginViewTest(TestCase):

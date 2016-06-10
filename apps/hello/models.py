@@ -16,9 +16,7 @@ class Info(models.Model):
     skype = models.CharField(max_length=50, null=True, blank=True)
     jabber = models.CharField(max_length=50, null=True, blank=True)
     other_contacts = models.TextField(null=True, blank=True)
-    photo = models.ImageField(upload_to='photos/', null=True, blank=True)
-
-
+    photo = models.ImageField(upload_to='photos', null=True, blank=True)
 
     # model object represents as last name str
     def __unicode__(self):
@@ -30,4 +28,3 @@ class Requests(models.Model):
     path = models.CharField(max_length=300, default='path')
     method = models.CharField(max_length=10, default='Post')
     date_and_time = models.DateTimeField(default=timezone.now())
-    status_code = models.CharField(max_length=10, default='200')

@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -26,4 +27,3 @@ class MiddlewareTest(TestCase):
         after_request = Requests.objects.all().last()
         self.assertIn('/', after_request.path)
         self.assertEquals('GET', after_request.method)
-        self.assertEquals(unicode('200'), after_request.status_code)

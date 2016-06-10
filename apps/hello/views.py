@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from models import Info
 from models import Requests
+from django.http import HttpResponseBadRequest
 from forms import LoginForm
 from forms import EditForm
 from django.contrib import auth
@@ -11,31 +12,34 @@ from django.utils import timezone
 # main page displays persons information
 def main(request):
 
-    message = ''
-    info = False
+    info = Info.objects.first()
 
-    if Info.objects.all():
-        info = Info.objects.all().first()
-    else:
-        message = 'Database is empty'
-    
-    return render(request, 'hello/main.html', {'info': info,
-                 'message': message})
+    return render(request, 'hello/main.html', {'info': info})
 
 
 # requests page displays last 10 requests
 def requests(request):
 
-    if len(Requests.objects.all()) < 10:
-        objects = Requests.objects.all()
+    objects = Requests.objects.all().order_by('-pk')[:10]
+
+    return render(request, 'hello/requests.html', {'objects': objects})
+
+
+def date_handler(obj):
+
+    return obj.isoformat() if hasattr(obj, 'isoformat') else obj
+
+
+# return last 10 objects from database
+def forajax(request):
+
+    if request.method != 'GET':
+        return HttpResponseBadRequest()
     else:
-        objects = Requests.objects.all().order_by('-pk')[:10]
+        objs = Requests.objects.all().order_by('-pk')[:10].values()
 
-    requests = []
-    for i in objects:
-        requests.append(i)
-
-    return render(request, 'hello/requests.html', {'requests': requests})
+    return HttpResponse(json.dumps(list(objs), default=date_handler),
+                        content_type="application/json")
 
 
 # login page
@@ -112,51 +116,27 @@ def edit(request):
     return render(request, 'hello/edit.html', {'form': form, 'loginform': loginform})
 
 
-# return last 10 objects from database
-def forajax(request):
-
-    if request.method == 'GET':
-
-        if len(Requests.objects.all()) < 10:
-            objs = Requests.objects.all()
-        else:
-            objs = Requests.objects.all().order_by('-pk')[:10]
-        resp = []
-
-        for i in objs:
-            response_data = {}
-            response_data['path'] = i.path
-            response_data['method'] = i.method
-            response_data['date_and_time'] = str(timezone.localtime(
-                i.date_and_time
-                ))
-            response_data['status_code'] = i.status_code
-            response_data['amount'] = i.pk
-            resp.append(response_data)
-
-    return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
 # edit data
 def forajax_edit(request):
 
+    o = ''
     if request.method == 'POST':
+        if request.is_ajax():
+            
+            form = EditForm(data=request.POST, files=request.FILES)
+            info = Info.objects.all().first()
 
-        resp = {'reponse': 'response'}
+            info.name = request.POST.get('name')
+            info.last_name = request.POST.get('last_name')
+            info.date_of_birth = request.POST.get('date_of_birth')
+            info.contacts = request.POST.get('contacts')
+            info.email = request.POST.get('email')
+            info.skype = request.POST.get('skype')
+            info.jabber = request.POST.get('jabber')
+            info.bio = request.POST.get('bio')
+            info.other_contacts = request.POST.get('other_contacts')
+            info.photo = request.FILES.get('photo')
 
-        info = Info.objects.all().first()
+            info.save()
 
-        info.name = request.POST.get('name')
-        info.last_name = request.POST.get('last_name')
-        info.date_of_birth = request.POST.get('date_of_birth')
-        info.contacts = request.POST.get('contacts')
-        info.email = request.POST.get('email')
-        info.skype = request.POST.get('skype')
-        info.jabber = request.POST.get('jabber')
-        info.bio = request.POST.get('bio')
-        info.other_contacts = request.POST.get('other_contacts')
-        info.photo = request.POST.get('photo')
-
-        info.save()
-
-    return HttpResponse(json.dumps(resp), content_type="application/json")
+    return HttpResponse(json.dumps('o'), content_type="application/json")

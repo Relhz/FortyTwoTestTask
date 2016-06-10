@@ -20,39 +20,38 @@ $(document).ready(function(){
 
 	$('#sendpost').submit(function(event){
 	    event.preventDefault();
-	    send_post();
+	    formdata = new FormData(); 
+    	console.log($("#id_Photo")[0].files[0])
+        var file = $("#id_Photo")[0].files[0];
+        if (formdata) {
+            formdata.append("photo", file);
+            csrf = $('input[name=csrfmiddlewaretoken]').val()
+            formdata.append("name", $('#id_Name').val());
+            formdata.append("last_name", $('#id_Last_name').val());
+            formdata.append("date_of_birth", $('#id_Date_of_birth').val());
+            formdata.append("contacts", $('#id_Contacts').val());
+            formdata.append("email", $('#id_Email').val());
+            formdata.append("skype", $('#id_Skype').val());
+            formdata.append("jabber", $('#id_Jabber').val());
+            formdata.append("other_contacts", $('#id_Other_contacts').val());
+            formdata.append("bio", $('#id_Bio').val());
+            formdata.append("csrfmiddlewaretoken", csrf);
+
+		    $.ajax({
+
+		        url : "/forajax_edit/", 
+		        type : "POST", 
+		        data : formdata,
+                processData: false,
+                contentType: false,
+		        success : function(json) {
+		        	$('.success').show()
+		        	console.log(json)
+		        },
+
+		    });
+		}
 	});
-
-
-	function send_post() {
-
-		console.log($('#id_Photo').files)
-		
-	    $.ajax({
-
-	        url : "/forajax_edit/", 
-	        type : "POST", 
-	        data : { 
-	        	name: $('#id_Name').val(),
-	        	last_name: $('#id_Last_name').val(), 
-	        	date_of_birth: $('#id_Date_of_birth').val(), 
-	        	photo: $('#id_Photo').val(),
-	        	contacts: $('#id_Contacts').val(), 
-	        	email: $('#id_Email').val(), 
-	        	skype: $('#id_Skype').val(), 
-	        	jabber: $('#id_Jabber').val(), 
-	        	other_contacts: $('#id_Other_contacts').val(), 
-	        	bio: $('#id_Bio').val(), 
-	        	csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-	        	},
-
-	        success : function(json) {
-	        	$('.success').show()
-	        	console.log(json.response)
-	        },
-
-	    });
-	};
 
     $(function() {
         $("#id_Date_of_birth").datepicker({
