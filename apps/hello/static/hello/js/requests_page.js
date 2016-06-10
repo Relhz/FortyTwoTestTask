@@ -9,7 +9,7 @@ $(document).ready(function(){
             url : "/forajax/", 
             type : "GET", 
             success : function(data) {
- 				console.log($('.c').html())
+
                 var current = parseInt(data[0].id)
                 var new_requests = current - old
 

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
 import json
@@ -29,8 +30,9 @@ def date_handler(obj):
 # return last 10 objects from database
 def forajax(request):
 
-    if request.method == 'GET':
-
+    if request.method != 'GET':
+        return HttpResponseBadRequest()
+    else:
         objs = Requests.objects.all().order_by('-pk')[:10].values()
 
     return HttpResponse(json.dumps(list(objs), default=date_handler),
