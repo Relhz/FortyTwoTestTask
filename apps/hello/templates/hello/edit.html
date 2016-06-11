@@ -47,9 +47,9 @@
         <div class="wrapper">
         {{form.Name.label_tag}}{{form.Name}}   
         {{form.Last_name.label_tag}}{{form.Last_name}}
-        {{form.Date_of_birth.label_tag}}{{form.Date_of_birth}}
+        {{form.Date_of_birth.label_tag}}{{form.Date_of_birth}}{{form.Date_of_birth.errors}}
         {{form.Photo.label_tag}}{{form.Photo}}
-        <img id="preview" width="330"  align="left" src="#" alt="photo" />
+        <img id="preview" width="330"  align="left" src="{{info.photo}}" alt="photo" />
         </div>  
         </div>
         <div class="col-sm-6">
@@ -65,6 +65,7 @@
         <span class="success">Changes have been saved</span><br>
         <input id="save" type='submit' value='Save'></input>
         <a href="/">Cancel</a>
+
     </form>
   </div>
 

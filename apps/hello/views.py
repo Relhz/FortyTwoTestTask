@@ -7,6 +7,7 @@ from forms import EditForm
 from django.contrib import auth
 import json
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 
 # main page displays persons information
@@ -94,8 +95,8 @@ def logout(request):
 # edit page
 def edit(request):
 
-    info = Info.objects.all().first()
-    date = info.date_of_birth
+    info = Info.objects.first()
+
     initial = {
         'Name': info.name,
         'Last_name': info.last_name,
@@ -109,34 +110,42 @@ def edit(request):
         'Other_contacts': info.other_contacts,
 
     }
+
     form = EditForm(initial=initial)
     loginform = LoginForm()
     request.session['redir'] = 'edit'
     
-    return render(request, 'hello/edit.html', {'form': form, 'loginform': loginform})
+    return render(request, 'hello/edit.html',
+                  {'form': form, 'loginform': loginform, 'info': info})
 
 
 # edit data
+@login_required
 def forajax_edit(request):
 
     o = ''
+    
     if request.method == 'POST':
+
         if request.is_ajax():
-            
             form = EditForm(data=request.POST, files=request.FILES)
-            info = Info.objects.all().first()
+            if form.is_valid():
+                
+                info = Info.objects.first()
 
-            info.name = request.POST.get('name')
-            info.last_name = request.POST.get('last_name')
-            info.date_of_birth = request.POST.get('date_of_birth')
-            info.contacts = request.POST.get('contacts')
-            info.email = request.POST.get('email')
-            info.skype = request.POST.get('skype')
-            info.jabber = request.POST.get('jabber')
-            info.bio = request.POST.get('bio')
-            info.other_contacts = request.POST.get('other_contacts')
-            info.photo = request.FILES.get('photo')
+                info.name = request.POST.get('Name')
+                info.last_name = request.POST.get('Last_name')
+                info.date_of_birth = request.POST.get('Date_of_birth')
+                info.contacts = request.POST.get('Contacts')
+                info.email = request.POST.get('Email')
+                info.skype = request.POST.get('Skype')
+                info.jabber = request.POST.get('Jabber')
+                info.bio = request.POST.get('Bio')
+                info.other_contacts = request.POST.get('Other_contacts')
+                info.photo = request.FILES.get('Photo')
 
-            info.save()
+                info.save()
+            else:
+                return HttpResponse(json.dumps(form.errors), content_type="application/json")
 
     return HttpResponse(json.dumps('o'), content_type="application/json")

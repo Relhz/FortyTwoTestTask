@@ -24,17 +24,17 @@ $(document).ready(function(){
     	console.log($("#id_Photo")[0].files[0])
         var file = $("#id_Photo")[0].files[0];
         if (formdata) {
-            formdata.append("photo", file);
+            formdata.append("Photo", file);
             csrf = $('input[name=csrfmiddlewaretoken]').val()
-            formdata.append("name", $('#id_Name').val());
-            formdata.append("last_name", $('#id_Last_name').val());
-            formdata.append("date_of_birth", $('#id_Date_of_birth').val());
-            formdata.append("contacts", $('#id_Contacts').val());
-            formdata.append("email", $('#id_Email').val());
-            formdata.append("skype", $('#id_Skype').val());
-            formdata.append("jabber", $('#id_Jabber').val());
-            formdata.append("other_contacts", $('#id_Other_contacts').val());
-            formdata.append("bio", $('#id_Bio').val());
+            formdata.append("Name", $('#id_Name').val());
+            formdata.append("Last_name", $('#id_Last_name').val());
+            formdata.append("Date_of_birth", $('#id_Date_of_birth').val());
+            formdata.append("Contacts", $('#id_Contacts').val());
+            formdata.append("Email", $('#id_Email').val());
+            formdata.append("Skype", $('#id_Skype').val());
+            formdata.append("Jabber", $('#id_Jabber').val());
+            formdata.append("Other_contacts", $('#id_Other_contacts').val());
+            formdata.append("Bio", $('#id_Bio').val());
             formdata.append("csrfmiddlewaretoken", csrf);
 
 		    $.ajax({
@@ -47,6 +47,11 @@ $(document).ready(function(){
 		        success : function(json) {
 		        	$('.success').show()
 		        	console.log(json)
+		        },
+		        error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.responseText);
+        alert(thrownError);
+        console.log(json)
 		        },
 
 		    });
