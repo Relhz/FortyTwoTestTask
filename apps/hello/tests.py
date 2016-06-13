@@ -117,3 +117,34 @@ class ModelTest(TestCase):
         info.bio = 'information information information'
         info.save()
         self.assertEquals(info.date_of_birst, '1995-03-03')
+
+
+class AdminSiteTest(TestCase):
+
+    ''' testing the admin site '''
+
+    def test_home_page(self):
+
+        ''' test status code '''
+
+        response = self.client.get('/admin/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_login_admin(self):
+
+        ''' test if admin can log-in '''
+
+        response = self.client.post(
+            '/admin/',
+            {'name': 'admin', 'password': 'admin via fixtures'}
+        )
+        self.assertEquals(response.status_code, 200)
+
+    def test_contains_required_data(self):
+
+        ''' test that admin page contains required data '''
+
+        self.client.login(username='admin', password='admin via fixtures')
+        response = self.client.get('/admin/hello/info/')
+        info = Info.objects.first().last_name
+        self.assertIn(info, response.content)
