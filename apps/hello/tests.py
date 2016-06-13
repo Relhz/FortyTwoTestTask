@@ -68,12 +68,11 @@ class MainPageViewTest(TestCase):
 
         Info.objects.all().delete()
         # add three objects to database
-        object1 = Info(last_name='First')
-        object1.save()
-        object2 = Info(last_name='Second')
-        object2.save()
-        object3 = Info(last_name='Third')
-        object3.save()
+        Info.objects.bulk_create([
+            Info(last_name='First'),
+            Info(last_name='Second'),
+            Info(last_name='Third')
+        ])
 
         info = Info.objects.all().first()
         response = self.client.get(reverse('main'))
