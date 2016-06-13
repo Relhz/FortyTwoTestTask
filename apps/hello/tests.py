@@ -85,15 +85,6 @@ class ModelTest(TestCase):
 
     ''' testing model '''
 
-    def test_model_create(self):
-
-        ''' test model create successfuly '''
-
-        info = Info(last_name='Pythonenko')
-        info.save()
-        inf = Info.objects.all().last()
-        self.assertEquals(inf, info)
-
     def test_unicode_method(self):
 
         ''' test model object represents as string '''
