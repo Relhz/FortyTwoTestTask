@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from models import Info
-import json
 
 
 # main page displays persons information
