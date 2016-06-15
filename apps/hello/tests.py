@@ -2,6 +2,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from models import Info
+from mock import patch
+from apps.hello.views import main
 
 
 class MainPageViewTest(TestCase):
@@ -31,6 +33,14 @@ class MainPageViewTest(TestCase):
                       response.content)
         self.assertIn('Skype', response.content)
         self.assertIn('info', response.context)
+
+    @patch('apps.hello.views.log')
+    def test_logging_called(self, mock_log):
+
+        ''' test logging called in the view '''
+
+        main('request')
+        self.assertTrue(mock_log.warn.called)
 
     def test_render_all_fields(self):
 

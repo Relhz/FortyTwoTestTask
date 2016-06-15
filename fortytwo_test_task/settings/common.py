@@ -134,3 +134,30 @@ SOUTH_TESTS_MIGRATE = False
 FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'apps/hello/fixtures'),
 )
+
+
+LOGGING = {
+    'disable_existing_loggers': True,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'WARN',
+            'propagate': True,
+        },
+        'hello': {
+            'handlers': ['console'],
+            'level': 'WARN',
+        },
+    }
+}
