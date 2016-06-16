@@ -27,9 +27,9 @@ SECRET_KEY = 'x=c0_e(onjn^80irdy2c221#)2t^qi&6yrc$31i(&ti*_jf3l8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,7 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'apps.hello',
-    'south',
+    'south'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -136,27 +137,24 @@ FIXTURE_DIRS = (
 
 
 LOGGING = {
+    'version': 1,
     'disable_existing_loggers': True,
     'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
+        'logfile': {
+            'class':'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs.log'),
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers':['console', 'logfile'],
             'propagate': True,
-            'level': 'WARN',
-        },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'level': 'WARN',
-            'propagate': True,
-        },
-        'hello': {
-            'handlers': ['console'],
-            'level': 'WARN',
+            'level':'DEBUG',
         },
     }
 }
