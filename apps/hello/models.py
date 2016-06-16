@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
+from django.core import validators
 
 
 class Info(models.Model):
@@ -11,9 +12,19 @@ class Info(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     contacts = models.CharField(max_length=50, null=True, blank=True)
-    email = models.EmailField(max_length=254, null=True, blank=True)
+    email = models.EmailField(
+        max_length=50,
+        null=True,
+        blank=True,
+        validators=[validators.validate_email]
+    )
     skype = models.CharField(max_length=50, null=True, blank=True)
-    jabber = models.CharField(max_length=50, null=True, blank=True)
+    jabber = models.EmailField(
+        max_length=50,
+        null=True,
+        blank=True,
+        validators=[validators.validate_email]
+    )
     other_contacts = models.TextField(null=True, blank=True)
 
     # model object represents as last name str

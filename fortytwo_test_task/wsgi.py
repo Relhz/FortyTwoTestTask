@@ -8,6 +8,8 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 from django.core.wsgi import get_wsgi_application
 import os
+
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fortytwo_test_task.settings")
 
 application = get_wsgi_application()
