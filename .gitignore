@@ -16,4 +16,4 @@ static
 *.dat
 .env
 .e
-ngrok
+*.log

@@ -46,3 +46,81 @@ Variables: Kudrya
 [16/Jun/2016 12:39:50] DEBUG [django:12] Variables: Kudrya
 [16/Jun/2016 12:46:57] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
 [16/Jun/2016 12:46:57] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:26:10] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:26:10] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:26:21] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:26:21] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:30:28] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:30:28] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:30:37] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:30:37] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:31:42] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:31:42] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: None
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: First
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:33:48] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: None
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: First
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:36:35] DEBUG [django:12] Variables: Kudrya
+[16/Jun/2016 19:38:59] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:39:16] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:39:16] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:40:58] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:40:58] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:41:11] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:41:11] DEBUG [hello:13] Variables: Kudrya
+[16/Jun/2016 19:41:41] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:42:18] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:42:18] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:43:01] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:43:01] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:43:01] ERROR [django.request:224] Internal Server Error: /
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/pcadmin/p/FortyTwoTestTask/apps/hello/views.py", line 14, in main
+    log.log()
+TypeError: log() takes at least 3 arguments (1 given)
+[16/Jun/2016 19:44:14] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:44:14] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:44:14] ERROR [django.request:224] Internal Server Error: /
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 112, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/pcadmin/p/FortyTwoTestTask/apps/hello/views.py", line 14, in main
+    log.log('debug', 'Variables: ' + str(info))
+  File "/usr/lib/python2.7/logging/__init__.py", line 1212, in log
+    raise TypeError("level must be an integer")
+TypeError: level must be an integer
+[16/Jun/2016 19:44:41] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:44:41] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:45:04] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:45:04] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:45:22] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:45:22] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:45:27] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:45:27] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:46:39] DEBUG [django.db.backends:79] (0.001) QUERY = u'SELECT "hello_info"."id", "hello_info"."name", "hello_info"."last_name", "hello_info"."date_of_birth", "hello_info"."bio", "hello_info"."contacts", "hello_info"."email", "hello_info"."skype", "hello_info"."jabber", "hello_info"."other_contacts" FROM "hello_info" ORDER BY "hello_info"."id" ASC LIMIT 1' - PARAMS = (); args=()
+[16/Jun/2016 19:46:39] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: None
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: First
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:47:54] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: None
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: First
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: Kudrya
+[16/Jun/2016 19:48:21] DEBUG [django:13] Variables: Kudrya

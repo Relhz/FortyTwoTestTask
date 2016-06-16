@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from models import Info
-from .logging_module import log
+from fortytwo_test_task.settings.common import log  # NOQA
 import logging
 logger = logging.getLogger('django')
+
 
 def main(request):
 
