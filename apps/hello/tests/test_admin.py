@@ -27,7 +27,7 @@ class AdminSiteTest(TestCase):
 
         ''' test that admin page contains required data '''
 
-        self.client.login(username='admin', password='admin via fixtures')
+        self.client.login(username='admin', password='admin')
         response = self.client.get('/admin/hello/info/')
         info = Info.objects.first().last_name
         self.assertIn(info, response.content)

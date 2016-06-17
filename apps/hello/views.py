@@ -4,9 +4,9 @@ from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
 import json
-from .logging_module import log
+from fortytwo_test_task.settings.common import log  # NOQA
 import logging
-logger = logging.getLogger('django')
+logger = logging.getLogger('hello')
 
 
 # main page displays persons information
@@ -39,7 +39,6 @@ def forajax(request):
         return HttpResponseBadRequest()
     else:
         objs = Requests.objects.all().order_by('-pk')[:10].values()
-        log.error('error')
 
     return HttpResponse(json.dumps(list(objs), default=date_handler),
                         content_type="application/json")
