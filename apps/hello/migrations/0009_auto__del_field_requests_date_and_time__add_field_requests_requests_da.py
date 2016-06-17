@@ -26,7 +26,7 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Adding field 'Requests.date_and_time'
         db.add_column(u'hello_requests', 'date_and_time',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 7, 0, 0)),
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 8, 0, 0)),
                       keep_default=False)
 
         # Deleting field 'Requests.requests_date_time'
