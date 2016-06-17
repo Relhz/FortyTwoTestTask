@@ -1,5 +1,4 @@
 from models import Requests
-from django.utils import timezone
 
 
 class RequestsRecording(object):
