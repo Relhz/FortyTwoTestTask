@@ -6,10 +6,7 @@ class RequestsRecording(object):
 
     def process_request(self, request):
 
-        if 'forajax' in request.path or '/static/' in request.path:
-            # requests to helper functions aren`t needed
-            pass
-        else:
+        if not 'forajax' in request.path and not '/static/' in request.path:
             # record the request to the db
             Requests.objects.create(
                 path=request.path,
