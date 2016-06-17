@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from models import Info
+from apps.hello.models import Info, Requests
+from django.utils import timezone
 
 
 class MainPageViewTest(TestCase):
@@ -81,60 +82,71 @@ class MainPageViewTest(TestCase):
         self.assertContains(response, 'First', count=1, status_code=200)
 
 
-class ModelTest(TestCase):
+class RequestsPageViewTest(TestCase):
 
-    ''' testing model '''
+    ''' test view for page with requests '''
 
-    def test_unicode_method(self):
+    def test_requests_page_template(self):
 
-        ''' test model object represents as string '''
+        ''' test using template '''
 
-        info = Info(last_name='Pythonenko')
-        self.assertEqual(str(info), info.last_name)
+        response = self.client.get(reverse('requests'))
+        self.assertTemplateUsed(response, 'hello/requests.html')
 
-    def test_model_fields(self):
-
-        ''' test model fields '''
-
-        info = Info(last_name='Pythonenko')
-        info.save()
-        self.assertEquals(info.last_name, 'Pythonenko')
-        self.assertTrue(hasattr(info, 'name'))
-        self.assertTrue(hasattr(info, 'bio'))
-        self.assertTrue(hasattr(info, 'jabber'))
-        info.date_of_birst = '1995-03-03'
-        info.email = 'qkerbv@i.ua'
-        info.bio = 'information information information'
-        info.save()
-        self.assertEquals(info.date_of_birst, '1995-03-03')
-
-
-class AdminSiteTest(TestCase):
-
-    ''' testing the admin site '''
-
-    def test_home_page(self):
+    def test_requests_page(self):
 
         ''' test status code '''
 
-        response = self.client.get('/admin/')
+        response = self.client.get(reverse('requests'))
         self.assertEquals(response.status_code, 200)
 
-    def test_login_admin(self):
+    def test_view_return_last_10(self):
 
-        ''' test if admin can log-in '''
+        ''' test view return last 10 objects '''
 
-        response = self.client.post(
-            '/admin/',
-            {'name': 'admin', 'password': 'admin via fixtures'}
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET',
+                     requests_date_time=timezone.now()) for i in range(15)
+            )
+        response = self.client.get(reverse('requests'))
+        self.assertIn('objects', response.context)
+        context = response.context['objects']
+        objects = Requests.objects.all().order_by('-pk')[:10]
+        self.assertEqual(len(context), 10)
+        self.assertEqual(list(context), list(objects))
+
+    def test_content_requests_list(self):
+
+        ''' test view renders required data '''
+
+        response = self.client.get(reverse('requests'))
+        self.assertIn('objects', response.context)
+        self.assertIn('Requests',
+                      response.content)
+        self.assertIn('Last requests', response.content)
+
+    def test_forajax_view_status_code(self):
+
+        ''' test status code '''
+
+        response = self.client.get(reverse('forajax'),
+                                   content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_forajax_view_render_correct_data(self):
+
+        ''' test ajax view renders required data '''
+
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET',
+                     requests_date_time=timezone.now()) for i in range(15)
+            )
+        response = self.client.get(reverse('forajax'),
+                                   content_type='application/json')
+        objects = Requests.objects.last()
+        self.assertContains(response, objects.path, count=10)
+        self.assertContains(response, objects.method, count=10)
+        self.assertContains(
+            response,
+            objects.requests_date_time.isoformat()[:19], count=10
         )
-        self.assertEquals(response.status_code, 200)
-
-    def test_contains_required_data(self):
-
-        ''' test that admin page contains required data '''
-
-        self.client.login(username='admin', password='admin')
-        response = self.client.get('/admin/hello/info/')
-        info = Info.objects.first().last_name
-        self.assertIn(info, response.content)

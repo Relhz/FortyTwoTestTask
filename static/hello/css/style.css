@@ -43,3 +43,22 @@ hr{
     font-size: 20px;
     margin: 20%;
 }
+.panel-info{
+    margin: auto;
+    text-align: left;
+    background-color: #d7ebf5
+}
+.last{
+    padding: 50px;
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+.path{
+    margin-left: 70px;
+}
+.count{
+    width: 30px;
+}
+.req{
+    margin-left: 5%;
+}

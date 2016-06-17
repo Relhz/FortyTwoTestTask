@@ -46,10 +46,10 @@ INSTALLED_APPS = (
 
     'apps.hello',
     'south'
-
 )
 
 MIDDLEWARE_CLASSES = (
+    'apps.hello.middleware.RequestsRecording',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,30 +141,6 @@ FIXTURE_DIRS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
-    'handlers': {
-        'logfile': {
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs.log'),
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard'
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'logfile'],
-            'propagate': True,
-            'level': 'DEBUG',
-        },
-    }
-}
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
     'formatters': {
         'standard': {
             'format': "[%(asctime)s] %(levelname)s " +
@@ -190,7 +166,7 @@ LOGGING = {
             'propagate': True,
             'level': 'DEBUG',
         },
-        'django': {
+        'hello': {
             'handlers': ['console', 'logfile'],
             'propagate': True,
             'level': 'DEBUG',

@@ -23,7 +23,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'hello', ['Info'])
 
-
         # Adding model 'Requests'
         db.create_table(u'hello_requests', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -37,6 +36,9 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Deleting model 'Info'
         db.delete_table(u'hello_info')
+
+        # Deleting model 'Requests'
+        db.delete_table(u'hello_requests')
 
 
     models = {
