@@ -24,6 +24,8 @@ class Migration(SchemaMigration):
         # Deleting model 'Requests'
         db.delete_table(u'hello_requests')
 
+
+    models = {
         u'hello.requests': {
             'Meta': {'object_name': 'Requests'},
             'date_and_time': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2016, 6, 7, 0, 0)'}),
