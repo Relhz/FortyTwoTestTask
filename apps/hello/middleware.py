@@ -11,7 +11,6 @@ class RequestsRecording(object):
             Requests.objects.create(
                 path=request.path,
                 method=request.META['REQUEST_METHOD'],
-                date_and_time=timezone.now(),
             )
 
         return ''
