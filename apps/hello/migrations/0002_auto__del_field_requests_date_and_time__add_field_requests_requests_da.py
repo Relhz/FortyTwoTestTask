@@ -8,17 +8,36 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Deleting field 'Requests.date_and_time'
+        db.delete_column(u'hello_requests', 'date_and_time')
 
         # Adding field 'Requests.requests_date_time'
         db.add_column(u'hello_requests', 'requests_date_time',
                       self.gf('django.db.models.fields.DateTimeField')(auto_now=True, null=True, blank=True),
                       keep_default=False)
 
+
+        # Changing field 'Info.jabber'
+        db.alter_column(u'hello_info', 'jabber', self.gf('django.db.models.fields.EmailField')(max_length=50, null=True))
+
+        # Changing field 'Info.email'
+        db.alter_column(u'hello_info', 'email', self.gf('django.db.models.fields.EmailField')(max_length=50, null=True))
+
     def backwards(self, orm):
+        # Adding field 'Requests.date_and_time'
+        db.add_column(u'hello_requests', 'date_and_time',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 7, 0, 0)),
+                      keep_default=False)
 
         # Deleting field 'Requests.requests_date_time'
         db.delete_column(u'hello_requests', 'requests_date_time')
 
+
+        # Changing field 'Info.jabber'
+        db.alter_column(u'hello_info', 'jabber', self.gf('django.db.models.fields.CharField')(max_length=50, null=True))
+
+        # Changing field 'Info.email'
+        db.alter_column(u'hello_info', 'email', self.gf('django.db.models.fields.EmailField')(max_length=254, null=True))
 
     models = {
         u'hello.info': {
