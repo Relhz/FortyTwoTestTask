@@ -11,11 +11,10 @@ class RequestsRecording(object):
             pass
         else:
             # record the request to the db
-            r = Requests(
+            Requests.objects.create(
                 path=request.path,
                 method=request.META['REQUEST_METHOD'],
                 date_and_time=timezone.now(),
             )
-            r.save()
 
         return ''
