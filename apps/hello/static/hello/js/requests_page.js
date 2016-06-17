@@ -19,7 +19,7 @@ $(document).ready(function(){
                         $('.path:eq(0)').before(
                             '<p class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
-                            data[i].date_and_time.slice(0, 16).replace(/T/i, ' ')
+                            data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
                             + '<span class="c" style="display: none">' + 
                             data[i].id + '</span></p>'
                         )

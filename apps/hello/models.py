@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
-from django.utils import timezone
 from django.core import validators
 
 
@@ -36,4 +35,4 @@ class Requests(models.Model):
 
     path = models.CharField(max_length=300, default='path')
     method = models.CharField(max_length=10, default='Post')
-    date_and_time = models.DateTimeField(default=timezone.now())
+    requests_date_time = models.DateTimeField(auto_now=True, null=True)

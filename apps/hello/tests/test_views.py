@@ -106,7 +106,7 @@ class RequestsPageViewTest(TestCase):
 
         Requests.objects.bulk_create(
             Requests(path='/response/', method='GET',
-                     date_and_time=timezone.now()) for i in range(15)
+                     requests_date_time=timezone.now()) for i in range(15)
             )
         response = self.client.get(reverse('requests'))
         self.assertIn('objects', response.context)
@@ -139,12 +139,14 @@ class RequestsPageViewTest(TestCase):
 
         Requests.objects.bulk_create(
             Requests(path='/response/', method='GET',
-                     date_and_time=timezone.now()) for i in range(15)
+                     requests_date_time=timezone.now()) for i in range(15)
             )
         response = self.client.get(reverse('forajax'),
                                    content_type='application/json')
         objects = Requests.objects.last()
         self.assertContains(response, objects.path, count=10)
         self.assertContains(response, objects.method, count=10)
-        self.assertContains(response, objects.date_and_time.isoformat()[:19],
-                            count=10)
+        self.assertContains(
+            response,
+            objects.requests_date_time.isoformat()[:19], count=10
+        )
