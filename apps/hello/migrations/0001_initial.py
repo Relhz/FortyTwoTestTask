@@ -28,7 +28,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('path', self.gf('django.db.models.fields.CharField')(default=u'path', max_length=300)),
             ('method', self.gf('django.db.models.fields.CharField')(default=u'Post', max_length=10)),
-            ('date_and_time', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 7, 0, 0))),
+            ('requests_date_time', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 7, 0, 0))),
         ))
         db.send_create_signal(u'hello', ['Requests'])
 
