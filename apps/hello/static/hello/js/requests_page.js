@@ -6,9 +6,9 @@ $(document).ready(function(){
     setInterval(function(){
 
         $.ajax({
-            url : '/forajax/', 
+            url : window.location, 
             type : "GET", 
-            success : function(data) {
+            success : function(data){
 
                 var current = parseInt(data[0].id)
                 var new_requests = current - old
