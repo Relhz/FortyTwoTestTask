@@ -24,21 +24,21 @@ def requests(request):
     objects = Requests.objects.all().order_by('-pk')[:10]
     logger.debug('Variables: ' + str(objects))
 
+    if request.is_ajax():
+        if request.method != 'GET':
+            return HttpResponseBadRequest()
+        else:
+            # return last 10 objects from database
+            objs = Requests.objects.all().order_by('-pk')[:10].values()
+            return HttpResponse(json.dumps(list(objs), default=date_handler),
+                                content_type="application/json")
+    else:
+        objects = Requests.objects.all().order_by('-pk')[:10]
+        logger.debug('Variables: ' + str(objects))
+
     return render(request, 'hello/requests.html', {'objects': objects})
 
 
 def date_handler(obj):
 
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
-
-
-# return last 10 objects from database
-def forajax(request):
-
-    if request.method != 'GET':
-        return HttpResponseBadRequest()
-    else:
-        objs = Requests.objects.all().order_by('-pk')[:10].values()
-
-    return HttpResponse(json.dumps(list(objs), default=date_handler),
-                        content_type="application/json")

@@ -129,7 +129,7 @@ class RequestsPageViewTest(TestCase):
 
         ''' test status code '''
 
-        response = self.client.get(reverse('forajax'),
+        response = self.client.get(reverse('requests'),
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
@@ -138,15 +138,15 @@ class RequestsPageViewTest(TestCase):
         ''' test ajax view renders required data '''
 
         Requests.objects.bulk_create(
-            Requests(path='/response/', method='GET',
+            Requests(path=reverse('requests'), method='GET',
                      requests_date_time=timezone.now()) for i in range(15)
             )
-        response = self.client.get(reverse('forajax'),
+        response = self.client.get(reverse('requests'),
                                    content_type='application/json')
         objects = Requests.objects.last()
         self.assertContains(response, objects.path, count=10)
         self.assertContains(response, objects.method, count=10)
         self.assertContains(
             response,
-            objects.requests_date_time.isoformat()[:19], count=10
+            objects.requests_date_time.isoformat()[:10], count=10
         )
