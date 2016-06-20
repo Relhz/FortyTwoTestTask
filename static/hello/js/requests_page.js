@@ -6,7 +6,7 @@ $(document).ready(function(){
     setInterval(function(){
 
         $.ajax({
-            url : '/forajax/', 
+            url : window.location, 
             type : "GET", 
             success : function(data) {
 
