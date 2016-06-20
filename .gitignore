@@ -15,4 +15,4 @@ media
 *.dat
 .env
 .e
-ngrok
+*.log

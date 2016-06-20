@@ -3,18 +3,9 @@ from django.test import TestCase
 from apps.hello.models import Info
 
 
-class InfoTest(TestCase):
+class ModelTest(TestCase):
 
     ''' testing model '''
-
-    def test_model_create(self):
-
-        ''' test model create successfuly '''
-
-        info = Info(last_name='Pythonenko')
-        info.save()
-        inf = Info.objects.all().last()
-        self.assertEquals(inf, info)
 
     def test_unicode_method(self):
 

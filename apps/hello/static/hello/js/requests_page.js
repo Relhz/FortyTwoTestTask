@@ -6,20 +6,21 @@ $(document).ready(function(){
     setInterval(function(){
 
         $.ajax({
-            url : "/forajax/", 
+
+            url : window.location, 
             type : "GET", 
-            success : function(data) {
+            success : function(data){
 
                 var current = parseInt(data[0].id)
                 var new_requests = current - old
-
+                console.log(current)
                 if(new_requests){
                     for(i = 0; i < new_requests; i++){
                         $('.path:eq(' + ($(".path").length - 1) + ')').remove()
                         $('.path:eq(0)').before(
                             '<p class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
-                            data[i].date_and_time.slice(0, 16).replace(/T/i, ' ')
+                            data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
                             + '<span class="c" style="display: none">' + 
                             data[i].id + '</span></p>'
                         )
@@ -47,5 +48,4 @@ $(document).ready(function(){
         	$('.count').html('')
         }, 1500)
     })
-
 })

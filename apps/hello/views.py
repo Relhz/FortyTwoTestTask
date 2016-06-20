@@ -1,19 +1,24 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponse, redirect
+from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
-from django.http import HttpResponseBadRequest
 from forms import LoginForm
 from forms import EditForm
 from django.contrib import auth
 import json
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from fortytwo_test_task.settings.common import log  # NOQA
+import logging
+logger = logging.getLogger('hello')
 
 
 # main page displays persons information
 def main(request):
 
     info = Info.objects.first()
+    logger.debug('Variables: ' + str(info))
 
     return render(request, 'hello/main.html', {'info': info})
 
@@ -21,7 +26,17 @@ def main(request):
 # requests page displays last 10 requests
 def requests(request):
 
-    objects = Requests.objects.all().order_by('-pk')[:10]
+    if request.is_ajax():
+        if request.method != 'GET':
+            return HttpResponseBadRequest()
+        else:
+            # return last 10 objects from database
+            objs = Requests.objects.all().order_by('-pk')[:10].values()
+            return HttpResponse(json.dumps(list(objs), default=date_handler),
+                                content_type="application/json")
+    else:
+        objects = Requests.objects.all().order_by('-pk')[:10]
+        logger.debug('Variables: ' + str(objects))
 
     return render(request, 'hello/requests.html', {'objects': objects})
 
@@ -29,18 +44,6 @@ def requests(request):
 def date_handler(obj):
 
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
-
-
-# return last 10 objects from database
-def forajax(request):
-
-    if request.method != 'GET':
-        return HttpResponseBadRequest()
-    else:
-        objs = Requests.objects.all().order_by('-pk')[:10].values()
-
-    return HttpResponse(json.dumps(list(objs), default=date_handler),
-                        content_type="application/json")
 
 
 # login page

@@ -7,7 +7,6 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.main, name='main'),
     url(r'^requests/', views.requests, name='requests'),
-    url(r'^forajax/', views.forajax, name='forajax'),
     url(r'^edit/', views.edit, name='edit'),
     url(r'^login/', views.login, name='login'),
     url(r'^logout/', views.logout, name='logout'),

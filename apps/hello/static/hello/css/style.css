@@ -1,5 +1,5 @@
 .container-fluid{
-	max-width: 900px;
+    max-width: 900px;
 }
 .panel-success{
     margin: auto;
@@ -8,7 +8,7 @@
     border-radius: 7px;
 }
 .td{
-	display: inline-block;
+    display: inline-block;
     width: 270px;
     margin: 10px;
 }
@@ -19,21 +19,29 @@ hr{
     height: 2px;
     margin-bottom: 5px;
 }
-.bold-column{    
+.bold-column{
     display: inline-block;
     font-weight: bold;
     width: 70px;
     margin-left: 20px;
 }
 .table{
-	display: inline-block;
-	background-color: #d7ebf5;
-	padding: 10px;
-	padding-top: 20px;
+    display: inline-block;
+    background-color: #d7ebf5;
+    padding: 10px;
+    padding-top: 20px;
+}
+.wrapper{
+    width: 450px;
 }
 .bio, .other_contacts{
-	float: left;
-	margin-top: 10px;
+    float: left;
+    margin-top: 10px;
+}
+.message{
+    display: inline-block;
+    font-size: 20px;
+    margin: 20%;
 }
 .panel-info{
     margin: auto;
@@ -41,15 +49,15 @@ hr{
     background-color: #d7ebf5
 }
 .last{
-	padding: 50px;
-	padding-bottom: 20px;
-	font-size: 20px;
+    padding: 50px;
+    padding-bottom: 20px;
+    font-size: 20px;
 }
 .path{
-	margin-left: 70px;
+    margin-left: 70px;
 }
 .count{
-	width: 30px;
+    width: 30px;
 }
 .req{
 	margin-left: 5%;
@@ -218,5 +226,5 @@ label[for=id_Other_contacts], label[for=id_Bio]{
 	display: none;
 }
 #myphoto{
-	margin-left: 10px;
+	margin-left: 5%;
 }

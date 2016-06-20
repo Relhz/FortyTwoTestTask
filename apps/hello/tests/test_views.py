@@ -69,12 +69,11 @@ class MainPageViewTest(TestCase):
 
         Info.objects.all().delete()
         # add three objects to database
-        object1 = Info(last_name='First')
-        object1.save()
-        object2 = Info(last_name='Second')
-        object2.save()
-        object3 = Info(last_name='Third')
-        object3.save()
+        Info.objects.bulk_create([
+            Info(last_name='First'),
+            Info(last_name='Second'),
+            Info(last_name='Third')
+        ])
 
         info = Info.objects.all().first()
         response = self.client.get(reverse('main'))
@@ -107,7 +106,7 @@ class RequestsPageViewTest(TestCase):
 
         Requests.objects.bulk_create(
             Requests(path='/response/', method='GET',
-                     date_and_time=timezone.now()) for i in range(15)
+                     requests_date_time=timezone.now()) for i in range(15)
             )
         response = self.client.get(reverse('requests'))
         self.assertIn('objects', response.context)
@@ -130,7 +129,7 @@ class RequestsPageViewTest(TestCase):
 
         ''' test status code '''
 
-        response = self.client.get(reverse('forajax'),
+        response = self.client.get(reverse('requests'),
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
@@ -139,16 +138,18 @@ class RequestsPageViewTest(TestCase):
         ''' test ajax view renders required data '''
 
         Requests.objects.bulk_create(
-            Requests(path='/response/', method='GET',
-                     date_and_time=timezone.now()) for i in range(15)
+            Requests(path=reverse('requests'), method='GET',
+                     requests_date_time=timezone.now()) for i in range(15)
             )
-        response = self.client.get(reverse('forajax'),
+        response = self.client.get(reverse('requests'),
                                    content_type='application/json')
         objects = Requests.objects.last()
         self.assertContains(response, objects.path, count=10)
         self.assertContains(response, objects.method, count=10)
-        self.assertContains(response, objects.date_and_time.isoformat()[:19],
-                            count=10)
+        self.assertContains(
+            response,
+            objects.requests_date_time.isoformat()[:10], count=10
+        )
 
 
 class LoginViewTest(TestCase):
