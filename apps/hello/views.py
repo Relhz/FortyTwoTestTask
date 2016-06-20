@@ -21,9 +21,6 @@ def main(request):
 # requests page displays last 10 requests
 def requests(request):
 
-    objects = Requests.objects.all().order_by('-pk')[:10]
-    logger.debug('Variables: ' + str(objects))
-
     if request.is_ajax():
         if request.method != 'GET':
             return HttpResponseBadRequest()
