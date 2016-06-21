@@ -173,6 +173,13 @@ class LoginViewTest(TestCase):
         self.assertIn('Password', response.content)
         self.assertIn('form', response.context)
 
+    def test_user_already_logged_in(self):
+
+        ''' test show message if user already logged in'''
+
+        response = self.client.get(reverse('login'))
+        self.assertContains(response, 'You are already logged in', count=1,
+                            status_code=200)
 
 class EditViewTest(TestCase):
 

@@ -41,7 +41,7 @@ $(document).ready(function(){
             $('.bar').width(percentVal);
             $('.percent').html(percentVal);
         },
-        complete: function(xhr) {
+        complete: function(xhr){
             if(xhr.responseText){
                 $('.status').css('color', 'red')
                 $('.status').html(xhr.responseText.replace(/[\[\]']+|"|{|}/g, ''));
