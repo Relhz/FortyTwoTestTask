@@ -177,6 +177,7 @@ class LoginViewTest(TestCase):
 
         ''' test show message if user already logged in'''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('login'))
         self.assertContains(response, 'You are already logged in', count=1,
                             status_code=200)
