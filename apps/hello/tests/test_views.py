@@ -201,3 +201,21 @@ class EditViewTest(TestCase):
         self.assertIn('Other contacts:', response.content)
         self.assertIn('form', response.context)
         self.assertIn('loginform', response.context)
+
+
+class ForajaxeditViewTest(TestCase):
+
+    ''' test forajax_edit view  '''
+        
+    def test_return_form_errors(self):
+
+        ''' check view returns form errors after request with wrong data '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(reverse('forajax_edit'),
+                   {'date_of_birth': '1990-13-55'})
+        print response.content
+        self.assertIn('"date_of_birth": ["Enter a valid date."]',
+            response.content)
+        self.assertIn('"last_name": ["This field is required."]',
+            response.content)
