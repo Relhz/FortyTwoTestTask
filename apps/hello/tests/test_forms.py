@@ -10,7 +10,7 @@ class LoginFormTest(TestCase):
 
     def test_login(self):
 
-        ''' test view renders required data '''
+        ''' try to login '''
 
         response = self.client.post(reverse('log_in'),
                    {'Username': 'admin', 'Password': 'admin'})
@@ -18,7 +18,7 @@ class LoginFormTest(TestCase):
 
     def test_logout(self):
 
-        ''' test view renders required data '''
+        ''' try to logout '''
 
         response = self.client.post(reverse('logout'))
         self.assertEqual(response.status_code, 302)
