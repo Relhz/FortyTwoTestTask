@@ -17,9 +17,7 @@
   <div class="auth">
   {% if not user.username %}
     <a class="login" href="{% url 'login' %}">Login</a><br>
-  {% endif %}
-
-  {% if user.username %}
+  {% else %}
       <a class="login" href="{% url 'logout' %}">logout ({{ user }})</a><br>
   {% endif %}
     </div>
