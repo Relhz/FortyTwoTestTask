@@ -39,7 +39,6 @@ $(document).ready(function(){
             setTimeout(function(){
             	$('.bar').hide()
             	$('.percent').hide()
-            	$('#status').hide()
             }, 3000)
         }
     }); 
