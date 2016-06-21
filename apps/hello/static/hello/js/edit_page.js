@@ -25,6 +25,10 @@ $(document).ready(function(){
 
     $('#sendpost').ajaxForm({
         beforeSend: function() {
+            $('input').attr('disabled', 'disabled');
+            $('textarea').attr('disabled', 'disabled');
+            $('.bar').show()
+            $('.percent').show()
             $('#status').empty();
             var percentVal = '0%';
             $('.bar').width(percentVal);
@@ -36,9 +40,11 @@ $(document).ready(function(){
             $('.percent').html(percentVal);
         },
         complete: function(xhr) {
+            $('input').removeAttr('disabled');
+            $('textarea').removeAttr('disabled');
             setTimeout(function(){
-            	$('.bar').hide()
-            	$('.percent').hide()
+                $('.bar').hide()
+                $('.percent').hide()
             }, 3000)
         }
     }); 
