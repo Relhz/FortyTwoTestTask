@@ -214,7 +214,6 @@ class ForajaxeditViewTest(TestCase):
         self.client.login(username='admin', password='admin')
         response = self.client.post(reverse('forajax_edit'),
                    {'date_of_birth': '1990-13-55'})
-        print response.content
         self.assertIn('"date_of_birth": ["Enter a valid date."]',
             response.content)
         self.assertIn('"last_name": ["This field is required."]',

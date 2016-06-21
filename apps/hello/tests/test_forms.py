@@ -4,32 +4,24 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate
 
 
-class LoginViewTest(TestCase):
+class LoginFormTest(TestCase):
 
-    ''' test login view  '''
+    ''' test login form '''
 
-    def test_login_template(self):
-
-        ''' test using template '''
-
-        response = self.client.get(reverse('login'))
-        self.assertTemplateUsed(response, 'hello/login.html')
-
-    def test_login_page(self):
-
-        ''' test status code '''
-
-        response = self.client.get(reverse('login'))
-        self.assertEquals(response.status_code, 200)
-
-    def test_login_content(self):
+    def test_login(self):
 
         ''' test view renders required data '''
 
-        response = self.client.get(reverse('login'))
-        self.assertIn('Username', response.content)
-        self.assertIn('Password', response.content)
-        self.assertTrue('form' in response.context)
+        response = self.client.post(reverse('log_in'),
+                   {'Username': 'admin', 'Password': 'admin'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_logout(self):
+
+        ''' test view renders required data '''
+
+        response = self.client.post(reverse('logout'))
+        self.assertEqual(response.status_code, 302)
 
 
 class EditFormTest(TestCase):
@@ -54,3 +46,13 @@ class EditFormTest(TestCase):
                    'email': '', 'skype': '', 'jabber': '',
                    'other_contacts': '', 'bio': ''})
         self.assertEqual(response.status_code, 200)
+
+    def test_edit_form_validators(self):
+
+        ''' test validation error returns '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(reverse('forajax_edit'),
+                   {'name': '@@@@@@@$$$$$$', 'last_name': '$$$$$$###',})
+        self.assertIn('"name": ["Please, write only ', response.content)
+        self.assertIn('"last_name": ["Please, write only ', response.content)

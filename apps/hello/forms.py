@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from models import Info
+from django.core.exceptions import ValidationError
+import re
 
 
 class LoginForm(forms.Form):
