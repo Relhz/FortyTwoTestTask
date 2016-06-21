@@ -36,6 +36,13 @@ class EditFormTest(TestCase):
 
     ''' test edit form  '''
 
+    def test_login_required(self):
+
+        ''' test unable edit data if user non authenticated '''
+
+        response = self.client.post(reverse('forajax_edit'))
+        self.assertEqual(response.status_code, 302)
+
     def test_edit_post(self):
 
         ''' send post data '''
