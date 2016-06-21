@@ -34,6 +34,14 @@ class Info(models.Model):
     def __unicode__(self):
         return self.last_name
 
+    def save(self, *args, **kwargs):
+        super(Info, self).save(*args, **kwargs)
+        if self.photo:
+            photo = Image.open(self.photo)
+            imagefit = ImageOps.fit(photo, (200, 200),
+                                    Image.ANTIALIAS)
+            imagefit.save(self.photo.path, 'JPEG', quality=75)
+
 
 class Requests(models.Model):
 
