@@ -53,6 +53,6 @@ class EditFormTest(TestCase):
 
         self.client.login(username='admin', password='admin')
         response = self.client.post(reverse('forajax_edit'),
-                   {'name': '@@@@@@@$$$$$$', 'last_name': '$$$$$$###',})
+                   {'name': '@@@@@@@$$$$$$', 'last_name': '$$$$$$###'})
         self.assertIn('"name": ["Please, write only ', response.content)
         self.assertIn('"last_name": ["Please, write only ', response.content)
