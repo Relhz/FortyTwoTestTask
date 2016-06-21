@@ -219,7 +219,7 @@ label[for=id_other_contacts], label[for=id_bio]{
     height: 26px;
     margin-left: 20px;
 }
-.success{
+.status{
     font-size: 17px;
     margin-left: 25px;
     color: green;

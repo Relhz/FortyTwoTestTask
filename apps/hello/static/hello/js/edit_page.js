@@ -29,7 +29,9 @@ $(document).ready(function(){
             $('textarea').attr('disabled', 'disabled');
             $('.bar').show()
             $('.percent').show()
-            $('#status').empty();
+            $('.status').hide();
+            $('.status').html('Changes have been saved')
+            $('.status').css('color', 'green')
             var percentVal = '0%';
             $('.bar').width(percentVal);
             $('.percent').html(percentVal);
@@ -40,6 +42,12 @@ $(document).ready(function(){
             $('.percent').html(percentVal);
         },
         complete: function(xhr) {
+        	console.log(xhr.responseText)
+            if(xhr.responseText){
+                $('.status').css('color', 'red')
+                $('.status').html(xhr.responseText.replace(/[\[\]']+|"|{|}/g, ''));
+            }
+            $('.status').show();
             $('input').removeAttr('disabled');
             $('textarea').removeAttr('disabled');
             setTimeout(function(){
@@ -48,5 +56,4 @@ $(document).ready(function(){
             }, 3000)
         }
     }); 
-
 })

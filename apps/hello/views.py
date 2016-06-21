@@ -126,7 +126,6 @@ def edit(request):
 @login_required
 def forajax_edit(request):
 
-    resp = ''
     info = Info.objects.first()
     if request.method == 'POST':
         form = EditForm(data=request.POST, files=request.FILES, instance=info)
@@ -134,5 +133,6 @@ def forajax_edit(request):
             form.save()
         else:
             resp = form.errors
+            return HttpResponse(json.dumps(resp), content_type="application/json")
 
-    return HttpResponse(json.dumps(o), content_type="application/json")
+    return HttpResponse()
