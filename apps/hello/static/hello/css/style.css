@@ -228,3 +228,8 @@ label[for=id_other_contacts], label[for=id_bio]{
 #myphoto{
     margin-left: 5%;
 }
+.bar{
+    display: inline-block;
+    height: 10px;
+    background-color: green;
+}
