@@ -1,4 +1,4 @@
-$(document).ready(function(){ 
+$(document).ready(function(){  
 
 	function readURL(input) {
 
@@ -7,52 +7,42 @@ $(document).ready(function(){
 
 	        reader.onload = function (e) {
 	            $('#preview').attr('src', e.target.result);
-	        }
+	        };
 
 	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
+	    };
+	};
 
-	$("#id_Photo").change(function(){
+
+	$("#id_photo").change(function(){
     	readURL(this);
 	});
 
-	$('#sendpost').submit(function(event){
-	    event.preventDefault();
-	    console.log("form submitted!");
-	    send_post();
-	});
+    var bar = $('.bar');
+    var percent = $('.percent');
 
-	function send_post() {
-
-	    $.ajax({
-
-	        url : "/forajax_edit/", 
-	        type : "POST", 
-	        data : { 
-	        	name: $('#id_Name').val(),
-	        	last_name: $('#id_Last_name').val(), 
-	        	date_of_birth: $('#id_Date_of_birth').val(), 
-	        	photo: $('#id_Photo').val(), 
-	        	contacts: $('#id_Contacts').val(), 
-	        	email: $('#id_Email').val(), 
-	        	skype: $('#id_Skype').val(), 
-	        	jabber: $('#id_Jabber').val(), 
-	        	other_contacts: $('#id_Other_contacts').val(), 
-	        	bio: $('#id_Bio').val(), 
-	        	csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]:eq(1)').val()
-	        	},
-
-	        success : function(json) {
-	        	console.log(json)
-	        },
+    $('#sendpost').ajaxForm({
+        beforeSend: function() {
+            $('#status').empty();
+            var percentVal = '0%';
+            bar.width(percentVal);
+            percent.html(percentVal);
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = percentComplete + '%';
+            bar.width(percentVal);
+            percent.html(percentVal);
+        },
+        complete: function(xhr) {
+            $('#status').html(xhr.responseText);
+        }
+    }); 
 
 
-	    });
-	};
-
-    $(function() {
-      $("#id_Date_of_birth").datepicker();
+    (function() {
+        $("#id_Date_of_birth").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
     });
 
 })

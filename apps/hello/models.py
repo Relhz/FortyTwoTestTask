@@ -27,7 +27,8 @@ class Info(models.Model):
         validators=[validators.validate_email]
     )
     other_contacts = models.TextField(null=True, blank=True)
-    photo = models.ImageField(upload_to='photos', null=True, blank=True)
+    photo = models.ImageField(upload_to='photos',
+        default="media/photos/no-avatar.jpg")
 
     # model object represents as last name str
     def __unicode__(self):

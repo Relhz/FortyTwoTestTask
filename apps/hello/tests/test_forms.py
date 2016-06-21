@@ -40,9 +40,10 @@ class EditFormTest(TestCase):
 
         ''' send post data '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.post(reverse('forajax_edit'),
                    {'Name': 'newName', 'Last_name': 'newSurname',
                    'Date_of_birst': '1996-2-29', 'Contacts': '',
                    'Email': '', 'Skype': '', 'Jabber': '',
                    'Other_contacts': '', 'Bio': ''})
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)

@@ -101,16 +101,16 @@ def edit(request):
     info = Info.objects.first()
 
     initial = {
-        'Name': info.name,
-        'Last_name': info.last_name,
-        'Date_of_birth': info.date_of_birth,
+        'name': info.name,
+        'last_name': info.last_name,
+        'date_of_birth': info.date_of_birth,
         'photo': info.photo,
-        'Contacts': info.contacts,
-        'Email': info.email,
-        'Skype': info.skype,
-        'Jabber': info.jabber,
-        'Bio': info.bio,
-        'Other_contacts': info.other_contacts,
+        'contacts': info.contacts,
+        'email': info.email,
+        'skype': info.skype,
+        'jabber': info.jabber,
+        'bio': info.bio,
+        'other_contacts': info.other_contacts,
 
     }
 
@@ -127,28 +127,12 @@ def edit(request):
 def forajax_edit(request):
 
     o = ''
-    
+    info = Info.objects.first()
     if request.method == 'POST':
+        form = EditForm(data=request.POST, files=request.FILES, instance=info)
+        if form.is_valid():
+            form.save()
+        else:
+            o = form.errors
 
-        if request.is_ajax():
-            form = EditForm(data=request.POST, files=request.FILES)
-            if form.is_valid():
-                
-                info = Info.objects.first()
-
-                info.name = request.POST.get('Name')
-                info.last_name = request.POST.get('Last_name')
-                info.date_of_birth = request.POST.get('Date_of_birth')
-                info.contacts = request.POST.get('Contacts')
-                info.email = request.POST.get('Email')
-                info.skype = request.POST.get('Skype')
-                info.jabber = request.POST.get('Jabber')
-                info.bio = request.POST.get('Bio')
-                info.other_contacts = request.POST.get('Other_contacts')
-                info.photo = request.FILES.get('Photo')
-
-                info.save()
-            else:
-                return HttpResponse(json.dumps(form.errors), content_type="application/json")
-
-    return HttpResponse(json.dumps('o'), content_type="application/json")
+    return HttpResponse(json.dumps(o), content_type="application/json")

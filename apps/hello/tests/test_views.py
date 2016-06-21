@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from apps.hello.models import Info, Requests
 from django.utils import timezone
+from apps.hello.forms import EditForm
 
 
 class MainPageViewTest(TestCase):
@@ -125,17 +126,10 @@ class RequestsPageViewTest(TestCase):
                       response.content)
         self.assertIn('Last requests', response.content)
 
-    def test_forajax_view_status_code(self):
 
-        ''' test status code '''
+    def test_view_render_correct_data(self):
 
-        response = self.client.get(reverse('requests'),
-                                   content_type='application/json')
-        self.assertEqual(response.status_code, 200)
-
-    def test_forajax_view_render_correct_data(self):
-
-        ''' test ajax view renders required data '''
+        ''' test view renders required data after ajax request '''
 
         Requests.objects.bulk_create(
             Requests(path=reverse('requests'), method='GET',
@@ -177,7 +171,7 @@ class LoginViewTest(TestCase):
         response = self.client.get(reverse('login'))
         self.assertIn('Username', response.content)
         self.assertIn('Password', response.content)
-        self.assertTrue('form' in response.context)
+        self.assertIn('form', response.context)
 
 
 class EditViewTest(TestCase):
@@ -203,8 +197,7 @@ class EditViewTest(TestCase):
         ''' test view renders required data '''
 
         response = self.client.get(reverse('edit'))
-        self.assertIn('Last name',
-                      response.content)
+        self.assertIn('Last name', response.content)
         self.assertIn('Other contacts:', response.content)
-        self.assertTrue('form' in response.context)
-        self.assertTrue('loginform' in response.context)
+        self.assertIn('form', response.context)
+        self.assertIn('loginform', response.context)

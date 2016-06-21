@@ -32,13 +32,13 @@
             
             <div class="auth">
             {% if not user.username %}
-              <a class="login" href="/login/">Login</a><br>
-              <a class="login" href='/edit/'>Go to the editing page</a>
+              <a class="login" href="{% url 'login' %}">Login</a><br>
+              <a class="login" href="{% url 'edit' %}">Go to the editing page</a>
             {% endif %}
           
             {% if user.username %}
-                <a class="login" href='/logout/'>logout ({{ user }})</a><br>
-                <a class="login" href='/edit/'>Go to the editing page</a>
+                <a class="login" href="{% url 'logout' %}">logout ({{ user }})</a><br>
+                <a class="login" href="{% url 'edit' %}">Go to the editing page</a>
             {% endif %}
               </div>
      
