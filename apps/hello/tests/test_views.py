@@ -195,7 +195,7 @@ class LoginViewTest(TestCase):
 
     def test_logout_redirects(self):
 
-        ''' test login view redirects to edit page or login page'''
+        ''' test logout view redirects to the main page '''
 
         response = self.client.post(reverse('logout'))
         self.assertRedirects(response, reverse('main'))
