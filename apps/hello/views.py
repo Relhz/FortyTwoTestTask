@@ -59,13 +59,6 @@ def login(request):
 
 def log_in(request):
 
-    # if user loged in on the edit page,
-    # then redirect to the edit page, else - the to main page
-    if request.session.get('redir') == 'edit':
-        redir = '/edit/'
-    else:
-        redir = '/'
-
     if request.POST:
         form = LoginForm(request.POST)
 
@@ -76,15 +69,15 @@ def log_in(request):
 
             if user is not None:
                 auth.login(request, user)
-                return redirect(redir)
+                return redirect('edit')
             else:
                 request.session['err'] = 'Incorrect username or password'
         else:
             request.session['err'] = 'Incorrect username or password'
-            return redirect('/login/')
-        return redirect('/login/')
+            return redirect('login')
+        return redirect('login')
 
-    return redirect(redir)
+    return redirect('main')
 
 
 def logout(request):
@@ -108,7 +101,6 @@ def edit(request):
             form.save()
         return HttpResponse(json.dumps(form.errors),
                             content_type="application/json")
-
     if info:
         initial = {
             'name': info.name,
@@ -126,7 +118,4 @@ def edit(request):
     else:
         form = EditForm()
 
-    request.session['redir'] = 'edit'
-
-    return render(request, 'hello/edit.html',
-                  {'form': form, 'info': info})
+    return render(request, 'hello/edit.html', {'form': form, 'info': info})
