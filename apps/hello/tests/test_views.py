@@ -192,6 +192,7 @@ class LoginViewTest(TestCase):
                                     {'username': 'c34c345',
                                      'password': '6m89m5'})
         self.assertRedirects(response, reverse('login'))
+        self.assertIn(response.content, 'Incorrect username or password')
 
     def test_logout_redirects(self):
 
