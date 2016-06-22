@@ -12,8 +12,8 @@ class LoginFormTest(TestCase):
         ''' try to login '''
 
         response = self.client.post(
-            reverse('log_in'),
-            {'Username': 'admin', 'Password': 'admin'}
+            reverse('login'),
+            {'username': 'admin', 'password': 'admin'}
         )
         self.assertEqual(response.status_code, 302)
 

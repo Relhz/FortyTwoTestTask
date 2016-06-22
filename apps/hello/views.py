@@ -63,8 +63,8 @@ def log_in(request):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            username = form.cleaned_data['Username']
-            password = form.cleaned_data['Password']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
             user = auth.authenticate(username=username, password=password)
 
             if user is not None:
