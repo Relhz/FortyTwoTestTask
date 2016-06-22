@@ -228,9 +228,35 @@ class EditViewTest(TestCase):
 
         self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
-        self.assertIn('Last name', response.content)
-        self.assertIn('Other contacts:', response.content)
         self.assertIn('form', response.context)
+        self.assertIn('Name', response.content)
+        self.assertIn('Last name', response.content)
+        self.assertIn('Date of birth', response.content)
+        self.assertIn('Photo', response.content)
+        self.assertIn('Contacts', response.content)
+        self.assertIn('Email', response.content)
+        self.assertIn('Skype', response.content)
+        self.assertIn('Jabber', response.content)
+        self.assertIn('Other contacts:', response.content)
+        self.assertIn('Bio', response.content)
+
+    def test_edit_initial(self):
+
+        ''' test form contains initial data '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse('edit'))
+        info = Info.objects.first()
+        self.assertIn(info.name, response.content)
+        self.assertIn(info.last_name, response.content)
+        self.assertIn(info.date_of_birth.isoformat()[:10], response.content)
+        self.assertIn(info.photo.url, response.content)
+        self.assertIn(info.contacts, response.content)
+        self.assertIn(info.email, response.content)
+        self.assertIn(info.skype, response.content)
+        self.assertIn(info.jabber, response.content)
+        self.assertIn(info.other_contacts, response.content)
+        self.assertIn(info.bio, response.content)
 
     def test_return_form_errors(self):
 
