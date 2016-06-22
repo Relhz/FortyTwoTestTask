@@ -96,9 +96,18 @@ def logout(request):
 
 
 # edit page
+@login_required
 def edit(request):
 
     info = Info.objects.first()
+
+    if request.method == 'POST':
+
+        form = EditForm(data=request.POST, files=request.FILES, instance=info)
+        if form.is_valid():
+            form.save()
+        return HttpResponse(json.dumps(form.errors),
+                            content_type="application/json")
 
     if info:
         initial = {
@@ -122,20 +131,3 @@ def edit(request):
 
     return render(request, 'hello/edit.html',
                   {'form': form, 'loginform': loginform, 'info': info})
-
-
-# edit data
-@login_required
-def forajax_edit(request):
-
-    info = Info.objects.first()
-    if request.method == 'POST':
-        form = EditForm(data=request.POST, files=request.FILES, instance=info)
-        if form.is_valid():
-            form.save()
-        else:
-            resp = form.errors
-            return HttpResponse(json.dumps(resp),
-                                content_type="application/json")
-
-    return HttpResponse()

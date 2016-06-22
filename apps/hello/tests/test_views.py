@@ -189,6 +189,7 @@ class EditViewTest(TestCase):
 
         ''' test using template '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
         self.assertTemplateUsed(response, 'hello/edit.html')
 
@@ -196,6 +197,7 @@ class EditViewTest(TestCase):
 
         ''' test status code '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
         self.assertEquals(response.status_code, 200)
 
@@ -203,23 +205,19 @@ class EditViewTest(TestCase):
 
         ''' test view renders required data '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
         self.assertIn('Last name', response.content)
         self.assertIn('Other contacts:', response.content)
         self.assertIn('form', response.context)
         self.assertIn('loginform', response.context)
 
-
-class ForajaxeditViewTest(TestCase):
-
-    ''' test forajax_edit view  '''
-
     def test_return_form_errors(self):
 
         ''' check view returns form errors after request with wrong data '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.post(reverse('forajax_edit'),
+        response = self.client.post(reverse('edit'),
                                     {'date_of_birth': '1990-13-55'})
         self.assertIn('"date_of_birth": ["Enter a valid date."]',
                       response.content)

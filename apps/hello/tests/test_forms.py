@@ -33,7 +33,7 @@ class EditFormTest(TestCase):
 
         ''' test unable edit data if user non authenticated '''
 
-        response = self.client.post(reverse('forajax_edit'))
+        response = self.client.post(reverse('edit'))
         self.assertEqual(response.status_code, 302)
 
     def test_edit_post(self):
@@ -42,7 +42,7 @@ class EditFormTest(TestCase):
 
         self.client.login(username='admin', password='admin')
         response = self.client.post(
-            reverse('forajax_edit'),
+            reverse('edit'),
             {'name': 'newName', 'last_name': 'newSurname',
              'date_of_birth': '1996-2-29', 'contacts': '',
              'email': '', 'skype': '', 'jabber': '',
@@ -56,7 +56,7 @@ class EditFormTest(TestCase):
 
         self.client.login(username='admin', password='admin')
         response = self.client.post(
-            reverse('forajax_edit'),
+            reverse('edit'),
             {'name': '@@@@@@@$$$$$$', 'last_name': '$$$$$$###'}
         )
         self.assertIn('"name": ["Please, write only ', response.content)
