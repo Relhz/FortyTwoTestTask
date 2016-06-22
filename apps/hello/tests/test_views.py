@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from apps.hello.models import Info, Requests
 from django.utils import timezone
+from apps.hello.forms import EditForm
 
 
 class MainPageViewTest(TestCase):
@@ -28,7 +29,7 @@ class MainPageViewTest(TestCase):
         ''' test view renders required data '''
 
         response = self.client.get(reverse('main'))
-        self.assertIn('<h1>42 Coffee Cups Test Assignment</h1>',
+        self.assertIn('42 Coffee Cups Test Assignment',
                       response.content)
         self.assertIn('Skype', response.content)
         self.assertIn('info', response.context)
@@ -125,17 +126,10 @@ class RequestsPageViewTest(TestCase):
                       response.content)
         self.assertIn('Last requests', response.content)
 
-    def test_forajax_view_status_code(self):
 
-        ''' test status code '''
+    def test_view_render_correct_data(self):
 
-        response = self.client.get(reverse('requests'),
-                                   content_type='application/json')
-        self.assertEqual(response.status_code, 200)
-
-    def test_forajax_view_render_correct_data(self):
-
-        ''' test ajax view renders required data '''
+        ''' test view renders required data after ajax request '''
 
         Requests.objects.bulk_create(
             Requests(path=reverse('requests'), method='GET',
@@ -150,3 +144,85 @@ class RequestsPageViewTest(TestCase):
             response,
             objects.requests_date_time.isoformat()[:10], count=10
         )
+
+
+class LoginViewTest(TestCase):
+
+    ''' test login view  '''
+
+    def test_login_template(self):
+
+        ''' test using template '''
+
+        response = self.client.get(reverse('login'))
+        self.assertTemplateUsed(response, 'hello/login.html')
+
+    def test_login_page(self):
+
+        ''' test status code '''
+
+        response = self.client.get(reverse('login'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_login_content(self):
+
+        ''' test view renders required data '''
+
+        response = self.client.get(reverse('login'))
+        self.assertIn('Username', response.content)
+        self.assertIn('Password', response.content)
+        self.assertIn('form', response.context)
+
+    def test_user_already_logged_in(self):
+
+        ''' test show message if user already logged in'''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse('login'))
+        self.assertContains(response, 'You are already logged in', count=1,
+                            status_code=200)
+
+class EditViewTest(TestCase):
+
+    ''' test edit view  '''
+
+    def test_edit_template(self):
+
+        ''' test using template '''
+
+        response = self.client.get(reverse('edit'))
+        self.assertTemplateUsed(response, 'hello/edit.html')
+
+    def test_edit_page(self):
+
+        ''' test status code '''
+
+        response = self.client.get(reverse('edit'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_edit_content(self):
+
+        ''' test view renders required data '''
+
+        response = self.client.get(reverse('edit'))
+        self.assertIn('Last name', response.content)
+        self.assertIn('Other contacts:', response.content)
+        self.assertIn('form', response.context)
+        self.assertIn('loginform', response.context)
+
+
+class ForajaxeditViewTest(TestCase):
+
+    ''' test forajax_edit view  '''
+        
+    def test_return_form_errors(self):
+
+        ''' check view returns form errors after request with wrong data '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(reverse('forajax_edit'),
+                   {'date_of_birth': '1990-13-55'})
+        self.assertIn('"date_of_birth": ["Enter a valid date."]',
+            response.content)
+        self.assertIn('"last_name": ["This field is required."]',
+            response.content)

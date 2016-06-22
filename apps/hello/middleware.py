@@ -6,7 +6,7 @@ class RequestsRecording(object):
     def process_request(self, request):
 
         if request.is_ajax() and 'request' in request.path or \
-                '/static/' in request.path:
+                '/static/' in request.path or '/media/' in request.path:
             return
         # record the request to the db
         Requests.objects.create(

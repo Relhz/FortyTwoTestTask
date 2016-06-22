@@ -6,9 +6,10 @@ $(document).ready(function(){
     setInterval(function(){
 
         $.ajax({
+
             url : window.location, 
             type : "GET", 
-            success : function(data) {
+            success : function(data){
 
                 var current = parseInt(data[0].id)
                 var new_requests = current - old
@@ -47,5 +48,4 @@ $(document).ready(function(){
         	$('.count').html('')
         }, 1500)
     })
-
 })

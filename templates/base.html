@@ -24,6 +24,27 @@
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+        
+      <div class="container-fluid">
+        {% block header %}
+        <div class="panel panel-success">
+            <div class="panel-body"><h1><a href="/">42 Coffee Cups Test Assignment</a></h1>
+            
+            <div class="auth">
+            {% if not user.username %}
+              <a class="login" href="{% url 'login' %}">Login</a><br>
+              <a class="login" href="{% url 'edit' %}">Go to the editing page</a>
+            {% endif %}
+          
+            {% if user.username %}
+                <a class="login" href="{% url 'logout' %}">logout ({{ user }})</a><br>
+                <a class="login" href="{% url 'edit' %}">Go to the editing page</a>
+            {% endif %}
+              </div>
+     
+            </div>
+        </div>
+        {% endblock header %}
 
         {% block content %}
 

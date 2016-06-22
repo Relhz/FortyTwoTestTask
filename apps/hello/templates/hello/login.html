@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Requests{% endblock title %}
+
+{% block header %}
+  <div class="panel panel-success">
+      <div class="panel-body"><h1><a href="/">42 Coffee Cups Test Assignment</a></h1></div>
+  </div>
+{% endblock header %}
+{% block content %}
+<div class="container-fluid">
+{% if not user.username %}
+<div class="loginpage">
+    <form action='/log_in/' method='post'>
+    {% csrf_token %}
+    {{ form }}
+    <input class="subm_login" id="login" type='submit' value='Login'></input>
+    </form>
+    <span style="color: red">{{err}}</span>
+</div>
+{% else %}
+    <span class="message">You are already logged in</span>
+{% endif %}
+</div>
+{% endblock content %}

@@ -6,14 +6,9 @@
 {% block content %}
 
     <div class="container-fluid">
-      
-      <div class="panel panel-success">
-          <div class="panel-body"><h1>42 Coffee Cups Test Assignment</h1></div>
-      </div>
 
       <div class="table">
       {% if info %}
-
         <div class="col-sm-6">
         <div class="wrapper">
           <div class="bold-column">Name</div>
@@ -22,8 +17,9 @@
           <div class="td">{{info.last_name}}</div><br>
           <div class="bold-column">Date of birth</div>
           <div class="td">{{info.date_of_birth}}</div><br>
-          <div class="bold-column bio">Bio:</div>
-          <div class="td">{{info.bio|linebreaks}}</div>
+          <div class="bold-column">Photo</div><br>
+          <div class="td"><img id="myphoto" src="{{info.photo.url}}">
+          </div><br>
         </div>
         </div>
 
@@ -38,7 +34,9 @@
           <div class="bold-column">Jabber:</div>
           <div class="td">{{info.jabber}}</div><br>  
           <div class="bold-column other_contacts">Other contacts</div>
-          <div class="td">{{info.other_contacts|linebreaks}}</div>        
+          <div class="td">{{info.other_contacts|linebreaks}}</div> 
+          <div class="bold-column bio">Bio:</div>
+          <div class="td">{{info.bio|linebreaks}}</div>       
         </div>
         </div>
 
@@ -46,6 +44,7 @@
       <span class="message">Database is empty</span>
       {% endif %}
       </div>
+    
     </div>
 
 {% endblock content %}

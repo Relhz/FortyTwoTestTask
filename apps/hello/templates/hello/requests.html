@@ -8,6 +8,7 @@
 {% endblock extra_head %}
 
 {% block content %}
+{% block header %}{% endblock %}
 <div class="container-fluid">
 
   <div class="panel panel-success">
@@ -22,12 +23,10 @@
 	            <p class="path">{{ i.method }} {{ i.path }}, 
               {{ i.requests_date_time|date:"Y-m-d H:i" }}
                <span class="c" style="display: none">{{i.pk}}</span></p>
-
         {% endfor %}
       </div>
-
       {% csrf_token %}   
-      <a class="back" href="/">Go to the main page</a>
+      <a class="back" href="{% url 'main' %}">Go to the main page</a>
 
   </div>
 	<form class="forajax" id="postform" method='post'>

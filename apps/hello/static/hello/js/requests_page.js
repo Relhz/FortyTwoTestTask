@@ -6,6 +6,7 @@ $(document).ready(function(){
     setInterval(function(){
 
         $.ajax({
+
             url : window.location, 
             type : "GET", 
             success : function(data){
@@ -47,5 +48,4 @@ $(document).ready(function(){
         	$('.count').html('')
         }, 1500)
     })
-
 })
