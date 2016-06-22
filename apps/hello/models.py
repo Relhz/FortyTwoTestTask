@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
-from django.utils import timezone
 from PIL import Image, ImageOps
 from django.core import validators
 
@@ -28,7 +27,7 @@ class Info(models.Model):
     )
     other_contacts = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to='photos',
-        default="photos/no-avatar.jpg")
+                              default="photos/no-avatar.jpg")
 
     # model object represents as last name str
     def __unicode__(self):

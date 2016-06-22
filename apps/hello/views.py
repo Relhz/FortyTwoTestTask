@@ -7,7 +7,6 @@ from forms import LoginForm
 from forms import EditForm
 from django.contrib import auth
 import json
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from fortytwo_test_task.settings.common import log  # NOQA
 import logging
@@ -50,7 +49,8 @@ def date_handler(obj):
 def login(request):
 
     err = request.session.get('err')
-    if err == None: err = ''
+    if err is None:
+        err = ''
     request.session['err'] = ''
     form = LoginForm()
 
@@ -59,7 +59,7 @@ def login(request):
 
 def log_in(request):
 
-    # if user loged in on the edit page, 
+    # if user loged in on the edit page,
     # then redirect to the edit page, else - the to main page
     if request.session.get('redir') == 'edit':
         redir = '/edit/'
@@ -91,7 +91,7 @@ def logout(request):
 
     auth.logout(request)
     request.session['err'] = ''
- 
+
     return redirect('main')
 
 
@@ -117,7 +117,7 @@ def edit(request):
     form = EditForm(initial=initial)
     loginform = LoginForm()
     request.session['redir'] = 'edit'
-    
+
     return render(request, 'hello/edit.html',
                   {'form': form, 'loginform': loginform, 'info': info})
 
@@ -133,6 +133,7 @@ def forajax_edit(request):
             form.save()
         else:
             resp = form.errors
-            return HttpResponse(json.dumps(resp), content_type="application/json")
+            return HttpResponse(json.dumps(resp),
+                                content_type="application/json")
 
     return HttpResponse()
