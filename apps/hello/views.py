@@ -100,21 +100,23 @@ def edit(request):
 
     info = Info.objects.first()
 
-    initial = {
-        'name': info.name,
-        'last_name': info.last_name,
-        'date_of_birth': info.date_of_birth,
-        'photo': info.photo,
-        'contacts': info.contacts,
-        'email': info.email,
-        'skype': info.skype,
-        'jabber': info.jabber,
-        'bio': info.bio,
-        'other_contacts': info.other_contacts,
+    if info:
+        initial = {
+            'name': info.name,
+            'last_name': info.last_name,
+            'date_of_birth': info.date_of_birth,
+            'photo': info.photo,
+            'contacts': info.contacts,
+            'email': info.email,
+            'skype': info.skype,
+            'jabber': info.jabber,
+            'bio': info.bio,
+            'other_contacts': info.other_contacts,
+        }
+        form = EditForm(initial=initial)
+    else:
+        form = EditForm()
 
-    }
-
-    form = EditForm(initial=initial)
     loginform = LoginForm()
     request.session['redir'] = 'edit'
 
