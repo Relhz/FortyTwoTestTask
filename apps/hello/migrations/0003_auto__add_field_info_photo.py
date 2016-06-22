@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Info.photo'
         db.add_column(u'hello_info', 'photo',
-                      self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True),
+                      self.gf('django.db.models.fields.files.ImageField')(null=True, blank=True),
                       keep_default=False)
 
 
@@ -31,8 +31,8 @@ class Migration(SchemaMigration):
             'last_name': ('django.db.models.fields.CharField', [], {'default': "u'Surname'", 'max_length': '20'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'other_contacts': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'skype': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'})
-                        'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'skype': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
+            'photo': ('django.db.models.fields.files.ImageField', [], {'null': 'True', 'blank': 'True'})
         },
         u'hello.requests': {
             'Meta': {'object_name': 'Requests'},
