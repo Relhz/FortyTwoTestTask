@@ -193,6 +193,13 @@ class LoginViewTest(TestCase):
                                      'password': '6m89m5'})
         self.assertRedirects(response, reverse('login'))
 
+    def test_logout_redirects(self):
+
+        ''' test login view redirects to edit page or login page'''
+
+        response = self.client.post(reverse('logout'))
+        self.assertRedirects(response, reverse('main'))
+
 
 class EditViewTest(TestCase):
 
