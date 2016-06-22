@@ -180,6 +180,19 @@ class LoginViewTest(TestCase):
         self.assertContains(response, 'You are already logged in', count=1,
                             status_code=200)
 
+    def test_login_redirects(self):
+
+        ''' test login view redirects to edit page or login page'''
+
+        response = self.client.post(reverse('login'),
+                                    {'username': 'admin',
+                                     'password': 'admin'})
+        self.assertRedirects(response, reverse('edit'))
+        response = self.client.post(reverse('login'),
+                                    {'username': 'c34c345',
+                                     'password': '6m89m5'})
+        self.assertRedirects(response, reverse('login'))
+
 
 class EditViewTest(TestCase):
 

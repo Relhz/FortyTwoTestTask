@@ -63,7 +63,7 @@ def login(request):
                 request.session['err'] = 'Incorrect username or password'
         else:
             request.session['err'] = 'Incorrect username or password'
-            return redirect('login')
+
         return redirect('login')
 
     err = request.session.get('err')
