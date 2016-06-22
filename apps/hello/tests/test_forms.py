@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate
 
 
 class LoginFormTest(TestCase):
@@ -12,8 +11,10 @@ class LoginFormTest(TestCase):
 
         ''' try to login '''
 
-        response = self.client.post(reverse('log_in'),
-                   {'Username': 'admin', 'Password': 'admin'})
+        response = self.client.post(
+            reverse('log_in'),
+            {'Username': 'admin', 'Password': 'admin'}
+        )
         self.assertEqual(response.status_code, 302)
 
     def test_logout(self):
@@ -40,11 +41,13 @@ class EditFormTest(TestCase):
         ''' send post data '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.post(reverse('forajax_edit'),
-                   {'name': 'newName', 'last_name': 'newSurname',
-                   'date_of_birth': '1996-2-29', 'contacts': '',
-                   'email': '', 'skype': '', 'jabber': '',
-                   'other_contacts': '', 'bio': ''})
+        response = self.client.post(
+            reverse('forajax_edit'),
+            {'name': 'newName', 'last_name': 'newSurname',
+             'date_of_birth': '1996-2-29', 'contacts': '',
+             'email': '', 'skype': '', 'jabber': '',
+             'other_contacts': '', 'bio': ''}
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_edit_form_validators(self):
@@ -52,7 +55,9 @@ class EditFormTest(TestCase):
         ''' test validation error returns '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.post(reverse('forajax_edit'),
-                   {'name': '@@@@@@@$$$$$$', 'last_name': '$$$$$$###'})
+        response = self.client.post(
+            reverse('forajax_edit'),
+            {'name': '@@@@@@@$$$$$$', 'last_name': '$$$$$$###'}
+        )
         self.assertIn('"name": ["Please, write only ', response.content)
         self.assertIn('"last_name": ["Please, write only ', response.content)

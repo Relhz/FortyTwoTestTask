@@ -3,7 +3,6 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from apps.hello.models import Info, Requests
 from django.utils import timezone
-from apps.hello.forms import EditForm
 
 
 class MainPageViewTest(TestCase):
@@ -126,7 +125,6 @@ class RequestsPageViewTest(TestCase):
                       response.content)
         self.assertIn('Last requests', response.content)
 
-
     def test_view_render_correct_data(self):
 
         ''' test view renders required data after ajax request '''
@@ -182,6 +180,7 @@ class LoginViewTest(TestCase):
         self.assertContains(response, 'You are already logged in', count=1,
                             status_code=200)
 
+
 class EditViewTest(TestCase):
 
     ''' test edit view  '''
@@ -214,15 +213,15 @@ class EditViewTest(TestCase):
 class ForajaxeditViewTest(TestCase):
 
     ''' test forajax_edit view  '''
-        
+
     def test_return_form_errors(self):
 
         ''' check view returns form errors after request with wrong data '''
 
         self.client.login(username='admin', password='admin')
         response = self.client.post(reverse('forajax_edit'),
-                   {'date_of_birth': '1990-13-55'})
+                                    {'date_of_birth': '1990-13-55'})
         self.assertIn('"date_of_birth": ["Enter a valid date."]',
-            response.content)
+                      response.content)
         self.assertIn('"last_name": ["This field is required."]',
-            response.content)
+                      response.content)
