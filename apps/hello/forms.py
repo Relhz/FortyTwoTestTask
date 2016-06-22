@@ -34,7 +34,7 @@ class EditForm(forms.ModelForm):
     last_name = forms.CharField(validators=[validate_last_name])
     other_contacts = forms.CharField(max_length=100,
                                      widget=forms.Textarea, required=False)
-    bio = forms.CharField(max_length=500, widget=forms.Textarea,
+    bio = forms.CharField(max_length=1000, widget=forms.Textarea,
                           required=False)
 
     class Meta:
