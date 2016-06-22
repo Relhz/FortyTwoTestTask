@@ -5,7 +5,6 @@
 {% block extra_head %}
 <script type="text/javascript" src="/static/hello/js/edit_page.js"></script>
 <script src="/static/hello/js/jquery-ui.min.js"></script>
-
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <link rel="stylesheet" href="/static/hello/css/jquery-ui.min.css">
 {% endblock extra_head %}
@@ -41,7 +40,7 @@
 
 <div class="edit">
   <div class="row">
-    <form id="sendpost" method="post" action="/forajax_edit/" enctype="multipart/form-data">
+    <form id="sendpost" method="post" action="/edit/" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="col-sm-6">
         <div class="wrapper">

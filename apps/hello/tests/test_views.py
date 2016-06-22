@@ -180,6 +180,27 @@ class LoginViewTest(TestCase):
         self.assertContains(response, 'You are already logged in', count=1,
                             status_code=200)
 
+    def test_login_redirects(self):
+
+        ''' test login view redirects to edit page or login page'''
+
+        response = self.client.post(reverse('login'),
+                                    {'username': 'admin',
+                                     'password': 'admin'})
+        self.assertRedirects(response, reverse('edit'))
+        response = self.client.post(reverse('login'),
+                                    {'username': 'c34c345',
+                                     'password': '6m89m5'})
+        self.assertRedirects(response, reverse('login'))
+        self.assertIn(response.content, 'Incorrect username or password')
+
+    def test_logout_redirects(self):
+
+        ''' test logout view redirects to the main page '''
+
+        response = self.client.post(reverse('logout'))
+        self.assertRedirects(response, reverse('main'))
+
 
 class EditViewTest(TestCase):
 
@@ -189,6 +210,7 @@ class EditViewTest(TestCase):
 
         ''' test using template '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
         self.assertTemplateUsed(response, 'hello/edit.html')
 
@@ -196,6 +218,7 @@ class EditViewTest(TestCase):
 
         ''' test status code '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
         self.assertEquals(response.status_code, 200)
 
@@ -203,23 +226,44 @@ class EditViewTest(TestCase):
 
         ''' test view renders required data '''
 
+        self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit'))
-        self.assertIn('Last name', response.content)
-        self.assertIn('Other contacts:', response.content)
         self.assertIn('form', response.context)
-        self.assertIn('loginform', response.context)
+        self.assertIn('Name', response.content)
+        self.assertIn('Last name', response.content)
+        self.assertIn('Date of birth', response.content)
+        self.assertIn('Photo', response.content)
+        self.assertIn('Contacts', response.content)
+        self.assertIn('Email', response.content)
+        self.assertIn('Skype', response.content)
+        self.assertIn('Jabber', response.content)
+        self.assertIn('Other contacts:', response.content)
+        self.assertIn('Bio', response.content)
 
+    def test_edit_initial(self):
 
-class ForajaxeditViewTest(TestCase):
+        ''' test form contains initial data '''
 
-    ''' test forajax_edit view  '''
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse('edit'))
+        info = Info.objects.first()
+        self.assertIn(info.name, response.content)
+        self.assertIn(info.last_name, response.content)
+        self.assertIn(info.date_of_birth.isoformat()[:10], response.content)
+        self.assertIn(info.photo.url, response.content)
+        self.assertIn(info.contacts, response.content)
+        self.assertIn(info.email, response.content)
+        self.assertIn(info.skype, response.content)
+        self.assertIn(info.jabber, response.content)
+        self.assertIn(info.other_contacts, response.content)
+        self.assertIn(info.bio, response.content)
 
     def test_return_form_errors(self):
 
         ''' check view returns form errors after request with wrong data '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.post(reverse('forajax_edit'),
+        response = self.client.post(reverse('edit'),
                                     {'date_of_birth': '1990-13-55'})
         self.assertIn('"date_of_birth": ["Enter a valid date."]',
                       response.content)

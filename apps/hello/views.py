@@ -48,6 +48,24 @@ def date_handler(obj):
 # login page
 def login(request):
 
+    if request.POST:
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = auth.authenticate(username=username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                return redirect('edit')
+            else:
+                request.session['err'] = 'Incorrect username or password'
+        else:
+            request.session['err'] = 'Incorrect username or password'
+
+        return redirect('login')
+
     err = request.session.get('err')
     if err is None:
         err = ''
@@ -55,36 +73,6 @@ def login(request):
     form = LoginForm()
 
     return render(request, 'hello/login.html', {'form': form, 'err': err})
-
-
-def log_in(request):
-
-    # if user loged in on the edit page,
-    # then redirect to the edit page, else - the to main page
-    if request.session.get('redir') == 'edit':
-        redir = '/edit/'
-    else:
-        redir = '/'
-
-    if request.POST:
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['Username']
-            password = form.cleaned_data['Password']
-            user = auth.authenticate(username=username, password=password)
-
-            if user is not None:
-                auth.login(request, user)
-                return redirect(redir)
-            else:
-                request.session['err'] = 'Incorrect username or password'
-        else:
-            request.session['err'] = 'Incorrect username or password'
-            return redirect('/login/')
-        return redirect('/login/')
-
-    return redirect(redir)
 
 
 def logout(request):
@@ -96,10 +84,18 @@ def logout(request):
 
 
 # edit page
+@login_required
 def edit(request):
 
     info = Info.objects.first()
 
+    if request.method == 'POST':
+
+        form = EditForm(data=request.POST, files=request.FILES, instance=info)
+        if form.is_valid():
+            form.save()
+        return HttpResponse(json.dumps(form.errors),
+                            content_type="application/json")
     if info:
         initial = {
             'name': info.name,
@@ -117,25 +113,4 @@ def edit(request):
     else:
         form = EditForm()
 
-    loginform = LoginForm()
-    request.session['redir'] = 'edit'
-
-    return render(request, 'hello/edit.html',
-                  {'form': form, 'loginform': loginform, 'info': info})
-
-
-# edit data
-@login_required
-def forajax_edit(request):
-
-    info = Info.objects.first()
-    if request.method == 'POST':
-        form = EditForm(data=request.POST, files=request.FILES, instance=info)
-        if form.is_valid():
-            form.save()
-        else:
-            resp = form.errors
-            return HttpResponse(json.dumps(resp),
-                                content_type="application/json")
-
-    return HttpResponse()
+    return render(request, 'hello/edit.html', {'form': form, 'info': info})

@@ -24,8 +24,8 @@ def validate_last_name(self):
 
 class LoginForm(forms.Form):
 
-    Username = forms.CharField(max_length=30)
-    Password = forms.CharField(max_length=30, widget=forms.PasswordInput)
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(max_length=30, widget=forms.PasswordInput)
 
 
 class EditForm(forms.ModelForm):
