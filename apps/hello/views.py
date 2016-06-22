@@ -48,17 +48,6 @@ def date_handler(obj):
 # login page
 def login(request):
 
-    err = request.session.get('err')
-    if err is None:
-        err = ''
-    request.session['err'] = ''
-    form = LoginForm()
-
-    return render(request, 'hello/login.html', {'form': form, 'err': err})
-
-
-def log_in(request):
-
     if request.POST:
         form = LoginForm(request.POST)
 
@@ -77,7 +66,13 @@ def log_in(request):
             return redirect('login')
         return redirect('login')
 
-    return redirect('main')
+    err = request.session.get('err')
+    if err is None:
+        err = ''
+    request.session['err'] = ''
+    form = LoginForm()
+
+    return render(request, 'hello/login.html', {'form': form, 'err': err})
 
 
 def logout(request):

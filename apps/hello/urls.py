@@ -10,6 +10,5 @@ urlpatterns = patterns(
     url(r'^edit/', views.edit, name='edit'),
     url(r'^login/', views.login, name='login'),
     url(r'^logout/', views.logout, name='logout'),
-    url(r'^log_in/', views.log_in, name='log_in'),
 
 )
