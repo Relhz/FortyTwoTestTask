@@ -137,11 +137,11 @@ hr{
     background-color: #d7ebf5;
     border-radius: 7px;
 }
-#id_Username{
+#id_username{
     margin-left: 18px;
     margin-top: 10px;
 }
-#id_Password{
+#id_password{
     margin-left: 20px;
 }
 label{
