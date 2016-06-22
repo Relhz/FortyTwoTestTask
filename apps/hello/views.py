@@ -126,8 +126,7 @@ def edit(request):
     else:
         form = EditForm()
 
-    loginform = LoginForm()
     request.session['redir'] = 'edit'
 
     return render(request, 'hello/edit.html',
-                  {'form': form, 'loginform': loginform, 'info': info})
+                  {'form': form, 'info': info})

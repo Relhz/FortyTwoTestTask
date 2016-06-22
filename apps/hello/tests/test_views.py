@@ -210,7 +210,6 @@ class EditViewTest(TestCase):
         self.assertIn('Last name', response.content)
         self.assertIn('Other contacts:', response.content)
         self.assertIn('form', response.context)
-        self.assertIn('loginform', response.context)
 
     def test_return_form_errors(self):
 
