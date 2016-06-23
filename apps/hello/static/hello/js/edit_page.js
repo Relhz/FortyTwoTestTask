@@ -46,13 +46,10 @@ $(document).ready(function(){
             if(xhr.responseText != '{}'){
                 $('.status').css('color', 'red')
                 var message = xhr.responseText.replace(/[\[\]']+|"|{|}/g, '').split(':')
-
-                console.log(message)
                 message1 = message[0].charAt(0).toUpperCase() + 
                 message[0].slice(1).replace(/_/g, ' ')
                 message2 = message[1].charAt(1).toLowerCase() + message[1].slice(2)
                 message = message1 + ' - ' + message2
-                console.log(message2)
                 $('.status').html(message);
             }
             $('.status').show();

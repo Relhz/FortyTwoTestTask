@@ -13,6 +13,7 @@ import os
 import sys
 import logging
 import logging.config
+from django.core.urlresolvers import reverse_lazy
 
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -110,8 +111,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/edit/1/'
+LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('edit', args=[1])
 
 
 # Additional locations of static files

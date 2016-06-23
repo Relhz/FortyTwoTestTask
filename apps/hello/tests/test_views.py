@@ -264,3 +264,11 @@ class EditViewTest(TestCase):
                       response.content)
         self.assertIn('"last_name": ["This field is required."]',
                       response.content)
+
+    def test_form_action_url(self):
+
+        ''' test form action attribute contains required url '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse('edit', args=[1]))
+        self.assertIn(reverse('edit', args=[1]), response.content)
