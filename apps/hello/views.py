@@ -58,21 +58,8 @@ def edit(request):
             form.save()
         return HttpResponse(json.dumps(form.errors),
                             content_type="application/json")
-    if info:
-        initial = {
-            'name': info.name,
-            'last_name': info.last_name,
-            'date_of_birth': info.date_of_birth,
-            'photo': info.photo,
-            'contacts': info.contacts,
-            'email': info.email,
-            'skype': info.skype,
-            'jabber': info.jabber,
-            'bio': info.bio,
-            'other_contacts': info.other_contacts,
-        }
-        form = EditForm(initial=initial)
+
     else:
-        form = EditForm()
+        form = EditForm(initial=info.__dict__)
 
     return render(request, 'hello/edit.html', {'form': form, 'info': info})
