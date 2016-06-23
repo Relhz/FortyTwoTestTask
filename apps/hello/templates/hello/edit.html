@@ -40,7 +40,7 @@
 
 <div class="edit">
   <div class="row">
-    <form id="sendpost" method="post" action="/edit/" enctype="multipart/form-data">
+    <form id="sendpost" method="post" action="{% url 'edit' info.id %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="col-sm-6">
         <div class="wrapper">

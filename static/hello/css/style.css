@@ -132,16 +132,15 @@ hr{
     margin-right: 15px;
     margin: 30%;
     margin-top: 10%;
-    width: 330px;
-    height: 125px;
+    width: 241px;
     background-color: #d7ebf5;
     border-radius: 7px;
 }
-#id_Username{
+#id_username{
     margin-left: 18px;
     margin-top: 10px;
 }
-#id_Password{
+#id_password{
     margin-left: 20px;
 }
 label{
@@ -155,7 +154,7 @@ label{
 }
 .subm_login{
     margin: 9px;
-    margin-left: 130px;
+    margin-left: 88px;
 }
 .edit{
     display: inline-block;
