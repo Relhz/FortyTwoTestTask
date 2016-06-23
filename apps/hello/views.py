@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
-from forms import LoginForm
 from forms import EditForm
-from django.contrib import auth
 import json
 from django.contrib.auth.decorators import login_required
 from fortytwo_test_task.settings.common import log  # NOQA
@@ -45,49 +43,11 @@ def date_handler(obj):
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
 
 
-# login page
-def login(request):
-
-    if request.POST:
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = auth.authenticate(username=username, password=password)
-
-            if user is not None:
-                auth.login(request, user)
-                return redirect('edit')
-            else:
-                request.session['err'] = 'Incorrect username or password'
-        else:
-            request.session['err'] = 'Incorrect username or password'
-
-        return redirect('login')
-
-    err = request.session.get('err')
-    if err is None:
-        err = ''
-    request.session['err'] = ''
-    form = LoginForm()
-
-    return render(request, 'hello/login.html', {'form': form, 'err': err})
-
-
-def logout(request):
-
-    auth.logout(request)
-    request.session['err'] = ''
-
-    return redirect('main')
-
-
 # edit page
 @login_required
-def edit(request):
+def edit(request, id):
 
-    info = Info.objects.first()
+    info = Info.objects.get(id=id)
 
     if request.method == 'POST':
 
@@ -96,21 +56,9 @@ def edit(request):
             form.save()
         return HttpResponse(json.dumps(form.errors),
                             content_type="application/json")
-    if info:
-        initial = {
-            'name': info.name,
-            'last_name': info.last_name,
-            'date_of_birth': info.date_of_birth,
-            'photo': info.photo,
-            'contacts': info.contacts,
-            'email': info.email,
-            'skype': info.skype,
-            'jabber': info.jabber,
-            'bio': info.bio,
-            'other_contacts': info.other_contacts,
-        }
-        form = EditForm(initial=initial)
+
     else:
-        form = EditForm()
+        form = EditForm(initial=info.__dict__)
+        logger.debug('Variables: ' + str(info))
 
     return render(request, 'hello/edit.html', {'form': form, 'info': info})
