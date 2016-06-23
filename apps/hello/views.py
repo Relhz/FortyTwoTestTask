@@ -47,9 +47,9 @@ def date_handler(obj):
 
 # edit page
 @login_required
-def edit(request):
+def edit(request, id):
 
-    info = Info.objects.first()
+    info = Info.objects.get(id=id)
 
     if request.method == 'POST':
 

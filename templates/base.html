@@ -34,7 +34,7 @@
             <div class="auth">
             {% if user.username %}
               <a class="login" href="{% url 'logout' %}">logout ({{ user }})</a><br>
-              <a class="login" href="{% url 'edit' %}">Go to the editing page</a>
+              <a class="login" href="{% url 'edit' info.id %}">Go to the editing page</a>
             {% else %}
               <a class="login" href="{% url 'login' %}">Login</a><br>
               <a class="login" href="{% url 'login' %}">Go to the editing page</a>
