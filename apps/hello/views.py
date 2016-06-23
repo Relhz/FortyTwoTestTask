@@ -61,5 +61,6 @@ def edit(request):
 
     else:
         form = EditForm(initial=info.__dict__)
+        logger.debug('Variables: ' + str(info))
 
     return render(request, 'hello/edit.html', {'form': form, 'info': info})
