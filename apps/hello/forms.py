@@ -18,8 +18,8 @@ def validate_name(self):
 def validate_last_name(self):
     if re.match(r'^([a-zA-Zа-яА-Я]+)([-]?)([a-zA-Zа-яА-Я]+)$', self.strip()):
         return
-    raise ValidationError("Please, write only letters or single hyphen \
-                              between words if you have double surname")
+    raise ValidationError("Please, write only letters or single hyphen "
+                              "between words if you have double surname")
 
 
 class LoginForm(forms.Form):
