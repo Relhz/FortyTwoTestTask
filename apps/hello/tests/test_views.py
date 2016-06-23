@@ -153,7 +153,7 @@ class LoginViewTest(TestCase):
         ''' test using template '''
 
         response = self.client.get(reverse('login'))
-        self.assertTemplateUsed(response, 'hello/login.html')
+        self.assertTemplateUsed(response, 'registration/login.html')
 
     def test_login_page(self):
 
@@ -188,11 +188,7 @@ class LoginViewTest(TestCase):
                                     {'username': 'admin',
                                      'password': 'admin'})
         self.assertRedirects(response, reverse('edit'))
-        response = self.client.post(reverse('login'),
-                                    {'username': 'c34c345',
-                                     'password': '6m89m5'})
-        self.assertRedirects(response, reverse('login'))
-        self.assertIn(response.content, 'Incorrect username or password')
+
 
     def test_logout_redirects(self):
 
