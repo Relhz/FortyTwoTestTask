@@ -12,12 +12,11 @@
 <div class="container-fluid">
 {% if not user.username %}
 <div class="loginpage">
-    <form action='/login/' method='post'>
+    <form action='{% url "login" %}' method='post'>
     {% csrf_token %}
     {{ form }}
     <input class="subm_login" id="login" type='submit' value='Login'></input>
     </form>
-    <span style="color: red">{{err}}</span>
 </div>
 {% else %}
     <span class="message">You are already logged in</span>

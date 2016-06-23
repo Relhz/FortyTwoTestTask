@@ -45,44 +45,6 @@ def date_handler(obj):
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
 
 
-# login page
-def login(request):
-
-    if request.POST:
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = auth.authenticate(username=username, password=password)
-
-            if user is not None:
-                auth.login(request, user)
-                return redirect('edit')
-            else:
-                request.session['err'] = 'Incorrect username or password'
-        else:
-            request.session['err'] = 'Incorrect username or password'
-
-        return redirect('login')
-
-    err = request.session.get('err')
-    if err is None:
-        err = ''
-    request.session['err'] = ''
-    form = LoginForm()
-
-    return render(request, 'hello/login.html', {'form': form, 'err': err})
-
-
-def logout(request):
-
-    auth.logout(request)
-    request.session['err'] = ''
-
-    return redirect('main')
-
-
 # edit page
 @login_required
 def edit(request):

@@ -14,6 +14,7 @@ import sys
 import logging
 import logging.config
 
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -107,6 +108,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/edit/'
+
 
 # Additional locations of static files
 STATICFILES_DIRS = (
