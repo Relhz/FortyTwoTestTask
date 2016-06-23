@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
-from forms import LoginForm
 from forms import EditForm
-from django.contrib import auth
 import json
 from django.contrib.auth.decorators import login_required
 from fortytwo_test_task.settings.common import log  # NOQA

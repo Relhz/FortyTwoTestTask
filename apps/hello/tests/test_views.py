@@ -187,8 +187,7 @@ class LoginViewTest(TestCase):
         response = self.client.post(reverse('login'),
                                     {'username': 'admin',
                                      'password': 'admin'})
-        self.assertRedirects(response, reverse('edit'))
-
+        self.assertRedirects(response, reverse('edit', args=[1]))
 
     def test_logout_redirects(self):
 
@@ -207,7 +206,7 @@ class EditViewTest(TestCase):
         ''' test using template '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.get(reverse('edit'))
+        response = self.client.get(reverse('edit', args=[1]))
         self.assertTemplateUsed(response, 'hello/edit.html')
 
     def test_edit_page(self):
@@ -215,7 +214,7 @@ class EditViewTest(TestCase):
         ''' test status code '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.get(reverse('edit'))
+        response = self.client.get(reverse('edit', args=[1]))
         self.assertEquals(response.status_code, 200)
 
     def test_edit_content(self):
@@ -223,7 +222,7 @@ class EditViewTest(TestCase):
         ''' test view renders required data '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.get(reverse('edit'))
+        response = self.client.get(reverse('edit', args=[1]))
         self.assertIn('form', response.context)
         self.assertIn('Name', response.content)
         self.assertIn('Last name', response.content)
@@ -241,7 +240,7 @@ class EditViewTest(TestCase):
         ''' test form contains initial data '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.get(reverse('edit'))
+        response = self.client.get(reverse('edit', args=[1]))
         info = Info.objects.first()
         self.assertIn(info.name, response.content)
         self.assertIn(info.last_name, response.content)
@@ -259,7 +258,7 @@ class EditViewTest(TestCase):
         ''' check view returns form errors after request with wrong data '''
 
         self.client.login(username='admin', password='admin')
-        response = self.client.post(reverse('edit'),
+        response = self.client.post(reverse('edit', args=[1]),
                                     {'date_of_birth': '1990-13-55'})
         self.assertIn('"date_of_birth": ["Enter a valid date."]',
                       response.content)

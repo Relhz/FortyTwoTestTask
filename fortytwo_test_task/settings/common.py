@@ -111,7 +111,7 @@ STATIC_URL = '/static/'
 
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/edit/'
+LOGIN_REDIRECT_URL = '/edit/1/'
 
 
 # Additional locations of static files
