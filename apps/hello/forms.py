@@ -22,12 +22,6 @@ def validate_last_name(self):
                           "between words if you have double surname")
 
 
-class LoginForm(forms.Form):
-
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=30, widget=forms.PasswordInput)
-
-
 class EditForm(forms.ModelForm):
 
     name = forms.CharField(validators=[validate_name], required=False)

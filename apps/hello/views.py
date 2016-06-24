@@ -8,6 +8,8 @@ import json
 from django.contrib.auth.decorators import login_required
 from fortytwo_test_task.settings.common import log  # NOQA
 import logging
+
+
 logger = logging.getLogger('hello')
 
 
