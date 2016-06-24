@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load edit_obj %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,7 +36,7 @@
             {% if user.username %}
               <a class="login" href="{% url 'logout' %}">logout ({{ user }})</a><br>
               <a class="login" href="{% url 'edit' info.id %}">Go to the editing page</a><br>
-              <a class="login object">edit object</a>
+              <a class="login object" href="{% into_admin info %}">edit object</a>
             {% else %}
               <a class="login" href="{% url 'login' %}">Login</a><br>
               <a class="login" href="{% url 'login' %}">Go to the editing page</a>

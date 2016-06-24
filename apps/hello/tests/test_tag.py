@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from apps.hello.models import Info
 from django.template import Template, Context
 
+
 class TemplateTagTest(TestCase):
 
     ''' test for custom tag '''
@@ -21,7 +22,7 @@ class TemplateTagTest(TestCase):
         ''' test tag render required url '''
 
         info = Info.objects.first()
-        template = '{% load edit_obj %} {% edit_obj object %}'
+        template = '{% load edit_obj %} {% into_admin object %}'
         context = {'object': info}
         rendered = Template(template).render(Context(context))
-        self.assertEquals(rendered, u'/admin/hello/info/1/')
+        self.assertEquals(rendered, u' /admin/hello/info/1/')
