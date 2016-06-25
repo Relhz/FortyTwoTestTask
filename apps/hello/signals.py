@@ -7,7 +7,8 @@ import logging
 logger = logging.getLogger('hello')
 
 
-ignored = ['Requests', 'ModelsAction', 'LogEntry', 'MigrationHistory']
+ignored = ['Requests', 'ModelsAction', 'LogEntry',
+           'MigrationHistory', 'ContentType']
 
 
 @receiver(post_save, dispatch_uid='uid')
