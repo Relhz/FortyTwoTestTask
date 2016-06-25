@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 from apps.hello.models import Info, ModelsAction
 
 
@@ -14,7 +13,7 @@ class SignalsTest(TestCase):
 
     	Info.objects.create(last_name='nEwAweSoMESUrname')
     	self.assertEqual(ModelsAction.objects.last().modelname, Info.__name__)
-    	self.assertEqual(ModelsAction.objects.last().action, 'create')
+    	self.assertEqual(ModelsAction.objects.last().action, 'Create')
 
     def test_signal_edit(self):
 
@@ -25,7 +24,7 @@ class SignalsTest(TestCase):
     	info.skype = 'lolskype'
     	info.save()
     	self.assertEqual(ModelsAction.objects.last().modelname, Info.__name__)
-    	self.assertEqual(ModelsAction.objects.last().action, 'edit')
+    	self.assertEqual(ModelsAction.objects.last().action, 'Edit')
 
     def test_signal_delete(self):
 
@@ -34,4 +33,4 @@ class SignalsTest(TestCase):
     	Info.objects.create(last_name='nEwAweSoMESUrname')
     	Info.objects.last().delete()
     	self.assertEqual(ModelsAction.objects.last().modelname, Info.__name__)
-    	self.assertEqual(ModelsAction.objects.last().action, 'delete')
+    	self.assertEqual(ModelsAction.objects.last().action, 'Delete')
