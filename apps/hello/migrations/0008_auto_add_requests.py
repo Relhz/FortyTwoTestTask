@@ -7,16 +7,26 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("hello", "0006_auto__add_field_info_photo"),
+    )
+
     def forwards(self, orm):
 
         # Adding model 'Requests'
-        pass
+        db.create_table(u'hello_requests', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('path', self.gf('django.db.models.fields.CharField')(default=u'path', max_length=300)),
+            ('method', self.gf('django.db.models.fields.CharField')(default=u'Post', max_length=10)),
+            ('requests_date_time', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2016, 6, 7, 0, 0)))
+        ))
+        db.send_create_signal(u'hello', ['Requests'])
 
 
     def backwards(self, orm):
 
         # Deleting model 'Requests'
-        pass
+        db.delete_table(u'hello_requests')
 
 
     models = {
