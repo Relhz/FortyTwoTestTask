@@ -7,7 +7,7 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    needed_by = (
+    depends_on = (
         ("hello", "0008_auto_add_requests"),
     )
 
