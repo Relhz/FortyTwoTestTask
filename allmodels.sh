@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python manage.py allmodels >> $(date +"%Y-%m-%d").dat
+python manage.py allmodels 2>> $(date +"%Y-%m-%d").dat
