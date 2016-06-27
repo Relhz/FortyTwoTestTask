@@ -26,3 +26,15 @@ class TemplateTagTest(TestCase):
         context = {'object': info}
         rendered = Template(template).render(Context(context))
         self.assertEquals(rendered, u' /admin/hello/info/1/')
+
+    def test_tag_accept_wrong_object(self):
+
+        ''' test that tag does not fail if object has no attribute _meta '''
+
+        obj = 'string'
+        template = '{% load edit_obj %} {% into_admin object %}'
+        context = {'object': obj}
+
+        rendered = Template(template).render(Context(context))
+
+        self.assertEquals(rendered, u' /')
