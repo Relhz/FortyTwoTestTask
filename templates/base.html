@@ -36,7 +36,7 @@
             {% if user.username %}
               
               <a class="login" href="{% url 'logout' %}">({{ user }})</a>
-              <a class="login" href="{% into_admin obj %}">edit</a><br>
+              <a class="login" href="{% into_admin info %}">edit</a><br>
               <a class="login" href="{% url 'edit' info.id %}">Go to the editing page</a><br>
               
             {% else %}
