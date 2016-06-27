@@ -182,4 +182,4 @@ logging.config.dictConfig(LOGGING)
 log = logging.getLogger(__name__)
 
 
-IGNORED_SIGNALS = ['ModelsAction']
+IGNORED_SIGNALS = ['ModelsAction', 'MigrationHistory', 'ContentType']
