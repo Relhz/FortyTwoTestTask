@@ -34,7 +34,5 @@ class TemplateTagTest(TestCase):
         obj = 'string'
         template = '{% load edit_obj %} {% into_admin object %}'
         context = {'object': obj}
-
         rendered = Template(template).render(Context(context))
-
         self.assertEquals(rendered, u' /')
