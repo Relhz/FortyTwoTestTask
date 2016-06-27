@@ -4,7 +4,7 @@ from django.dispatch import receiver
 import logging
 
 
-logger = logging.getLogger('hello')
+logger = logging.getLogger(__name__)
 
 
 ignored = ['Requests', 'ModelsAction', 'LogEntry',

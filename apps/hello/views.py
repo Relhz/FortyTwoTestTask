@@ -10,7 +10,7 @@ from fortytwo_test_task.settings.common import log  # NOQA
 import logging
 
 
-logger = logging.getLogger('hello')
+logger = logging.getLogger(__name__)
 
 
 # main page displays persons information
@@ -18,8 +18,9 @@ def main(request):
 
     info = Info.objects.first()
     logger.debug('Variables: ' + str(info))
+    obj = 'object'
 
-    return render(request, 'hello/main.html', {'info': info})
+    return render(request, 'hello/main.html', {'info': info, 'obj': obj})
 
 
 # requests page displays last 10 requests
