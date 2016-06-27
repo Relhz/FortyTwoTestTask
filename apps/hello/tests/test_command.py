@@ -12,8 +12,7 @@ class CustomCommandTest(TestCase):
 
         " test output contains models and amount of objects "
 
-        stderr = StringIO()
-        stdout = StringIO()
+        stderr = stdout = StringIO()
         first_model = models.get_models()[0]
         last_model = models.get_models()[-1]
         call_command('allmodels', stdout=stdout, stderr=stderr)
