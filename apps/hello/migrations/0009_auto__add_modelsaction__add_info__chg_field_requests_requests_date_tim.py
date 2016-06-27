@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("hello", "0008_auto_add_requests"),
+    )
+
     def forwards(self, orm):
         # Adding model 'ModelsAction'
         db.create_table(u'hello_modelsaction', (

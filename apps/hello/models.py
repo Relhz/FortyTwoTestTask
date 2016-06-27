@@ -53,4 +53,4 @@ class ModelsAction(models.Model):
 
     modelname = models.CharField(max_length=30, default='info')
     action = models.CharField(max_length=20, default='edit')
-    action_date_time = models.DateTimeField(auto_now=True, null=True)
+    creation = models.DateTimeField(auto_now=True, null=True)
