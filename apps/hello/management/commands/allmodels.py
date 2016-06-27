@@ -4,7 +4,7 @@ from django.db import models
 import logging
 
 
-logging.disable(logging.ERROR)
+logging.disable(logging.INFO)
 
 
 class Command(BaseCommand):
