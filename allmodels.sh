@@ -1,5 +1,3 @@
 #!/bin/bash
 
-python manage.py allmodels 2> middle_file.dat
-
-grep error middle_file.dat >> $(date +"%Y-%m-%d").dat
+python manage.py allmodels 2>&1 >/dev/null | grep 'error' >> $(date +"%Y-%m-%d").dat
