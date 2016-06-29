@@ -175,11 +175,15 @@ LOGGING = {
             'propagate': True,
             'level': 'DEBUG',
         },
+        'hello.management.commands.allmodels': {
+            'handlers': ['console', 'logfile'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
     }
 }
 
 logging.config.dictConfig(LOGGING)
-log = logging.getLogger(__name__)
 
 
 IGNORED_SIGNALS = ['ModelsAction', 'MigrationHistory', 'ContentType']
