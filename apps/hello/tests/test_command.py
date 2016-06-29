@@ -33,11 +33,11 @@ class CustomCommandTest(TestCase):
 
         stdout = StringIO()
         call_command('allmodels', stdout=stdout, loglevel='INFO')
-        self.assertIn('logging level - 2', stdout.getvalue())
+        self.assertIn('logging level - 20', stdout.getvalue())
         call_command('allmodels', stdout=stdout, loglevel='ERROR')
-        self.assertIn('logging level - 4', stdout.getvalue())
+        self.assertIn('logging level - 40', stdout.getvalue())
         call_command('allmodels', stdout=stdout, loglevel='DEBUG')
-        self.assertIn('logging level - 1', stdout.getvalue())
+        self.assertIn('logging level - 10', stdout.getvalue())
 
     def test_command_wrong_option(self):
 
