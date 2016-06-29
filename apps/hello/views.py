@@ -6,7 +6,6 @@ from models import Requests
 from forms import EditForm
 import json
 from django.contrib.auth.decorators import login_required
-from fortytwo_test_task.settings.common import log  # NOQA
 import logging
 
 
@@ -18,9 +17,8 @@ def main(request):
 
     info = Info.objects.first()
     logger.debug('Variables: ' + str(info))
-    obj = 'object'
 
-    return render(request, 'hello/main.html', {'info': info, 'obj': obj})
+    return render(request, 'hello/main.html', {'info': info})
 
 
 # requests page displays last 10 requests
