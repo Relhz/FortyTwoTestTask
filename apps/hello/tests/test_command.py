@@ -38,3 +38,15 @@ class CustomCommandTest(TestCase):
         self.assertIn('logging level - 4', stdout.getvalue())
         call_command('allmodels', stdout=stdout, loglevel='DEBUG')
         self.assertIn('logging level - 1', stdout.getvalue())
+
+    def test_command_wrong_option(self):
+
+        ''' test ValueError raises if incorrect loglevel value '''
+
+        self.assertRaisesRegexp(
+            ValueError,
+            'Invalid log level: somebadvalue',
+            call_command,
+            'allmodels',
+            loglevel='somebadvalue'
+        )
