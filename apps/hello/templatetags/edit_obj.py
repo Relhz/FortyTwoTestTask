@@ -9,7 +9,7 @@ register = template.Library()
 def edit_link(obj):
     if not hasattr(obj, '_meta'):
         url = reverse('main')
-        return '<a class="login" href="{0}">('.format(url) + \
-            str(obj) + ')</a>'
+        return '<a href="{0}">'.format(url) + \
+            str(obj) + '</a>'
     url = reverse('admin:%s_change' % (obj._meta.db_table), args=(obj.id,))
-    return '<a class="login" href="{0}">('.format(url) + str(obj) + ')</a>'
+    return '<a href="{0}">'.format(url) + str(obj) + '</a>'
