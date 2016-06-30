@@ -15,7 +15,7 @@ class TemplateTagTest(TestCase):
 
         self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('main'))
-        self.assertIn('<a class="login" href="/admin/auth/user/1/">',
+        self.assertIn('<a href="/admin/auth/user/1/">',
                       response.content)
 
     def test_tag_renders(self):
@@ -28,7 +28,7 @@ class TemplateTagTest(TestCase):
         rendered = Template(template).render(Context(context))
         self.assertEquals(
             rendered,
-            u' <a class="login" href="/admin/auth/user/1/">(admin)</a>'
+            u' <a href="/admin/auth/user/1/">admin</a>'
         )
 
     def test_tag_accept_wrong_object(self):
@@ -40,4 +40,4 @@ class TemplateTagTest(TestCase):
         context = {'object': obj}
         rendered = Template(template).render(Context(context))
         self.assertEquals(rendered,
-                          u' <a class="login" href="/">(string)</a>')
+                          u' <a href="/">string</a>')
