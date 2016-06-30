@@ -6,7 +6,10 @@ register = template.Library()
 
 
 @register.simple_tag
-def into_admin(obj):
+def edit_link(obj):
     if not hasattr(obj, '_meta'):
-        return reverse('main')
-    return reverse('admin:%s_change' % (obj._meta.db_table), args=(obj.id,))
+        url = reverse('main')
+        return '<a class="login" href="{0}">('.format(url) + \
+            str(obj) + ')</a>'
+    url = reverse('admin:%s_change' % (obj._meta.db_table), args=(obj.id,))
+    return '<a class="login" href="{0}">('.format(url) + str(obj) + ')</a>'

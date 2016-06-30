@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from apps.hello.models import Info
+from django.contrib.auth.models import User
 from django.template import Template, Context
 
 
@@ -15,24 +15,29 @@ class TemplateTagTest(TestCase):
 
         self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('main'))
-        self.assertIn('/admin/hello/info/1/', response.content)
+        self.assertIn('<a class="login" href="/admin/auth/user/1/">',
+                      response.content)
 
     def test_tag_renders(self):
 
         ''' test tag render required url '''
 
-        info = Info.objects.first()
-        template = '{% load edit_obj %} {% into_admin object %}'
-        context = {'object': info}
+        user = User.objects.first()
+        template = '{% load edit_obj %} {% edit_link object %}'
+        context = {'object': user}
         rendered = Template(template).render(Context(context))
-        self.assertEquals(rendered, u' /admin/hello/info/1/')
+        self.assertEquals(
+            rendered,
+            u' <a class="login" href="/admin/auth/user/1/">(admin)</a>'
+        )
 
     def test_tag_accept_wrong_object(self):
 
         ''' test that tag does not fail if object has no attribute _meta '''
 
         obj = 'string'
-        template = '{% load edit_obj %} {% into_admin object %}'
+        template = '{% load edit_obj %} {% edit_link object %}'
         context = {'object': obj}
         rendered = Template(template).render(Context(context))
-        self.assertEquals(rendered, u' /')
+        self.assertEquals(rendered,
+                          u' <a class="login" href="/">(string)</a>')

@@ -33,17 +33,12 @@
             <h1><a href="/">42 Coffee Cups Test Assignment</a></h1>
             
             <div class="auth">
-            {% if user.username %}
               
-              <a class="login" href="{% url 'logout' %}">({{ user }})</a>
-              <a class="login" href="{% into_admin info %}">edit</a><br>
-              <a class="login" href="{% url 'edit' info.id %}">Go to the editing page</a><br>
-              
-            {% else %}
-              <a class="login" href="{% url 'login' %}">Login</a><br>
-              <a class="login" href="{% url 'login' %}">Go to the editing page</a>
-            {% endif %}
-              </div>
+              {% edit_link user %}
+              {% if info %}
+                <a class="login" href="{% url 'edit' info.id %}">Edit</a>
+              {% endif %}
+            </div>
      
             </div>
         </div>
