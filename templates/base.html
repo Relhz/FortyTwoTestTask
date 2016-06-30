@@ -34,10 +34,11 @@
             
             <div class="auth">
               
-              {% edit_link info %}
-              <a class="login" href="{% url 'edit' info.id %}">Edit</a>
-
-              </div>
+              {% edit_link user %}
+              {% if info %}
+                <a class="login" href="{% url 'edit' info.id %}">Edit</a>
+              {% endif %}
+            </div>
      
             </div>
         </div>
