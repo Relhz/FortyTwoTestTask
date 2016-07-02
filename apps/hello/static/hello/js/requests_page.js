@@ -76,4 +76,14 @@ $(document).ready(function(){
         $('.path').remove()
         $('.asusual').after(requests)
     })
+
+    $('.asusual').click(function(){
+        requests = $('.path')
+        requests.sort(function(a, b) {
+        	return parseInt($(b).find('.c').html()) - parseInt($(a).find('.c').html())
+        })
+        console.log(requests)
+        $('.path').remove()
+        $('.asusual').after(requests)
+    })
 })
