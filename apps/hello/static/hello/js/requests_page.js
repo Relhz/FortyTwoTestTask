@@ -32,13 +32,13 @@ $(document).ready(function(){
 
                     old = parseInt($('.c').html())
                     }
-	                if(document.hidden){
-	                    $('.count').html('('+ (current - past) + ')')	  
-	                    document.title = '(' + (current - past) + ')Requests'
-	                }
-	                else{
-	                	past = parseInt($('.c').html())
-	                }
+                    if(document.hidden){
+                        $('.count').html('('+ (current - past) + ')')	  
+                        document.title = '(' + (current - past) + ')Requests'
+                    }
+                    else{
+                        past = parseInt($('.c').html())
+                    }
                 }
             },
         });
@@ -50,7 +50,16 @@ $(document).ready(function(){
         document.title = 'Requests'
         past = parseInt($('.c').html())
         setTimeout(function(){
-        	$('.count').html('')
+            $('.count').html('')
         }, 1500)
+    })
+
+    $('.priordiv').click(function(){
+        $(this).hide()
+        $(this).next().css('display', 'inline')
+    })
+
+    $('okpriority').click(function(){
+        $(this).hide()
     })
 })
