@@ -18,11 +18,15 @@ $(document).ready(function(){
                     for(i = 0; i < new_requests; i++){
                         $('.path:eq(' + ($(".path").length - 1) + ')').remove()
                         $('.path:eq(0)').before(
-                            '<p class="path">' + data[i].method + 
+                            '<div class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
                             data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
-                            + '<span class="c" style="display: none">' + 
-                            data[i].id + '</span></p>'
+                            + ', priority <form style="display: inline">' +
+                            '<input class="priority" type="number" value="1" />' +
+                            '<input class="okpriority" type="submit" min="1"' + 
+                            'max="999" value="ok"/></form>' +
+                            '<span class="c" style="display: none">' + 
+                            data[i].id + '</span></div>'
                         )
 
                     old = parseInt($('.c').html())

@@ -61,3 +61,11 @@ class EditFormTest(TestCase):
         )
         self.assertIn('"name": ["Please, write only ', response.content)
         self.assertIn('"last_name": ["Please, write only ', response.content)
+
+    def test_form_action_url(self):
+
+        ''' test form action attribute contains required url '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse('edit', args=[1]))
+        self.assertIn(reverse('edit', args=[1]), response.content)
