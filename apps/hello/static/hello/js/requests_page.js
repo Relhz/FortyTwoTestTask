@@ -77,6 +77,7 @@ $(document).ready(function(){
         $('.asusual').after(requests)
     })
 
+    // sort elements as usual
     $('.asusual').click(function(){
         requests = $('.path')
         requests.sort(function(a, b) {
