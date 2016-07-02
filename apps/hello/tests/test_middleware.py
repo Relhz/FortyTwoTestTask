@@ -21,8 +21,8 @@ class MiddlewareTest(TestCase):
 
         ''' test middleware make record with correct data'''
 
-        for i in range(35):
-            self.client.get(reverse('main'))
+        self.client.get(reverse('main'))
         after_request = Requests.objects.all().last()
-        self.assertIn('/', after_request.path)
+        self.assertEquals('/', after_request.path)
         self.assertEquals('GET', after_request.method)
+        self.assertEquals(1, after_request.priority)
