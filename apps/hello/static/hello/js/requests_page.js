@@ -23,10 +23,11 @@ $(document).ready(function(){
                             ' ' + data[i].path + ', ' + 
                             data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
                             + ', <div class="priordiv">priority <span class="priorval">'
-                            + data[i].priority + '</span></div>'
-                            + '<form class="priorityform">' +
-                            '<input id="id_priority" name="priority" type="number" value="' +
-                            data[i].priority + '" >' +
+                            + data[i].priority + '</span></div>' +
+                            '<form class="priorityform" method="post"' + 
+                            ' action="{% url \'requests\' %}">'
+                            + '<input id="id_priority" name="priority" type="number" value="'
+                            + data[i].priority + '" >' +
                             '<input class="okpriority" type="submit"' + 
                             ' value="ok"/></form>' +
                             '<span class="c" style="display: none">' + 

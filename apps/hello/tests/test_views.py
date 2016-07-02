@@ -130,13 +130,13 @@ class RequestsPageViewTest(TestCase):
         ''' test view renders required data after ajax request '''
 
         Requests.objects.bulk_create(
-            Requests(path=reverse('requests'), method='GET',
+            Requests(path=reverse('login'), method='GET',
                      requests_date_time=timezone.now()) for i in range(15)
             )
+        objects = Requests.objects.last()
         response = self.client.get(reverse('requests'),
                                    content_type='application/json')
-        objects = Requests.objects.last()
-        self.assertContains(response, objects.path, count=10)
+        self.assertContains(response, objects.path, count=9)
         self.assertContains(response, objects.method, count=10)
         self.assertContains(
             response,
@@ -150,6 +150,18 @@ class RequestsPageViewTest(TestCase):
         response = self.client.get(reverse('requests'))
         self.assertIn('form', response.context)
         self.assertContains(response, '<input id="id_priority"', count=10)
+
+    def test_requests_initial(self):
+
+        ''' test form for priority editing contains initial data '''
+
+        Requests.objects.bulk_create(
+            Requests(path='/response/', method='GET', priority=888,
+                     requests_date_time=timezone.now()) for i in range(10)
+            )
+        request = Requests.objects.last()
+        response = self.client.get(reverse('requests'))
+        self.assertContains(response, 'value="888"', 9)
 
 
 class LoginViewTest(TestCase):
