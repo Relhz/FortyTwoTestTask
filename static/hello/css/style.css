@@ -50,11 +50,12 @@ hr{
 }
 .last{
     padding: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
     font-size: 20px;
 }
 .path{
     margin-left: 70px;
+    margin-bottom: 10px;
 }
 .count{
     width: 30px;
@@ -76,9 +77,6 @@ hr{
     margin-right: 15px;
     margin-bottom: -5px;
     float: right;
-}
-.object{
-	margin-top: 20px;
 }
 .photo{
     display: inline-block;
@@ -233,4 +231,27 @@ label[for=id_other_contacts], label[for=id_bio]{
     display: inline-block;
     height: 10px;
     background-color: green;
+}
+.bypriority{
+    margin-left: 50px;
+    margin-bottom: 15px;
+}
+.priority{
+    width: 35px;
+    height: 17px;
+    vertical-align: middle
+}
+.okpriority{
+    width: 27px;
+    height: 17px;
+    vertical-align: bottom;
+    line-height: 5px;
+    font-size: 0.9em;
+    text-align: right;
+}
+.priorityform{
+    display: none;
+}
+.priordiv{
+    display: inline-block;
 }
