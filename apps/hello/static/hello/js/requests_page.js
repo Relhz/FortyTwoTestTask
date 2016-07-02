@@ -21,7 +21,8 @@ $(document).ready(function(){
                             '<div class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
                             data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
-                            + ', priority <form class="priorityform">' +
+                            + ', <div class="priordiv">priority <span class="priorval">2</span></div>'
+                            + '<form class="priorityform">' +
                             '<input class="priority" type="number"' +
                             'min="1" max="999" value="1" />' +
                             '<input class="okpriority" type="submit"' + 
@@ -54,12 +55,25 @@ $(document).ready(function(){
         }, 1500)
     })
 
+    // show edit priority form
     $('.priordiv').click(function(){
         $(this).hide()
         $(this).next().css('display', 'inline')
     })
-
-    $('okpriority').click(function(){
+    
+    // submit edit priority form
+    $('.okpriority').click(function(){
         $(this).hide()
+    })
+    
+    // sort elements by priority
+    $('.bypriority').click(function(){
+        requests = $('.path')
+        requests.sort(function(a, b) {
+        	return parseInt($(a).find('.priorval').html()) - parseInt($(b).find('.priorval').html())
+        })
+        console.log(requests)
+        $('.path').remove()
+        $('.asusual').after(requests)
     })
 })
