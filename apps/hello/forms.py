@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django import forms
-from models import Info
+from models import Info, Requests
 from django.core.exceptions import ValidationError
 import re
 
@@ -36,3 +36,11 @@ class EditForm(forms.ModelForm):
         model = Info
         fields = ['name', 'contacts', 'last_name', 'email', 'date_of_birth',
                   'skype', 'photo', 'jabber', 'other_contacts', 'bio']
+
+
+class PriorityForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Requests
+        fields = ['priority']

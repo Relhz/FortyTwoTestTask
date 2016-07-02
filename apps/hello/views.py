@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
-from forms import EditForm
+from forms import EditForm, PriorityForm
 import json
 from django.contrib.auth.decorators import login_required
 import logging
@@ -34,9 +34,11 @@ def requests(request):
                                 content_type="application/json")
     else:
         objects = Requests.objects.all().order_by('-pk')[:10]
+        form = PriorityForm()
         logger.debug('Variables: ' + str(objects))
 
-    return render(request, 'hello/requests.html', {'objects': objects})
+    return render(request, 'hello/requests.html',
+                  {'objects': objects, 'form': form})
 
 
 def date_handler(obj):
