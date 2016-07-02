@@ -159,7 +159,6 @@ class RequestsPageViewTest(TestCase):
             Requests(path='/response/', method='GET', priority=888,
                      requests_date_time=timezone.now()) for i in range(10)
             )
-        request = Requests.objects.last()
         response = self.client.get(reverse('requests'))
         self.assertContains(response, 'value="888"', 9)
 
