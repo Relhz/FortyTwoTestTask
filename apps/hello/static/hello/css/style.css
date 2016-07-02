@@ -249,3 +249,9 @@ label[for=id_other_contacts], label[for=id_bio]{
     font-size: 0.9em;
     text-align: right;
 }
+.priorityform{
+    display: none;
+}
+.priordiv{
+    display: inline-block;
+}

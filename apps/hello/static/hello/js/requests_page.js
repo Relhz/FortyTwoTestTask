@@ -21,10 +21,11 @@ $(document).ready(function(){
                             '<div class="path">' + data[i].method + 
                             ' ' + data[i].path + ', ' + 
                             data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
-                            + ', priority <form style="display: inline">' +
-                            '<input class="priority" type="number" value="1" />' +
-                            '<input class="okpriority" type="submit" min="1"' + 
-                            'max="999" value="ok"/></form>' +
+                            + ', priority <form class="priorityform">' +
+                            '<input class="priority" type="number"' +
+                            'min="1" max="999" value="1" />' +
+                            '<input class="okpriority" type="submit"' + 
+                            ' value="ok"/></form>' +
                             '<span class="c" style="display: none">' + 
                             data[i].id + '</span></div>'
                         )
