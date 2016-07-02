@@ -59,7 +59,7 @@ $(document).ready(function(){
     })
 
     // show edit priority form
-    $('.priordiv').click(function(){
+    $('.panel-body').on('click', '.priordiv', function(e){
         $(this).hide()
         $(this).next().css('display', 'inline')
     })
