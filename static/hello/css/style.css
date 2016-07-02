@@ -254,4 +254,5 @@ label[for=id_other_contacts], label[for=id_bio]{
 }
 .priordiv{
     display: inline-block;
+    cursor: pointer;
 }
