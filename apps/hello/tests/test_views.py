@@ -143,6 +143,14 @@ class RequestsPageViewTest(TestCase):
             objects.requests_date_time.isoformat()[:10], count=10
         )
 
+    def test_view_renders_form(self):
+
+        ''' test view renders form for priority editing '''
+
+        response = self.client.get(reverse('requests'))
+        self.assertIn('form', response.context)
+        self.assertContains(response, '<input id="id_priority"', count=10)
+
 
 class LoginViewTest(TestCase):
 
