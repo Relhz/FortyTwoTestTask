@@ -22,7 +22,7 @@ def main(request):
 
 
 # requests page displays last 10 requests
-def requests(request):
+def requests(request, prior=1):
 
     if request.is_ajax():
         if request.method != 'GET':

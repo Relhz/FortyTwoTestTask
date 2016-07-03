@@ -143,25 +143,6 @@ class RequestsPageViewTest(TestCase):
             objects.requests_date_time.isoformat()[:10], count=10
         )
 
-    def test_view_renders_form(self):
-
-        ''' test view renders form for priority editing '''
-
-        response = self.client.get(reverse('requests'))
-        self.assertIn('form', response.context)
-        self.assertContains(response, '<input id="id_priority"', count=10)
-
-    def test_requests_initial(self):
-
-        ''' test form for priority editing contains initial data '''
-
-        Requests.objects.bulk_create(
-            Requests(path='/response/', method='GET', priority=888,
-                     requests_date_time=timezone.now()) for i in range(10)
-            )
-        response = self.client.get(reverse('requests'))
-        self.assertContains(response, 'value="888"', 9)
-
 
 class LoginViewTest(TestCase):
 
