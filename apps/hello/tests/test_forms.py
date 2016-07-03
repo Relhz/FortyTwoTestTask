@@ -99,10 +99,11 @@ class PriorityFormTest(TestCase):
         ''' send post data to priority form '''
 
         self.client.login(username='admin', password='admin')
-        Requests.objects.create()
+        obj_id = Requests.objects.last().id
         response = self.client.post(
-            reverse('requests', args=[1]), {'priority': 33}
+            reverse('requests', args=[obj_id]), {'priority': 33}
         )
         self.assertEqual(response.status_code, 200)
         response = self.client.get(reverse('requests'))
+        print response
         self.assertContains(response, 'value="33"', 1)

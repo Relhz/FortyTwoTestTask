@@ -33,6 +33,12 @@ def requests(request, id=1):
             return HttpResponse(json.dumps(list(objs), default=date_handler),
                                 content_type="application/json")
     else:
+        if request.method == 'POST':
+            req = Requests.objects.get(id=id)
+            form = PriorityForm(data=request.POST, instance=req)
+            if form.is_valid():
+                form.save()
+          
         objects = Requests.objects.all().order_by('-pk')[:10]
         logger.debug('Variables: ' + str(objects))
 

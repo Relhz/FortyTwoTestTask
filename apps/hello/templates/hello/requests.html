@@ -28,7 +28,7 @@
             <div class="priordiv">priority 
             <span class="priorval">{{i.priority}}</span></div>
             <form class="priorityform" method="post" \
-            action="{% url 'requests' i.id %}">
+            action="{% url 'requests' i.id %}"> {% csrf_token %}
             <input id="id_priority" name="priority" type="number" \
             min="1" max="999" value="{{i.priority}}">
             <input class="okpriority" type="submit" value="ok" />
