@@ -22,7 +22,7 @@ def main(request):
 
 
 # requests page displays last 10 requests
-def requests(request, prior=1):
+def requests(request, id=1):
 
     if request.is_ajax():
         if request.method != 'GET':
@@ -34,11 +34,9 @@ def requests(request, prior=1):
                                 content_type="application/json")
     else:
         objects = Requests.objects.all().order_by('-pk')[:10]
-        form = PriorityForm()
         logger.debug('Variables: ' + str(objects))
 
-    return render(request, 'hello/requests.html',
-                  {'objects': objects, 'form': form})
+    return render(request, 'hello/requests.html', {'objects': objects})
 
 
 def date_handler(obj):

@@ -25,7 +25,7 @@ $(document).ready(function(){
                             + ', <div class="priordiv">priority <span class="priorval">'
                             + data[i].priority + '</span></div>' +
                             '<form class="priorityform" method="post"' + 
-                            ' action="{% url \'requests\' %}">' +
+                            ' action="{% url \'requests\' ' + data[i].id + ' %}">' +
                             '<input id="id_priority" name="priority" type="number"' +
                             ' min="1" max="999" value="' + data[i].priority + '" >' +
                             '<input class="okpriority" type="submit"' + 
@@ -33,7 +33,6 @@ $(document).ready(function(){
                             '<span class="c" style="display: none">' + 
                             data[i].id + '</span></div>'
                         )
-                        
 
                     old = parseInt($('.c').html())
                     }

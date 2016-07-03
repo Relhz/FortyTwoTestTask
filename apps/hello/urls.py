@@ -7,7 +7,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.main, name='main'),
     url(r'^requests/$', views.requests, name='requests'),
-    url(r'^requests/(?P<prior>\d+)/$', views.requests, name='requests'),
+    url(r'^requests/(?P<id>\d+)/$', views.requests, name='requests'),
     url(r'^edit/(?P<id>\d+)/$', views.edit, name='edit'),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout',

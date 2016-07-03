@@ -78,11 +78,11 @@ class PriorityFormTest(TestCase):
 
     def test_page_contains_form(self):
 
-        ''' test page contains required forms '''
+        ''' test page contains required priority forms '''
 
         Requests.objects.bulk_create(Requests() for i in range(10))
         response = self.client.get(reverse('requests'))
-        self.assertContains(response, reverse('requests', args=[1]), count=10)
+        self.assertContains(response, reverse('requests'), count=11)
         self.assertContains(response, '<input id="id_priority"', count=10)
 
     def test_requests_initial(self):
@@ -93,3 +93,16 @@ class PriorityFormTest(TestCase):
             Requests(priority=888) for i in range(10))
         response = self.client.get(reverse('requests'))
         self.assertContains(response, 'value="888"', 9)
+
+    def test_priority_form__post(self):
+
+        ''' send post data to priority form '''
+
+        self.client.login(username='admin', password='admin')
+        Requests.objects.create()
+        response = self.client.post(
+            reverse('requests', args=[1]), {'priority': 33}
+        )
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('requests'))
+        self.assertContains(response, 'value="33"', 1)
