@@ -153,6 +153,15 @@ class RequestsPageViewTest(TestCase):
         self.assertIn('"priority": ["Enter a whole number."]',
                       response.content)
 
+    def test_priority_login_required(self):
+
+        ''' test unable edit priority if user isn't authenticated '''
+
+        response = self.client.post(reverse('requests', args=[1]),
+                                    {'priority': 33})
+        self.assertIn('Error: you should be login to edit priority',
+                      response.content)
+
 
 class LoginViewTest(TestCase):
 
