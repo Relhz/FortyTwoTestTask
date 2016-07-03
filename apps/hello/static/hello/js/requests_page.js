@@ -79,7 +79,7 @@ $(document).ready(function(){
                 $form.prev().children('.priorval').html($form.children('#id_priority').val())
                 $form.prev().show()
                 if(xhr.responseText != '{}'){
-                    var message = xhr.responseText.split('priority":')[1].replace(/[\[\]']+|"|{|}/g, '')
+                    var message = xhr.responseText.split('":')[1].replace(/[\[\]']+|"|{|}/g, '')
                     $form.prev().after('<span class="err">' + message + '</span>')
                 }
             }
