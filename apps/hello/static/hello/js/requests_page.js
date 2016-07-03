@@ -25,9 +25,9 @@ $(document).ready(function(){
                             + ', <div class="priordiv">priority <span class="priorval">'
                             + data[i].priority + '</span></div>' +
                             '<form class="priorityform" method="post"' + 
-                            ' action="{% url \'requests\' %}">'
-                            + '<input id="id_priority" name="priority" type="number" value="'
-                            + data[i].priority + '" >' +
+                            ' action="{% url \'requests\' %}">' +
+                            '<input id="id_priority" name="priority" type="number"' +
+                            ' min="1" max="999" value="' + data[i].priority + '" >' +
                             '<input class="okpriority" type="submit"' + 
                             ' value="ok"/></form>' +
                             '<span class="c" style="display: none">' + 
