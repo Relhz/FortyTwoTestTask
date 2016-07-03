@@ -25,20 +25,19 @@ def main(request):
 def requests(request, id=1):
 
     if request.is_ajax():
-        if request.method != 'GET':
-            return HttpResponseBadRequest()
-        else:
-            # return last 10 objects from database
-            objs = Requests.objects.all().order_by('-pk')[:10].values()
-            return HttpResponse(json.dumps(list(objs), default=date_handler),
-                                content_type="application/json")
-    else:
         if request.method == 'POST':
             req = Requests.objects.get(id=id)
             form = PriorityForm(data=request.POST, instance=req)
             if form.is_valid():
                 form.save()
-          
+            return HttpResponse(json.dumps('+'),
+                                content_type="application/json")
+        elif request.method == 'GET':
+            # return last 10 objects from database
+            objs = Requests.objects.all().order_by('-pk')[:10].values()
+            return HttpResponse(json.dumps(list(objs), default=date_handler),
+                                content_type="application/json")
+    else:
         objects = Requests.objects.all().order_by('-pk')[:10]
         logger.debug('Variables: ' + str(objects))
 

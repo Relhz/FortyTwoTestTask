@@ -1,8 +1,9 @@
 $(document).ready(function(){ 
-    
+
     // update requests list    
     var old = parseInt($('.c').html())
     var past = parseInt($('.c').html())
+    var csrf = $('input[name="csrfmiddlewaretoken"]').val()
     setInterval(function(){
 
         $.ajax({
@@ -25,7 +26,9 @@ $(document).ready(function(){
                             + ', <div class="priordiv">priority <span class="priorval">'
                             + data[i].priority + '</span></div>' +
                             '<form class="priorityform" method="post"' + 
-                            ' action="{% url \'requests\' ' + data[i].id + ' %}">' +
+                            ' action="/requests/' + data[i].id + '/">' + 
+                            '<input type="hidden" name="csrfmiddlewaretoken" value="' 
+                            + csrf + '">' +
                             '<input id="id_priority" name="priority" type="number"' +
                             ' min="1" max="999" value="' + data[i].priority + '" >' +
                             '<input class="okpriority" type="submit"' + 
@@ -59,23 +62,34 @@ $(document).ready(function(){
     })
 
     // show edit priority form
-    $('.panel-body').on('click', '.priordiv', function(e){
+    $('.panel-body').on('click', '.priordiv', function(){
         $(this).hide()
         $(this).next().css('display', 'inline')
     })
     
     // submit edit priority form
-    $('.okpriority').click(function(){
-        $(this).hide()
-    })
-    
+    $('.panel-body').on('submit', '.priorityform', function() {
+
+        $(this).ajaxSubmit({
+
+            success: function(responseText, statusText, xhr, $form){
+                console.log($form.children('#id_priority').val())
+                $form.hide()
+                $form.prev().children('.priorval').html($form.children('#id_priority').val())
+                $form.prev().show()
+            }
+        
+        })
+        return false; 
+    });
+
     // sort elements by priority
     $('.bypriority').click(function(){
         requests = $('.path')
         requests.sort(function(a, b) {
-        	return parseInt($(a).find('.priorval').html()) - parseInt($(b).find('.priorval').html())
+            return parseInt($(a).find('.priorval').html()) - 
+            parseInt($(b).find('.priorval').html())
         })
-        console.log(requests)
         $('.path').remove()
         $('.asusual').after(requests)
     })
@@ -86,7 +100,6 @@ $(document).ready(function(){
         requests.sort(function(a, b) {
         	return parseInt($(b).find('.c').html()) - parseInt($(a).find('.c').html())
         })
-        console.log(requests)
         $('.path').remove()
         $('.asusual').after(requests)
     })

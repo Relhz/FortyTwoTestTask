@@ -5,6 +5,7 @@
 {% block extra_head %}
 <script type="text/javascript" src="/static/hello/js/requests_page.js">
 </script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 {% endblock extra_head %}
 
 {% block content %}
@@ -18,7 +19,7 @@
 
   <div class="panel panel-info">
       <div class="panel-body">
-
+        {% csrf_token %}
         <p class="last"><span class="span_last">Last requests:</span></p>
         <button class="bypriority">Order by priority</button>
         <button class="asusual">Order as usual</button>
@@ -36,7 +37,7 @@
             <span class="c" style="display: none">{{i.id}}</span></div>
         {% endfor %}
       </div>
-      {% csrf_token %}   
+         
       <a class="back" href="{% url 'main' %}">Go to the main page</a>
 
   </div>
