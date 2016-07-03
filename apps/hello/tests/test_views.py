@@ -130,18 +130,37 @@ class RequestsPageViewTest(TestCase):
         ''' test view renders required data after ajax request '''
 
         Requests.objects.bulk_create(
-            Requests(path=reverse('requests'), method='GET',
+            Requests(path=reverse('login'), method='GET',
                      requests_date_time=timezone.now()) for i in range(15)
             )
+        objects = Requests.objects.last()
         response = self.client.get(reverse('requests'),
                                    content_type='application/json')
-        objects = Requests.objects.last()
-        self.assertContains(response, objects.path, count=10)
+        self.assertContains(response, objects.path, count=9)
         self.assertContains(response, objects.method, count=10)
         self.assertContains(
             response,
             objects.requests_date_time.isoformat()[:10], count=10
         )
+
+    def test_priority_form_errors(self):
+
+        ''' check requests view returns priority form errors '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(reverse('requests', args=[1]),
+                                    {'priority': 0.01})
+        self.assertIn('"priority": ["Enter a whole number."]',
+                      response.content)
+
+    def test_priority_login_required(self):
+
+        ''' test unable edit priority if user isn't authenticated '''
+
+        response = self.client.post(reverse('requests', args=[1]),
+                                    {'priority': 33})
+        self.assertIn('Error: you should be login to edit priority',
+                      response.content)
 
 
 class LoginViewTest(TestCase):

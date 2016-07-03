@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponse
-from django.http import HttpResponseBadRequest
 from models import Info
 from models import Requests
-from forms import EditForm
+from forms import EditForm, PriorityForm
 import json
 from django.contrib.auth.decorators import login_required
 import logging
@@ -22,16 +21,27 @@ def main(request):
 
 
 # requests page displays last 10 requests
-def requests(request):
+def requests(request, id=1):
 
-    if request.is_ajax():
-        if request.method != 'GET':
-            return HttpResponseBadRequest()
-        else:
-            # return last 10 objects from database
-            objs = Requests.objects.all().order_by('-pk')[:10].values()
-            return HttpResponse(json.dumps(list(objs), default=date_handler),
+    if request.method == 'POST':
+        if request.user.is_authenticated():
+            req = Requests.objects.get(id=id)
+            form = PriorityForm(data=request.POST, instance=req)
+            if form.is_valid():
+                form.save()
+            return HttpResponse(json.dumps(form.errors),
                                 content_type="application/json")
+        else:
+            return HttpResponse(
+                json.dumps('Error: you should be login to edit priority'),
+                content_type="application/json"
+            )
+
+    elif request.is_ajax() and request.method == 'GET':
+        # return last 10 objects from database
+        objs = Requests.objects.all().order_by('-pk')[:10].values()
+        return HttpResponse(json.dumps(list(objs), default=date_handler),
+                            content_type="application/json")
     else:
         objects = Requests.objects.all().order_by('-pk')[:10]
         logger.debug('Variables: ' + str(objects))

@@ -5,6 +5,7 @@
 {% block extra_head %}
 <script type="text/javascript" src="/static/hello/js/requests_page.js">
 </script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 {% endblock extra_head %}
 
 {% block content %}
@@ -18,22 +19,25 @@
 
   <div class="panel panel-info">
       <div class="panel-body">
+        {% csrf_token %}
         <p class="last"><span class="span_last">Last requests:</span></p>
         <button class="bypriority">Order by priority</button>
         <button class="asusual">Order as usual</button>
         {% for i in objects %}
             <div class="path">{{ i.method }} {{ i.path }}, 
-            {{ i.requests_date_time|date:"Y-m-d H:i" }}, 
-            
-            <div class="priordiv">priority <span class="priorval">1</span></div>
-            <form class="priorityform">
-            <input class="priority" type="number" min="1" max="999" value="1" />
+            {{ i.requests_date_time|date:"Y-m-d H:i" }},             
+            <div class="priordiv">priority 
+            <span class="priorval">{{i.priority}}</span></div>
+            <form class="priorityform" method="post" \
+            action="{% url 'requests' i.id %}"> {% csrf_token %}
+            <input id="id_priority" name="priority" type="number" \
+            min="1" max="999" value="{{i.priority}}">
             <input class="okpriority" type="submit" value="ok" />
             </form>
-            <span class="c" style="display: none">{{i.pk}}</span></div>
+            <span class="c" style="display: none">{{i.id}}</span></div>
         {% endfor %}
       </div>
-      {% csrf_token %}   
+         
       <a class="back" href="{% url 'main' %}">Go to the main page</a>
 
   </div>

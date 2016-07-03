@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django import forms
-from models import Info
+from models import Info, Requests
 from django.core.exceptions import ValidationError
 import re
 
@@ -22,6 +22,14 @@ def validate_last_name(self):
                           "between words if you have double surname")
 
 
+# only number from 1 to 999 should be
+def validate_priority(self):
+
+    if re.match(r'^([1-9]|[0-9][0-9]|[0-9][0-9][0-9])$', str(self)):
+        return
+    raise ValidationError("Error: here should be number from 1 to 999")
+
+
 class EditForm(forms.ModelForm):
 
     name = forms.CharField(validators=[validate_name], required=False)
@@ -36,3 +44,13 @@ class EditForm(forms.ModelForm):
         model = Info
         fields = ['name', 'contacts', 'last_name', 'email', 'date_of_birth',
                   'skype', 'photo', 'jabber', 'other_contacts', 'bio']
+
+
+class PriorityForm(forms.ModelForm):
+
+    priority = forms.IntegerField(validators=[validate_priority])
+
+    class Meta:
+
+        model = Requests
+        fields = ['priority']

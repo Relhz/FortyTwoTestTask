@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from apps.hello.models import Requests
 
 
 class LoginFormTest(TestCase):
@@ -69,3 +70,47 @@ class EditFormTest(TestCase):
         self.client.login(username='admin', password='admin')
         response = self.client.get(reverse('edit', args=[1]))
         self.assertIn(reverse('edit', args=[1]), response.content)
+
+
+class PriorityFormTest(TestCase):
+
+    ''' test priority form '''
+
+    def test_page_contains_form(self):
+
+        ''' test page contains required priority forms '''
+
+        Requests.objects.bulk_create(Requests() for i in range(10))
+        response = self.client.get(reverse('requests'))
+        self.assertContains(response, reverse('requests'), count=11)
+        self.assertContains(response, '<input id="id_priority"', count=10)
+
+    def test_requests_initial(self):
+
+        ''' test form for priority editing contains initial data '''
+
+        Requests.objects.bulk_create(
+            Requests(priority=888) for i in range(10))
+        response = self.client.get(reverse('requests'))
+        self.assertContains(response, 'value="888"', 9)
+
+    def test_priority_form_post(self):
+
+        ''' send post data to priority form '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(
+            reverse('requests', args=[10]), {'priority': 33}
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_priority_form_validator(self):
+
+        ''' test priority validation error returns '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(
+            reverse('requests', args=[10]), {'priority': 1000}
+        )
+        self.assertIn('Error: here should be number from 1 to 999',
+                      response.content)
