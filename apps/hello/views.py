@@ -33,7 +33,8 @@ def requests(request, id=1):
                                 content_type="application/json")
         else:
             return HttpResponse(
-                json.dumps('Error: you should be login to edit priority'),
+                json.dumps('"priority": Error: you should be '
+                           'login to edit priority'),
                 content_type="application/json"
             )
 

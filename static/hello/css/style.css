@@ -236,7 +236,7 @@ label[for=id_other_contacts], label[for=id_bio]{
     margin-left: 50px;
     margin-bottom: 15px;
 }
-.priority{
+#id_priority{
     width: 35px;
     height: 17px;
     vertical-align: middle
@@ -254,4 +254,5 @@ label[for=id_other_contacts], label[for=id_bio]{
 }
 .priordiv{
     display: inline-block;
+    cursor: pointer;
 }
