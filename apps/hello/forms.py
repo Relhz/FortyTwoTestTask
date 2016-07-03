@@ -21,10 +21,11 @@ def validate_last_name(self):
     raise ValidationError("Please, write only letters or single hyphen "
                           "between words if you have double surname")
 
-# only number from 1 to 999 should be 
+
+# only number from 1 to 999 should be
 def validate_priority(self):
 
-    if re.match(r'^([3-9]|[3-9][3-9])$', str(self)):
+    if re.match(r'^([1-9]|[0-9][0-9]|[0-9][0-9][0-9])$', str(self)):
         return
     raise ValidationError("Error: here should be number from 1 to 999")
 

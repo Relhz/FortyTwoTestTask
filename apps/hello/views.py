@@ -24,12 +24,18 @@ def main(request):
 def requests(request, id=1):
 
     if request.method == 'POST':
-        req = Requests.objects.get(id=id)
-        form = PriorityForm(data=request.POST, instance=req)
-        if form.is_valid():
-            form.save()
-        return HttpResponse(json.dumps(form.errors),
-                            content_type="application/json")
+        if request.user.is_authenticated():
+            req = Requests.objects.get(id=id)
+            form = PriorityForm(data=request.POST, instance=req)
+            if form.is_valid():
+                form.save()
+            return HttpResponse(json.dumps(form.errors),
+                                content_type="application/json")
+        else:
+            return HttpResponse(
+                json.dumps('Error: you should be login to edit priority'),
+                content_type="application/json"
+            )
 
     elif request.is_ajax() and request.method == 'GET':
         # return last 10 objects from database
