@@ -64,6 +64,7 @@ $(document).ready(function(){
     // show edit priority form
     $('.panel-body').on('click', '.priordiv', function(){
         $(this).hide()
+        $(this).siblings('.err').remove()
         $(this).next().css('display', 'inline')
     })
     
@@ -73,12 +74,16 @@ $(document).ready(function(){
         $(this).ajaxSubmit({
 
             success: function(responseText, statusText, xhr, $form){
-                console.log($form.children('#id_priority').val())
+                console.log(xhr.responseText)
                 $form.hide()
                 $form.prev().children('.priorval').html($form.children('#id_priority').val())
                 $form.prev().show()
+                if(xhr.responseText != '{}'){
+                    var message = xhr.responseText.split('priority":')[1].replace(/[\[\]']+|"|{|}/g, '')
+                    console.log(xhr.responseText.split('priority":')[1])
+                    $form.prev().after('<span class="err">' + message + '</span>')
+                }
             }
-        
         })
         return false; 
     });
