@@ -12,6 +12,8 @@ class Migration(SchemaMigration):
     )
 
     def forwards(self, orm):
+
+        db.delete_table(u'_south_new_hello_requests')
         # Adding field 'Requests.priority'
         db.add_column(u'hello_requests', 'priority',
                       self.gf('django.db.models.fields.IntegerField')(default=1),
