@@ -21,7 +21,7 @@ def validate_last_name(self):
     raise ValidationError("Please, write only letters or single hyphen "
                           "between words if you have double surname")
 
-# only leters should be in the name
+# only number from 1 to 999 should be 
 def validate_priority(self):
 
     if re.match(r'^([3-9]|[3-9][3-9])$', str(self)):
