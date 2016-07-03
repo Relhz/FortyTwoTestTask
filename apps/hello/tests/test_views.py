@@ -143,6 +143,16 @@ class RequestsPageViewTest(TestCase):
             objects.requests_date_time.isoformat()[:10], count=10
         )
 
+    def test_priority_form_errors(self):
+
+        ''' check requests view returns priority form errors '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(reverse('requests', args=[1]),
+                                    {'priority': 0.01})
+        self.assertIn('"priority": ["Enter a whole number."]',
+                      response.content)
+
 
 class LoginViewTest(TestCase):
 
