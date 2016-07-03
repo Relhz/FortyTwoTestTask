@@ -21,6 +21,13 @@ def validate_last_name(self):
     raise ValidationError("Please, write only letters or single hyphen "
                           "between words if you have double surname")
 
+# only leters should be in the name
+def validate_priority(self):
+
+    if re.match(r'^([3-9]|[3-9][3-9])$', str(self)):
+        return
+    raise ValidationError("Error: here should be number from 1 to 999")
+
 
 class EditForm(forms.ModelForm):
 
@@ -39,6 +46,8 @@ class EditForm(forms.ModelForm):
 
 
 class PriorityForm(forms.ModelForm):
+
+    priority = forms.IntegerField(validators=[validate_priority])
 
     class Meta:
 
