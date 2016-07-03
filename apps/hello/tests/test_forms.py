@@ -94,7 +94,7 @@ class PriorityFormTest(TestCase):
         response = self.client.get(reverse('requests'))
         self.assertContains(response, 'value="888"', 9)
 
-    def test_priority_form__post(self):
+    def test_priority_form_post(self):
 
         ''' send post data to priority form '''
 
@@ -103,3 +103,14 @@ class PriorityFormTest(TestCase):
             reverse('requests', args=[10]), {'priority': 33}
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_priority_form_validator(self):
+
+        ''' test priority validation error returns '''
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(
+            reverse('requests', args=[10]), {'priority': 1000}
+        )
+        self.assertIn('Error: here should be number from 1 to 999',
+        	          response.content)
