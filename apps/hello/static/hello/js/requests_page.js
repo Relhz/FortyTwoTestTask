@@ -74,13 +74,12 @@ $(document).ready(function(){
         $(this).ajaxSubmit({
 
             success: function(responseText, statusText, xhr, $form){
-                console.log(xhr.responseText)
+
                 $form.hide()
                 $form.prev().children('.priorval').html($form.children('#id_priority').val())
                 $form.prev().show()
                 if(xhr.responseText != '{}'){
                     var message = xhr.responseText.split('priority":')[1].replace(/[\[\]']+|"|{|}/g, '')
-                    console.log(xhr.responseText.split('priority":')[1])
                     $form.prev().after('<span class="err">' + message + '</span>')
                 }
             }
