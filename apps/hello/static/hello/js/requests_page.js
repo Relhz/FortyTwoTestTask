@@ -89,13 +89,17 @@ $(document).ready(function(){
 
     // sort elements by priority
     $('.bypriority').click(function(){
-        requests = $('.path')
-        requests.sort(function(a, b) {
-            return parseInt($(a).find('.priorval').html()) - 
-            parseInt($(b).find('.priorval').html())
+        console.log(window.location + '0')
+        $.ajax({
+
+            url : window.location + '0/', 
+            type : "GET", 
+            success : function(data){
+                console.log(data)
+                $('.path').remove()
+                $('.asusual').after(data)
+            }
         })
-        $('.path').remove()
-        $('.asusual').after(requests)
     })
 
     // sort elements as usual
