@@ -46,7 +46,7 @@ def requests(request, id=1):
             # return last 10 objects from database
             objs = Requests.objects.all().order_by('-pk')[:10].values()
         return HttpResponse(json.dumps(list(objs), default=date_handler),
-                                content_type="application/json")
+                            content_type="application/json")
 
     else:
         objects = Requests.objects.all().order_by('-pk')[:10]
