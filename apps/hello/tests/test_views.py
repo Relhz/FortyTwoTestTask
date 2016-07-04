@@ -176,7 +176,9 @@ class RequestsPageViewTest(TestCase):
         obj3 = Requests.objects.first()
         obj3.priority = 5
         obj3.save()
-        response = self.client.get(reverse('requests', args=[0]))
+        response = self.client.get(reverse('requests', args=[0]),
+                                   content_type='application/json')
+        print response
         self.assertContains(response, '"priority":', 10)
         self.assertTrue(response.content.index('"priority": 7') <
                         response.content.index('"priority": 5') <

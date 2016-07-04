@@ -43,6 +43,13 @@ def requests(request, id=1):
         objs = Requests.objects.all().order_by('-pk')[:10].values()
         return HttpResponse(json.dumps(list(objs), default=date_handler),
                             content_type="application/json")
+
+    elif request.method == 'GET' and id == '0':
+        # sort all objects by priority and return last 10
+        objs = Requests.objects.all().order_by('-priority')[:10].values()
+        return HttpResponse(json.dumps(list(objs), default=date_handler),
+                            content_type="application/json")
+
     else:
         objects = Requests.objects.all().order_by('-pk')[:10]
         logger.debug('Variables: ' + str(objects))
