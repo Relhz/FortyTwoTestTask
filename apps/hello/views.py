@@ -41,7 +41,8 @@ def requests(request, id=1):
     elif request.is_ajax() and request.method == 'GET':
         if id == '0':
             # sort all objects by priority and return last 10
-            objs = Requests.objects.all().order_by('-priority')[:10].values()
+            objs = Requests.objects.all().order_by('-priority',
+                                                   '-pk')[:10].values()
         else:
             # return last 10 objects from database
             objs = Requests.objects.all().order_by('-pk')[:10].values()
