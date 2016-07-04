@@ -36,14 +36,12 @@
             </form>
             <span class="c" style="display: none">{{i.id}}</span></div>
         {% endfor %}
+            <a class="back" href="{% url 'main' %}">Go to the main page</a>
       </div>
          
-      <a class="back" href="{% url 'main' %}">Go to the main page</a>
+
 
   </div>
-  <form class="forajax" id="postform" method='post'>
-    {% csrf_token %}
-  </form>
 
  </div>
 

@@ -162,6 +162,27 @@ class RequestsPageViewTest(TestCase):
         self.assertIn('Error: you should be login to edit priority',
                       response.content)
 
+    def test_view_return_sorted_by_priority(self):
+
+        ''' test view sort all objects by priority and return last 10 '''
+
+        Requests.objects.bulk_create(Requests() for i in range(20))
+        obj1 = Requests.objects.last()
+        obj1.priority = 5
+        obj1.save()
+        obj2 = Requests.objects.all()[15]
+        obj2.priority = 3
+        obj2.save()
+        obj3 = Requests.objects.first()
+        obj3.priority = 7
+        obj3.save()
+        response = self.client.get(reverse('requests', args=[0]),
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertContains(response, '"priority":', 10)
+        self.assertTrue(response.content.index('"priority": 7') <
+                        response.content.index('"priority": 5') <
+                        response.content.index('"priority": 3'))
+
 
 class LoginViewTest(TestCase):
 
