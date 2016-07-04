@@ -176,7 +176,7 @@ class RequestsPageViewTest(TestCase):
         obj3 = Requests.objects.first()
         obj3.priority = 7
         obj3.save()
-        response = self.client.get('/requests/0/',
+        response = self.client.get(reverse('requests', args=[0]),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertContains(response, '"priority":', 10)
         self.assertTrue(response.content.index('"priority": 7') <
