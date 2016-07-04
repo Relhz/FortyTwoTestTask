@@ -42,12 +42,10 @@ def requests(request, id=1):
         if id == '0':
             # sort all objects by priority and return last 10
             objs = Requests.objects.all().order_by('-priority')[:10].values()
-            return HttpResponse(json.dumps(list(objs), default=date_handler),
-                                content_type="application/json")
         else:
             # return last 10 objects from database
             objs = Requests.objects.all().order_by('-pk')[:10].values()
-            return HttpResponse(json.dumps(list(objs), default=date_handler),
+        return HttpResponse(json.dumps(list(objs), default=date_handler),
                                 content_type="application/json")
 
     else:
