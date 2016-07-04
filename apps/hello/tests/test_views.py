@@ -168,17 +168,16 @@ class RequestsPageViewTest(TestCase):
 
         Requests.objects.bulk_create(Requests() for i in range(20))
         obj1 = Requests.objects.last()
-        obj1.priority = 7
+        obj1.priority = 5
         obj1.save()
         obj2 = Requests.objects.all()[15]
         obj2.priority = 3
         obj2.save()
         obj3 = Requests.objects.first()
-        obj3.priority = 5
+        obj3.priority = 7
         obj3.save()
-        response = self.client.get(reverse('requests', args=[0]),
+        response = self.client.get('/requests/0/',
                                    content_type='application/json')
-        print response
         self.assertContains(response, '"priority":', 10)
         self.assertTrue(response.content.index('"priority": 7') <
                         response.content.index('"priority": 5') <

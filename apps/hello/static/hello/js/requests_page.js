@@ -1,5 +1,29 @@
 $(document).ready(function(){ 
 
+    function append(remove, elem, count, data){
+        for(i = 0; i < count; i++){
+
+            $(remove).remove()
+            $(elem).before(
+                '<div class="path">' + data[i].method + 
+                ' ' + data[i].path + ', ' + 
+                data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
+                + ', <div class="priordiv">priority <span class="priorval">'
+                + data[i].priority + '</span></div>' +
+                '<form class="priorityform" method="post"' + 
+                ' action="/requests/' + data[i].id + '/">' + 
+                '<input type="hidden" name="csrfmiddlewaretoken" value="' 
+                + csrf + '">' +
+                '<input id="id_priority" name="priority" type="number"' +
+                ' min="1" max="999" value="' + data[i].priority + '" >' +
+                '<input class="okpriority" type="submit"' + 
+                ' value="ok"/></form>' +
+                '<span class="c" style="display: none">' + 
+                data[i].id + '</span></div>'
+            )
+        }
+    }
+
     // update requests list    
     var old = parseInt($('.c').html())
     var past = parseInt($('.c').html())
@@ -16,29 +40,9 @@ $(document).ready(function(){
                 var new_requests = current - old
 
                 if(new_requests){
-                    for(i = 0; i < new_requests; i++){
-
-                        $('.path:eq(' + ($(".path").length - 1) + ')').remove()
-                        $('.path:eq(0)').before(
-                            '<div class="path">' + data[i].method + 
-                            ' ' + data[i].path + ', ' + 
-                            data[i].requests_date_time.slice(0, 16).replace(/T/i, ' ')
-                            + ', <div class="priordiv">priority <span class="priorval">'
-                            + data[i].priority + '</span></div>' +
-                            '<form class="priorityform" method="post"' + 
-                            ' action="/requests/' + data[i].id + '/">' + 
-                            '<input type="hidden" name="csrfmiddlewaretoken" value="' 
-                            + csrf + '">' +
-                            '<input id="id_priority" name="priority" type="number"' +
-                            ' min="1" max="999" value="' + data[i].priority + '" >' +
-                            '<input class="okpriority" type="submit"' + 
-                            ' value="ok"/></form>' +
-                            '<span class="c" style="display: none">' + 
-                            data[i].id + '</span></div>'
-                        )
-
+                    append('.path:eq(' + ($(".path").length - 1) + ')', 
+                        '.path:eq(0)', new_requests, data)
                     old = parseInt($('.c').html())
-                    }
                     if(document.hidden){
                         $('.count').html('('+ (current - past) + ')')	  
                         document.title = '(' + (current - past) + ')Requests'
@@ -89,26 +93,31 @@ $(document).ready(function(){
 
     // sort elements by priority
     $('.bypriority').click(function(){
-        console.log(window.location + '0')
+
         $.ajax({
 
-            url : window.location + '0/', 
+            url : '/requests/0/', 
             type : "GET", 
             success : function(data){
-                console.log(data)
+
                 $('.path').remove()
-                $('.asusual').after(data)
+                append('', '.back', 10, data)
             }
         })
     })
 
     // sort elements as usual
     $('.asusual').click(function(){
-        requests = $('.path')
-        requests.sort(function(a, b) {
-        	return parseInt($(b).find('.c').html()) - parseInt($(a).find('.c').html())
+
+        $.ajax({
+
+            url : window.location, 
+            type : "GET", 
+            success : function(data){
+
+                $('.path').remove()
+                append('', '.back', 10, data)
+            }
         })
-        $('.path').remove()
-        $('.asusual').after(requests)
     })
 })
